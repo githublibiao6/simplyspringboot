@@ -1,0 +1,4 @@
+server:
+  prot: 8081　　#配置访问的端口
+  servlet:
+    context-path: /om
