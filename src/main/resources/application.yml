@@ -1,4 +1,9 @@
 server:
-  prot: 8081　　#配置访问的端口
+  prot: 8080　　#配置访问的端口
   servlet:
     context-path: /om
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
