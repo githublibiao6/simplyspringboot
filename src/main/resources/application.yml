@@ -1,5 +1,5 @@
 server:
-  prot: 8080　　#配置访问的端口
+  port: 8080
   servlet:
     context-path: /om
 spring:
@@ -7,3 +7,5 @@ spring:
     view:
       prefix: /
       suffix: .html
+  thymeleaf:
+    cache: false
