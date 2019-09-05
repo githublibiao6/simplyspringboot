@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>登录</title>
    <!-- <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script> -->
-    <script src="plugins/vue.js"></script>
-    <script src="plugins/a.js"></script>
+    <script src="../plugins/vue.js"></script>
+    <script src="../plugins/a.js"></script>
 </head>
 <body>
 <p>你好吗</p>
 <div id="app">
-    {{ message }}
+    {{ message }} time:${requestScope.list}
+</div>
+<div id="app2">
+    ${m}
 </div>
 <div id="app-2">
   <span v-bind:title="message">
@@ -18,10 +21,11 @@
   </span>
 </div>
 <script type="text/javascript">
+    var name = '${list}';
     var app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!'
+        message: name
       }
     });
 
