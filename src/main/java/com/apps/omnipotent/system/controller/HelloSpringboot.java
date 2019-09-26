@@ -29,7 +29,7 @@ public class HelloSpringboot {
         System.out.println(m.getParent());
         HelloService.me.index();
         List<Menu> list = service.list();
-        model.addAttribute("list",list);
+        model.addAttribute("list","list123");
         model.addAttribute("m",list.get(0));
         System.out.println(list);
         return "/first/login";
