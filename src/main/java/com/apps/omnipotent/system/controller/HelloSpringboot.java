@@ -32,6 +32,10 @@ public class HelloSpringboot {
         model.addAttribute("list","list123");
         model.addAttribute("m",list.get(0));
         System.out.println(list);
-        return "/first/login";
+        return "/vue/login";
+    }
+    @RequestMapping("/index2")
+    public String react(Menu m, Model model,@RequestParam(value = "s",defaultValue = "1") String s) {
+        return "/react/login";
     }
 }
