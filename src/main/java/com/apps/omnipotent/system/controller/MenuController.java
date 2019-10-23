@@ -17,8 +17,8 @@ import java.util.List;
 * @date 2018年8月20日 下午11:10:32
 *
  */
-@RequestMapping("menu")
 @Controller
+@RequestMapping("menu")
 public class MenuController{
 
     @Autowired
@@ -29,16 +29,16 @@ public class MenuController{
      *
      * @return
      */
-    @RequestMapping("/index.do")
+    @RequestMapping("/index")
     public String index() {
-        return "system/menu/index";
+        return "/vue/login";
     }
 
     /**
      * icon显示
      * @return
      */
-    @RequestMapping("/selecticon.do")
+    @RequestMapping("/selecticon")
     public String selectIcon() {
         return "system/menu/iconshow";
     }
@@ -46,7 +46,7 @@ public class MenuController{
     /**
      * 获取分页菜单
      */
-    @RequestMapping("/pagelist.do")
+    @RequestMapping("/pagelist")
     @ResponseBody
     public  List<Menu> paageList(Integer page, Integer limit) {
         List<Menu>  list = service.pagelist();
@@ -63,7 +63,7 @@ public class MenuController{
      * @author lb
      * @date 2018年8月21日 下午9:56:33
      */
-    @RequestMapping("/treelist.do")
+    @RequestMapping("/treelist")
     @ResponseBody
     public List<Menu> treeList() {
         List<Menu> list = service.list();
