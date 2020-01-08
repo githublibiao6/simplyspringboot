@@ -1,0 +1,21 @@
+package com.apps.omnipotent.manager.project.controller;
+
+import com.apps.omnipotent.manager.project.service.ProjectService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+
+/**
+ * 项目 controller
+ * @author lb
+ * @date 2018年6月24日 下午6:58:58
+ */
+@RequestMapping("project")
+@Controller
+public class ProjectController {
+    
+    @Resource
+    ProjectService service;
+    
+}
