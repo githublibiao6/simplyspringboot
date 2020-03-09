@@ -2,6 +2,7 @@ package com.apps.omnipotent.system.controller;
 
 import com.apps.omnipotent.manager.menu.mode.Menu;
 import com.apps.omnipotent.manager.menu.service.MenuService;
+import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import java.util.List;
 public class HelloSpringboot {
 
     @Autowired
-    MenuService service;
+    MenuServiceImpl service;
 
     /**
      * @Author cles
@@ -37,5 +38,17 @@ public class HelloSpringboot {
     @RequestMapping("/index2")
     public String react(Menu m, Model model,@RequestParam(value = "s",defaultValue = "1") String s) {
         return "/react/login";
+    }
+
+    /**
+     *  聊天测试
+     * @param m
+     * @param model
+     * @param s
+     * @return
+     */
+    @RequestMapping("/chat")
+    public String chat(Menu m, Model model,@RequestParam(value = "s",defaultValue = "1") String s) {
+        return "/vue/chat";
     }
 }

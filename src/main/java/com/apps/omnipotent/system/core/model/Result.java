@@ -3,7 +3,7 @@ package com.apps.omnipotent.system.core.model;
 public class Result {
     private  String message="successful";
     private  boolean success=true;
-    private  String code;
+    private  int code;
     private  int count;
     private Object data;
 
@@ -27,11 +27,11 @@ public class Result {
         this.success = success;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

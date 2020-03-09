@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.security.auth.Subject;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -89,7 +88,7 @@ public class AdminController extends GlobalController {
      * @author lb
      * @date 2018年8月21日 下午9:56:33
      */
-    @RequestMapping("/list.do")
+    @RequestMapping("/list")
     @ResponseBody
     public Result list() {
         List<Admin> list = service.list();
