@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -18,7 +19,8 @@ public class SocketController {
         private static volatile int onlineCount = 0;
 
         // concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象
-        private static CopyOnWriteArraySet<SocketController> webSocketSet = new CopyOnWriteArraySet<SocketController>();
+//        private static CopyOnWriteArraySet<SocketController> webSocketSet = new CopyOnWriteArraySet<SocketController>();
+        private static ConcurrentHashMap<Long ,SocketController> webSocketSet = new ConcurrentHashMap<Long,SocketController>();
 
         // 与某个客户端的连接会话，需要通过它来与客户端进行数据收发
         private Session session;
@@ -29,7 +31,7 @@ public class SocketController {
         public void onOpen(Session session, @PathParam("id") long id, @PathParam("name") String name) throws Exception {
             this.session = session;
             System.out.println(this.session.getId());
-            webSocketSet.add(this);
+            webSocketSet.put(id,this);
             LOGGER.info("Open a websocket. id={}, name={}", id, name);
             this.sendMessage("服务器发送");
         }
@@ -41,8 +43,13 @@ public class SocketController {
         }
 
         @OnMessage
-        public void onMessage(String message, Session session) {
+        public void onMessage(String message, Session session) throws Exception {
             LOGGER.info("Receive a message from client: " + message);
+            if("1".equals(session.getId())){
+                webSocketSet.get(1l).sendMessage(message);
+            }else {
+                webSocketSet.get(2l).sendMessage(message);
+            }
         }
 
         @OnError

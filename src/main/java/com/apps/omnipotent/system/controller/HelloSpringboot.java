@@ -51,4 +51,15 @@ public class HelloSpringboot {
     public String chat(Menu m, Model model,@RequestParam(value = "s",defaultValue = "1") String s) {
         return "/vue/chat";
     }
+    /**
+     *  聊天测试
+     * @param m
+     * @param model
+     * @param s
+     * @return
+     */
+    @RequestMapping("/chat2")
+    public String chat2(Menu m, Model model,@RequestParam(value = "s",defaultValue = "1") String s) {
+        return "/vue/chat2";
+    }
 }

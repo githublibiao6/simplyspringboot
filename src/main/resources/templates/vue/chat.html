@@ -3,8 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>交谈</title>
-		<!-- <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js" ></script> -->
-		<script src="../static/plugins/vue.js"></script>
+		<script src="../../static/plugins/vue.js"></script>
 	</head>
 	<style type="text/css">
 		html,
@@ -20,8 +19,9 @@
 	<body>
 		<div id="app" style="width: 100%;">
 
+			<input id="text" type="text"/>
 		</div>
-		<input id="text" type="text"/>
+		<button onclick="send()">send</button>
 		<script type="text/javascript">
 			var websocket = null;
 			// var userno=document.getElementById('userno').innerHTML;
@@ -37,6 +37,12 @@
 				template:"<div>你好 {{message}}</div>",
 				data: {
 					message: name
+				},
+				methods:{
+					send:function(){
+						console.log("001,你好");
+						websocket.send("001,你好");
+					}
 				}
 			});
 			//连接发生错误的回调方法
@@ -49,7 +55,7 @@
 			//连接成功建立的回调方法
 			websocket.onopen = function () {
 				console.log("连接成功");
-				setMessageInnerHTML("WebSocket连接成功");
+				// setMessageInnerHTML("WebSocket连接成功");
 			}
 
 
@@ -58,7 +64,7 @@
 				console.log(event);
 				console.log(event.data);
 				app.message = event.data;
-				setMessageInnerHTML(event.data);
+				// setMessageInnerHTML(event.data);
 			}
 
 
@@ -75,9 +81,9 @@
 
 
 			//将消息显示在网页上
-			function setMessageInnerHTML(sendMessage) {
+			/*function setMessageInnerHTML(sendMessage) {
 				document.getElementById('text').innerHTML += sendMessage + '<br/>';
-			}
+			}*/
 
 
 			//关闭WebSocket连接
@@ -88,12 +94,14 @@
 
 			//发送消息
 			function send() {
-				var message = document.getElementById('text').value;//要发送的消息内容
+				var message = "2号，你好";
+						/*document.getElementById('text').value;//要发送的消息内容
 				var now=getNowFormatDate();//获取当前时间
 				document.getElementById('message').innerHTML += (now+"发送人："+userno+'<br/>'+"---"+message) + '<br/>';
 				document.getElementById('message').style.color="red";
 				var ToSendUserno=document.getElementById('usernoto').value; //接收人编号：4567
-				message=message+"|"+ToSendUserno//将要发送的信息和内容拼起来，以便于服务端知道消息要发给谁
+				message=message+"|"+ToSendUserno//将要发送的信息和内容拼起来，以便于服务端知道消息要发给谁*/
+				console.log(message);
 				websocket.send(message);
 			}
 			//获取当前时间
