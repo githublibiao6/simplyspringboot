@@ -46,7 +46,7 @@ public class UserController extends GlobalController {
         result.setData(map);
         System.out.println(map);
         System.out.println(roles[0]);
-        result.setMessage("1113");
+        result.setMessage("用户查询信息");
         return result;
     }
 
