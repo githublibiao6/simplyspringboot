@@ -49,5 +49,21 @@ public class UserController extends GlobalController {
         result.setMessage("用户查询信息");
         return result;
     }
+    @RequestMapping("/logout")
+    @ResponseBody
+    public Result out(String token) {
+        result.setCode(20000);
+        result.setMessage("用户退出");
+        return result;
+    }
+
+    @RequestMapping("/resetToken")
+    @ResponseBody
+    public Result resetToken(String token) {
+        result.setCode(20000);
+        result.setSuccess(true);
+        result.setMessage("用户重置");
+        return result;
+    }
 
 }

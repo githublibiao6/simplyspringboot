@@ -13,13 +13,23 @@ import com.apps.omnipotent.system.core.model.GlobalModel;
  */
 public class Menu extends GlobalModel {
     private String menuId; //
-    private String iconCls; // 图标
+    private String icon; // 图标
     private String menuText; // 菜单名称
     private String url; // 地址
     private String parent; // 父级菜单
     private String level; // 级别
     private String notes;// 说明
     private String menuType;//  菜单类型
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    private String path;//  菜单类型
 
     public String getMenuId() {
         return menuId;
@@ -29,12 +39,12 @@ public class Menu extends GlobalModel {
         this.menuId = menuId;
     }
 
-    public String getIconCls() {
-        return iconCls;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setIconCls(String iconCls) {
-        this.iconCls = iconCls;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getMenuText() {
@@ -89,7 +99,7 @@ public class Menu extends GlobalModel {
     public String toString() {
         return "Role{" +
                 "menuId='" + menuId + '\'' +
-                ", iconCls='" + iconCls + '\'' +
+                ", iconCls='" + icon + '\'' +
                 ", menuText='" + menuText + '\'' +
                 ", url='" + url + '\'' +
                 ", parent='" + parent + '\'' +

@@ -2,8 +2,12 @@ package com.apps.omnipotent.manager.menu.controller;
 
 import com.apps.omnipotent.manager.menu.mode.Menu;
 import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
+import com.apps.omnipotent.system.bean.PageEntity;
 import com.apps.omnipotent.system.core.controller.GlobalController;
 import com.apps.omnipotent.system.core.model.Result;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.github.pagehelper.PageInfo;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,14 +54,15 @@ public class MenuController extends GlobalController {
     /**
      * 获取分页菜单
      */
-    @RequestMapping("/pagelist.do")
+    @RequestMapping("/page")
     @ResponseBody
-    public  List<Menu> paageList(Integer page, Integer limit) {
-        List<Menu>  list = service.pagelist();
-
-        return list;
+    public  Result pageList(PageEntity entity) {
+        System.err.println(entity.getPage());
+        PageInfo<Menu> list = service.pagelist(entity);
+        result.setData(list);
+        result.setCode(20000);
+        return result;
     }
-
 
     /**
      * 获取菜单
@@ -72,7 +77,7 @@ public class MenuController extends GlobalController {
     @ResponseBody
     public List<Menu> treeList() {
         List<Menu> list = service.list();
-        return list;
+         return list;
     }
 
 
@@ -85,13 +90,17 @@ public class MenuController extends GlobalController {
      * @author lb
      * @date 2018年8月21日 下午9:56:33
      */
-    @RequestMapping("/list.do")
+    @RequestMapping("/list")
     @ResponseBody
     public Result list() {
 //        String hello = dubboService.sayHello("  dubbo "); // 执行远程方法
 //        System.out.println(hel1lo);
+        System.err.println("222");
         List<Menu> list = service.list();
+        System.err.println(list);
         result.setData(list);
+        result.setCode(20000);
+        result.setMessage("菜单信息");
         return result;
     }
 

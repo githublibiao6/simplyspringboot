@@ -2,7 +2,10 @@ package com.apps.omnipotent.manager.menu.service.impl;
 
 import com.apps.omnipotent.manager.menu.dao.MenuDao;
 import com.apps.omnipotent.manager.menu.mode.Menu;
+import com.apps.omnipotent.system.bean.PageEntity;
 import com.apps.omnipotent.system.core.service.GlobalService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,9 +40,17 @@ public class MenuServiceImpl extends GlobalService {
     public List<Menu> list() {
         return dao.list();
     }
-    public List<Menu>  pagelist() {
-        List<Menu>  list = dao.pageList();
-        return list;
+
+    /**
+     * 分页获取菜单
+     * @return
+     */
+    public PageInfo<Menu> pagelist(PageEntity entity) {
+        int pageNum = entity.getPage();
+        int pageSize = entity.getLimit();
+        PageHelper.startPage(pageNum, pageSize);
+        List<Menu> pageMenus = dao.pageList();
+        return new PageInfo<Menu>(pageMenus);
     }
 
     public boolean add(Menu menu) {
