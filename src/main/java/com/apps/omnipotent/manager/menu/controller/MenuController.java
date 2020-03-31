@@ -58,8 +58,7 @@ public class MenuController extends GlobalController {
     @ResponseBody
     public  Result pageList(PageEntity entity) {
         System.err.println(entity.getPage());
-        PageInfo<Menu> list = service.pagelist(entity);
-        result.setData(list);
+        result.setData(service.pagelist(entity));
         result.setCode(20000);
         return result;
     }

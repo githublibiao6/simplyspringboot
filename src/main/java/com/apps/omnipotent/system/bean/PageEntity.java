@@ -27,7 +27,7 @@ public class PageEntity {
     /**
      * 数据
      */
-    private List<?> list;
+    private List<?> items;
 
     public int getPage() {
         return page;
@@ -61,11 +61,11 @@ public class PageEntity {
         this.totalPages = totalPages;
     }
 
-    public List<?> getList() {
-        return list;
+    public List<?> getItems() {
+        return items;
     }
 
-    public void setList(List<?> list) {
-        this.list = list;
+    public void setItems(List<?> items) {
+        this.items = items;
     }
 }
