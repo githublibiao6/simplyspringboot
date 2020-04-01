@@ -8,7 +8,7 @@
     </select>
 
     <select id="pageList" resultType="com.apps.omnipotent.manager.menu.mode.Menu">
-        select t.notes,t.menuId,t.menuText,t.url,t.icon,t.level,case t.menuType when 1 then '菜单' else '按钮' end menu_type,t.parent
+        select t.*
             from be_menu t
             where t.effective_flag = 1 and t.delete_flag=1
     </select>
@@ -26,10 +26,10 @@
     	values(#{menuId},#{iconCls},#{menuText},#{url},#{level},#{menu_type},#{notes},#{parent},'1','1')
     </insert>
 
-    <update  id="update" parameterType="com.apps.omnipotent.manager.menu.mode.Menu">
-    	update be_menu set iconcls=#{iconCls},menu_text=#{menuText},url=#{url}
-    	    ,level=#{level},menu_type=#{menu_type},notes=#{notes}
+    <update  id="update" parameterType="Integer">
+    	update be_menu set icon=#{icon},menuText=#{menuText},url=#{url}
+    	    ,level=#{level},menuType=#{menuType},notes=#{notes}
         <if test="parent != null and parent != ''">,parent=#{parent}</if>
-         where menu_id=#{menuId}
+         where menuId=#{menuId}
     </update >
 </mapper>

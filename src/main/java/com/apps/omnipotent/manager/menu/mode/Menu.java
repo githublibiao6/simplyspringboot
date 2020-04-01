@@ -87,11 +87,11 @@ public class Menu extends GlobalModel {
         this.notes = notes;
     }
 
-    public String getMenu_type() {
+    public String getMenuType() {
         return menuType;
     }
 
-    public void setMenu_type(String menuType) {
+    public void setMenuType(String menuType) {
         this.menuType = menuType;
     }
 

@@ -81,13 +81,13 @@ public class MenuServiceImpl extends GlobalService {
         return flag;
     }
     public boolean update(Menu menu){
-        boolean flag = true;
+        boolean flag = false;
         menu.setModifyTime(new Date());
         menu.setModifyUser("");
         menu.setModifyDept(" ");
         int num = dao.update(menu);
         if(num > 1){
-            flag = false;
+            flag = true;
         }
         return flag;
     }

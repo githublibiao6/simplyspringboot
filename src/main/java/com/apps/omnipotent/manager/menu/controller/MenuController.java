@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,7 +59,8 @@ public class MenuController extends GlobalController {
     @ResponseBody
     public  Result pageList(PageEntity entity) {
         System.err.println(entity.getPage());
-        result.setData(service.pagelist(entity));
+        PageEntity page = service.pagelist(entity);
+        result.setData(page);
         result.setCode(20000);
         return result;
     }
@@ -128,9 +130,9 @@ public class MenuController extends GlobalController {
         return result;
     }
 
-    @RequestMapping("/update.do")
+    @RequestMapping("/update")
     @ResponseBody
-    public Result update(Menu menu) {
+    public Result update(@RequestBody Menu menu) {
         boolean flag = service.update(menu);
         String msg ;
         result.setSuccess(flag);
