@@ -4,9 +4,6 @@ import com.apps.omnipotent.manager.menu.dao.MenuDao;
 import com.apps.omnipotent.manager.menu.mode.Menu;
 import com.apps.omnipotent.system.bean.PageEntity;
 import com.apps.omnipotent.system.core.service.GlobalService;
-import com.apps.omnipotent.system.utils.PageUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,12 +44,8 @@ public class MenuServiceImpl extends GlobalService {
      * @return
      */
     public PageEntity pagelist(PageEntity entity) {
-        int pageNum = entity.getPage();
-        int pageSize = entity.getLimit();
-        PageHelper.startPage(pageNum, pageSize);
         List<Menu> pageMenus = dao.pageList();
-        PageInfo<Menu> info = new PageInfo<Menu>(pageMenus);
-        return PageUtils.getPageResult(entity,info);
+        return getPageEntity(pageMenus,entity);
     }
 
     public boolean add(Menu menu) {
@@ -80,7 +73,7 @@ public class MenuServiceImpl extends GlobalService {
         }
         return flag;
     }
-    public boolean update(Menu menu){
+    public boolean update(Menu menu ){
         boolean flag = false;
         menu.setModifyTime(new Date());
         menu.setModifyUser("");

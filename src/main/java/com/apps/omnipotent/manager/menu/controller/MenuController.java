@@ -1,13 +1,11 @@
 package com.apps.omnipotent.manager.menu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.menu.mode.Menu;
 import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.bean.PageEntity;
 import com.apps.omnipotent.system.core.controller.GlobalController;
 import com.apps.omnipotent.system.core.model.Result;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.github.pagehelper.PageInfo;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -132,8 +130,11 @@ public class MenuController extends GlobalController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public Result update(@RequestBody Menu menu) {
-        boolean flag = service.update(menu);
+    public Result update(@RequestBody JSONObject json) {
+        System.err.println(json);
+        Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
+        System.err.println(m);
+        boolean flag = service.update(m);
         String msg ;
         result.setSuccess(flag);
         if(flag){
@@ -144,7 +145,6 @@ public class MenuController extends GlobalController {
         result.setMessage(msg);
         return result;
     }
-
 
     @RequestMapping("/findById.do")
     @ResponseBody
