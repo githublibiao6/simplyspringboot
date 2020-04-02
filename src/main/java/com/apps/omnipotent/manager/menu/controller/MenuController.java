@@ -63,6 +63,41 @@ public class MenuController extends GlobalController {
         return result;
     }
 
+    @RequestMapping("/update")
+    @ResponseBody
+    public Result update(@RequestBody JSONObject json) {
+        System.err.println(json);
+        Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
+        System.err.println(m);
+        boolean flag = service.update(m);
+        String msg ;
+        result.setSuccess(flag);
+        if(flag){
+            msg = "更新成功";
+        }else {
+            msg = "更新失败";
+        }
+        result.setMessage(msg);
+        return result;
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Result delete(@RequestBody JSONObject json) {
+        Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
+        System.err.println(m);
+        boolean flag = service.remove(json.getString("pk"));
+        String msg ;
+        result.setSuccess(flag);
+        if(flag){
+            msg = "删除成功";
+        }else {
+            msg = "删除失败";
+        }
+        result.setMessage(msg);
+        return result;
+    }
+
     /**
      * 获取菜单
      *
@@ -123,24 +158,6 @@ public class MenuController extends GlobalController {
             msg = "添加成功";
         }else {
             msg = "添加失败";
-        }
-        result.setMessage(msg);
-        return result;
-    }
-
-    @RequestMapping("/update")
-    @ResponseBody
-    public Result update(@RequestBody JSONObject json) {
-        System.err.println(json);
-        Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
-        System.err.println(m);
-        boolean flag = service.update(m);
-        String msg ;
-        result.setSuccess(flag);
-        if(flag){
-            msg = "更新成功";
-        }else {
-            msg = "更新失败";
         }
         result.setMessage(msg);
         return result;

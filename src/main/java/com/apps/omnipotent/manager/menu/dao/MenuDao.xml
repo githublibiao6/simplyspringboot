@@ -18,7 +18,7 @@
     </select>
 
     <update  id="remove" parameterType="com.apps.omnipotent.manager.menu.mode.Menu">
-        update be_menu  set delete_flag = 0 where menu_id=#{id}
+        update be_menu  set delete_flag = 0 where menuId=#{menuId}
     </update >
 
     <insert id="add" parameterType="com.apps.omnipotent.manager.menu.mode.Menu">
