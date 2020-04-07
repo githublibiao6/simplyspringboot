@@ -1,11 +1,12 @@
 package com.apps.omnipotent.system.core.service;
 
-import com.apps.omnipotent.manager.menu.mode.Menu;
 import com.apps.omnipotent.system.bean.PageEntity;
 import com.apps.omnipotent.system.utils.PageUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class GlobalService {

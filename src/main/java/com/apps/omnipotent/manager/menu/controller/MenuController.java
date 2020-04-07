@@ -66,17 +66,15 @@ public class MenuController extends GlobalController {
     @RequestMapping("/update")
     @ResponseBody
     public Result update(@RequestBody JSONObject json) {
-        System.err.println(json);
         Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
         System.err.println(m);
         boolean flag = service.update(m);
-        String msg ;
+        String msg = "更新成功" ;
         result.setSuccess(flag);
-        if(flag){
-            msg = "更新成功";
-        }else {
+        if(!flag){
             msg = "更新失败";
         }
+        result.setMessage(msg);
         result.setMessage(msg);
         return result;
     }

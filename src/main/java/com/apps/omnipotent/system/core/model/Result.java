@@ -3,7 +3,7 @@ package com.apps.omnipotent.system.core.model;
 public class Result {
     private  String message="successful";
     private  boolean success=true;
-    private  int code;
+    private  int code=20000;
     private  int count;
     private Object data;
 

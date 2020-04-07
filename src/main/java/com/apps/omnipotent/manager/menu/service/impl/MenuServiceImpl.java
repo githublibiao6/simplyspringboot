@@ -79,7 +79,7 @@ public class MenuServiceImpl extends GlobalService {
         menu.setModifyUser("");
         menu.setModifyDept(" ");
         int num = dao.update(menu);
-        if(num > 1){
+        if(num > 0){
             flag = true;
         }
         return flag;
