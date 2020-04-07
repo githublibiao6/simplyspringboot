@@ -15,6 +15,6 @@ public class AfterStart2 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("执行MyCommandLineRunner");
+        log.info("启动后执行2");
     }
 }
