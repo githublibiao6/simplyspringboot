@@ -1018,7 +1018,7 @@ public class RedisUtil {
         connect.setType("0");
         Jedis jedis = openJedis(connect);
         jedis.select(15);
-        for (int i = 1; i <= 1000000; i++) {
+        for (int i = 1; i <= 100; i++) {
             jedis.set(i + "", i + "");
         }
         System.out.println("exec finish");

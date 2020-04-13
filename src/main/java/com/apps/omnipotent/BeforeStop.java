@@ -1,5 +1,6 @@
 package com.apps.omnipotent;
 
+import com.apps.omnipotent.system.config.JedisConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -15,6 +16,9 @@ public class BeforeStop {
     public void destory() {
         //System.out.println("<<<<<<<<<<<要销毁的事 begin>>>>>>>>>>>>>>>");
         try {
+            String a = JedisConfig.jedis.get("a");
+            System.err.println(a);
+            JedisConfig.freeJedisPool();
             log.info("销毁事件");
         } catch (Exception e) {
             e.printStackTrace();
