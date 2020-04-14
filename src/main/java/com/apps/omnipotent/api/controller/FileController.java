@@ -1,11 +1,9 @@
 package com.apps.omnipotent.api.controller;
 
-import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.core.controller.GlobalController;
 import com.apps.omnipotent.system.core.model.Result;
 import com.apps.omnipotent.system.utils.FileUtil;
 import com.apps.omnipotent.system.utils.JedisUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +12,7 @@ import java.io.*;
 
 /**
  * 对外接口
+ * @author lib
  */
 @Controller
 @RequestMapping("/file")

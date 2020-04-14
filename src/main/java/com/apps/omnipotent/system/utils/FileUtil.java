@@ -1,20 +1,27 @@
 package com.apps.omnipotent.system.utils;
 
-import org.springframework.util.StringUtils;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+* @Description: 文件工具类
+* @Author: cles
+* @Date: 2020/4/15 0:18
+*/
 public class FileUtil {
 
     /**
-     * 下载文件
-     */
+    * @Description:  下载文件
+    * @Param: [response, file]
+    * @return: void
+    * @Author: cles
+    * @Date: 2020/4/15 0:20
+    */
     public static void downLoadFile(HttpServletResponse response, File file) {
-        response.setContentType("application/force-download");// 设置强制下载不打开
-        response.addHeader("Content-Disposition", "attachment;fileName=" + file.getName());// 设置文件名
+        // 设置强制下载不打开
+        response.setContentType("application/force-download");
+        // 设置文件名
+        response.addHeader("Content-Disposition", "attachment;fileName=" + file.getName());
         byte[] buffer = new byte[1024];
         FileInputStream fis = null;
         BufferedInputStream bis = null;
