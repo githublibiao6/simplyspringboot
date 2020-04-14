@@ -8,14 +8,17 @@ import com.apps.omnipotent.system.core.page.PageHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
 import java.util.List;
 
 public class GlobalController {
 
     @Autowired
-    public
-    HttpServletRequest request;
+    public HttpServletRequest request;
+
+    @Autowired
+    public HttpServletResponse response;
 
     public Result result = new Result();
     PageHandle layui = new LayuiPageHandle();
