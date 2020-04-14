@@ -3,7 +3,6 @@ package com.apps.omnipotent.system.config;
 
 import com.apps.omnipotent.system.bean.Connect;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -73,7 +72,7 @@ public class JedisConfig {
         connect.setRpass(password);
         connect.setType("0");
         try {
-            jedis = openJedis(connect);
+            openJedis(connect);
         } catch (Exception e) {
             log.info("初始化jedis错误");
             e.printStackTrace();
@@ -83,15 +82,20 @@ public class JedisConfig {
     /**
      * 从JedisPool中获取Jedis
      */
-    private static Jedis openJedis(Connect connect) throws Exception {
+    private static void openJedis(Connect connect) throws Exception {
         log.info("正在建立新连接...");
         //销毁旧的连接池
         freeJedisPool();
         //防止吃初始化时多线程竞争问题
         lock.lock();
-        initJedisPool(connect);
+        try{
+            initJedisPool(connect);
+        }catch (Exception e){
+            log.info("redis连接错误");
+            e.printStackTrace();
+        }
         lock.unlock();
-        return jedisPool.getResource();
+        jedis = jedisPool.getResource();
     }
 
     /**
@@ -126,5 +130,13 @@ public class JedisConfig {
         if (null != jedisPool && !jedisPool.isClosed()) {
             jedisPool.destroy();
         }
+    }
+
+    public static Jedis getJedis() {
+        if(jedis == null){
+            log.info("redis初始化错误");
+            return new Jedis();
+        }
+        return jedis;
     }
 }

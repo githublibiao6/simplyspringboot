@@ -1022,6 +1022,7 @@ public class RedisUtil {
             jedis.set(i + "", i + "");
         }
         System.out.println("exec finish");
+        System.out.println(jedis.get("2"));
         jedis.close();
     }
 

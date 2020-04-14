@@ -20,6 +20,6 @@ public class BeforeStop2 implements DisposableBean, ExitCodeGenerator {
 
     @Override
     public int getExitCode() {
-        return 0;
+        return 5;
     }
 }

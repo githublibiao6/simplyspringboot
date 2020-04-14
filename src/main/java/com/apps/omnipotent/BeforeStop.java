@@ -16,9 +16,9 @@ public class BeforeStop {
     public void destory() {
         //System.out.println("<<<<<<<<<<<要销毁的事 begin>>>>>>>>>>>>>>>");
         try {
-            String a = JedisConfig.jedis.get("a");
+            /*String a = JedisConfig.jedis.get("a");
             System.err.println(a);
-            JedisConfig.freeJedisPool();
+            JedisConfig.freeJedisPool();*/
             log.info("销毁事件");
         } catch (Exception e) {
             e.printStackTrace();
