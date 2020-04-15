@@ -26,7 +26,7 @@ public class RoleServiceImpl extends GlobalService {
     RoleDao dao;
 
     /**
-     * 获取菜单
+     * 获取全部角色
     * @Description
     * @MethodName listMenu
     * @return List<Role>

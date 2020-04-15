@@ -27,4 +27,5 @@ public interface MenuDao {
 
     int  remove(String id);
 
+    List<Menu> queryByRoleId(String roleId);
 }

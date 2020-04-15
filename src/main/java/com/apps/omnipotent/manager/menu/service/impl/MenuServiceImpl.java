@@ -84,4 +84,15 @@ public class MenuServiceImpl extends GlobalService {
         }
         return flag;
     }
+
+    /**
+    * @Description: 根据角色code获取菜单
+    * @Param: [code]
+    * @return: java.util.List<com.apps.omnipotent.manager.menu.mode.Menu>
+    * @Author: cles
+    * @Date: 2020/4/15 23:34
+    */
+    public List<Menu> queryByRoleId(String code) {
+        return dao.queryByRoleId(code);
+    }
 }

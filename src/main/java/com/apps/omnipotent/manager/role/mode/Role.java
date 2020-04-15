@@ -1,6 +1,7 @@
 package com.apps.omnipotent.manager.role.mode;
 
 import com.apps.omnipotent.system.core.model.GlobalModel;
+import lombok.Data;
 
 /**
  * 菜单model
@@ -10,51 +11,10 @@ import com.apps.omnipotent.system.core.model.GlobalModel;
 * @date 2018年8月20日 下午10:50:54
 *
  */
+@Data
 public class Role extends GlobalModel {
-
-
     private String id;
-    private String code; //
-    private String name; // 图标
-    private String notes; // 菜单名称
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
-    }
+    private String code;
+    private String name;
+    private String notes;
 }
