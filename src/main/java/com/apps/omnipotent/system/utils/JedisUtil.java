@@ -63,4 +63,27 @@ public class JedisUtil {
         return list;
     }
 
+    /**
+    * @Description: 设置对象
+    * @Param: [key, o]
+    * @return: boolean
+    * @Author: cles
+    * @Date: 2020/4/15 22:28
+    */
+    public static <T> boolean setObject(String key, T o) {
+        String res = JedisConfig.getJedis().set(key,o.toString());
+        return "OK".equals(res);
+    }
+
+    /**
+     *  获取对象
+     * @param key
+     * @param <T>
+     * @return
+     */
+    public static <T> T getObject(String key) {
+        String o = JedisConfig.jedis.get(key);
+        return (T)o;
+    }
+
 }
