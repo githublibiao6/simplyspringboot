@@ -9,7 +9,7 @@ spring:
     view:
       prefix: /
       suffix: .html
-    static-path-pattern: /static/**
+    static-path-pattern: /static/**/**
   thymeleaf:
     cache: false
   datasource:
