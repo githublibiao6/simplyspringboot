@@ -10,7 +10,13 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-
+/**
+* @Description: socket 连接
+* @Param:
+* @return:
+* @Author: cles
+* @Date: 2020/4/17 23:47
+*/
 @ServerEndpoint("/socket/{id}/{name}")
 @RestController
 public class SocketController {

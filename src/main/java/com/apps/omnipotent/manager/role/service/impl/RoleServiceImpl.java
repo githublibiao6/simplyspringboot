@@ -2,7 +2,7 @@ package com.apps.omnipotent.manager.role.service.impl;
 
 import com.apps.omnipotent.manager.role.dao.RoleDao;
 import com.apps.omnipotent.manager.role.mode.Role;
-import com.apps.omnipotent.system.core.service.GlobalService;
+import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

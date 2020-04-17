@@ -1,7 +1,7 @@
 package com.apps.omnipotent.manager.menu.mode;
 
 
-import com.apps.omnipotent.system.core.model.GlobalModel;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 
 /**
  * 菜单model

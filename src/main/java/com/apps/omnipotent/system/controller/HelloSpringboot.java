@@ -1,9 +1,8 @@
 package com.apps.omnipotent.system.controller;
 
 import com.apps.omnipotent.manager.menu.mode.Menu;
-import com.apps.omnipotent.manager.menu.service.MenuService;
 import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
-import com.apps.omnipotent.system.service.HelloService;
+import com.apps.omnipotent.system.redis.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+* @Description:  刚开始测试用的，没啥用
+* @Author: cles
+* @Date: 2020/4/17 23:46
+*/
 @Controller
 @RequestMapping("/hello")
 public class HelloSpringboot {

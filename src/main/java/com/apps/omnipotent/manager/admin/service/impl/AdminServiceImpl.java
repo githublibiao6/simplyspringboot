@@ -2,8 +2,8 @@ package com.apps.omnipotent.manager.admin.service.impl;
 
 import com.apps.omnipotent.manager.admin.bean.Admin;
 import com.apps.omnipotent.manager.admin.dao.AdminDao;
-import com.apps.omnipotent.system.bean.QueryCondition;
-import com.apps.omnipotent.system.core.service.GlobalService;
+import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
+import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.apps.omnipotent.api.controller;
 
-import com.apps.omnipotent.system.core.controller.GlobalController;
-import com.apps.omnipotent.system.core.model.Result;
+import com.apps.omnipotent.system.global.controller.GlobalController;
+import com.apps.omnipotent.system.global.entity.Result;
 import com.apps.omnipotent.system.utils.FileUtil;
 import com.apps.omnipotent.system.utils.JedisUtil;
 import org.springframework.stereotype.Controller;

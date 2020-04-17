@@ -2,8 +2,8 @@ package com.apps.omnipotent.manager.role.controller;
 
 import com.apps.omnipotent.manager.role.mode.Role;
 import com.apps.omnipotent.manager.role.service.impl.RoleServiceImpl;
-import com.apps.omnipotent.system.core.controller.GlobalController;
-import com.apps.omnipotent.system.core.model.Result;
+import com.apps.omnipotent.system.global.controller.GlobalController;
+import com.apps.omnipotent.system.global.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

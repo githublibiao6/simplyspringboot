@@ -1,7 +1,7 @@
 package com.apps.omnipotent.system.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.apps.omnipotent.system.bean.KeyBean;
+import com.apps.omnipotent.system.redis.entity.KeyBean;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,6 +1,6 @@
 package com.apps.omnipotent.manager.role.mode;
 
-import com.apps.omnipotent.system.core.model.GlobalModel;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 import lombok.Data;
 
 /**

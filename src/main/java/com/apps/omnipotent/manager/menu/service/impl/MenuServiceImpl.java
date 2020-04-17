@@ -2,8 +2,8 @@ package com.apps.omnipotent.manager.menu.service.impl;
 
 import com.apps.omnipotent.manager.menu.dao.MenuDao;
 import com.apps.omnipotent.manager.menu.mode.Menu;
-import com.apps.omnipotent.system.bean.PageEntity;
-import com.apps.omnipotent.system.core.service.GlobalService;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
+import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

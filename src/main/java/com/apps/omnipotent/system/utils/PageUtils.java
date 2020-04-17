@@ -1,6 +1,6 @@
 package com.apps.omnipotent.system.utils;
 
-import com.apps.omnipotent.system.bean.PageEntity;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.github.pagehelper.PageInfo;
 
 public class PageUtils {

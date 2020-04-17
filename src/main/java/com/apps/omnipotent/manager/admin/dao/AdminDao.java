@@ -1,7 +1,7 @@
 package com.apps.omnipotent.manager.admin.dao;
 
 import com.apps.omnipotent.manager.admin.bean.Admin;
-import com.apps.omnipotent.system.bean.QueryCondition;
+import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

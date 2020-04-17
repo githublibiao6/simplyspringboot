@@ -1,8 +1,7 @@
 package com.apps.omnipotent.system.utils;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.apps.omnipotent.system.config.JedisConfig;
+import com.apps.omnipotent.system.redis.config.JedisConfig;
 
 import java.util.ArrayList;
 import java.util.List;

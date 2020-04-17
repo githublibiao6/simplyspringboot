@@ -2,8 +2,8 @@ package com.apps.omnipotent.manager.admin.controller;
 
 import com.apps.omnipotent.manager.admin.bean.Admin;
 import com.apps.omnipotent.manager.admin.service.impl.AdminServiceImpl;
-import com.apps.omnipotent.system.core.controller.GlobalController;
-import com.apps.omnipotent.system.core.model.Result;
+import com.apps.omnipotent.system.global.controller.GlobalController;
+import com.apps.omnipotent.system.global.entity.Result;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -2,7 +2,7 @@ package com.apps.omnipotent.manager.employee.service;
 
 import com.apps.omnipotent.manager.employee.bean.Employee;
 import com.apps.omnipotent.manager.employee.dao.EmployeeDao;
-import com.apps.omnipotent.system.bean.QueryCondition;
+import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

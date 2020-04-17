@@ -2,12 +2,11 @@ package com.apps.omnipotent.manager.dept.service;
 
 import com.apps.omnipotent.manager.dept.bean.Dept;
 import com.apps.omnipotent.manager.dept.dao.DeptDao;
-import com.apps.omnipotent.system.bean.QueryCondition;
+import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

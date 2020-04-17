@@ -2,7 +2,7 @@ package com.apps.omnipotent.system.utils;
 
 
 import com.alibaba.fastjson.JSON;
-import com.apps.omnipotent.system.bean.*;
+import com.apps.omnipotent.system.redis.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;

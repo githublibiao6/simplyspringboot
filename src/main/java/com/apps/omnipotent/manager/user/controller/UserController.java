@@ -1,12 +1,15 @@
 package com.apps.omnipotent.manager.user.controller;
 
-import com.apps.omnipotent.system.core.controller.GlobalController;
-import com.apps.omnipotent.system.core.model.Result;
+import com.apps.omnipotent.system.shiro.entity.Permissions;
+import com.apps.omnipotent.system.global.controller.GlobalController;
+import com.apps.omnipotent.system.global.entity.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * user controller
@@ -34,7 +37,9 @@ public class UserController extends GlobalController {
     @RequestMapping("/info")
     @ResponseBody
     public Result info(String token) {
-        result.setCode(20000);
+        Permissions permissions1 = new Permissions("1","query");
+        Permissions permissions2 = new Permissions("2","add");
+        Set<Permissions> permissionsSet = new HashSet<>();
         System.out.println(token);
         HashMap map = new HashMap();
         map.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");

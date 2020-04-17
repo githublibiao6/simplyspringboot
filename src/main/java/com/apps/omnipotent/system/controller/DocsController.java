@@ -1,7 +1,7 @@
 package com.apps.omnipotent.system.controller;
 
-import com.apps.omnipotent.system.core.controller.GlobalController;
-import com.apps.omnipotent.system.core.model.Result;
+import com.apps.omnipotent.system.global.entity.Result;
+import com.apps.omnipotent.system.global.controller.GlobalController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

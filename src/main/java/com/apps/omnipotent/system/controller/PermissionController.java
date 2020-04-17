@@ -2,18 +2,21 @@ package com.apps.omnipotent.system.controller;
 
 import com.apps.omnipotent.manager.menu.mode.Menu;
 import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
-import com.apps.omnipotent.system.core.controller.GlobalController;
-import com.apps.omnipotent.system.core.model.Result;
+import com.apps.omnipotent.system.global.entity.Result;
+import com.apps.omnipotent.system.global.controller.GlobalController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
 
-
+/**
+* @Description:  权限
+* @Author: cles
+* @Date: 2020/4/17 23:46
+*/
 @Controller
 @RequestMapping("/permission")
 public class PermissionController extends GlobalController {
