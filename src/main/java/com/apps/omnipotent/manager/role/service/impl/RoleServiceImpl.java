@@ -2,12 +2,14 @@ package com.apps.omnipotent.manager.role.service.impl;
 
 import com.apps.omnipotent.manager.role.dao.RoleDao;
 import com.apps.omnipotent.manager.role.mode.Role;
+import com.apps.omnipotent.manager.role.service.RoleService;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -20,7 +22,7 @@ import java.util.UUID;
 *
  */
 @Service
-public class RoleServiceImpl extends GlobalService {
+public class RoleServiceImpl implements RoleService {
 
     @Autowired
     RoleDao dao;
@@ -34,14 +36,17 @@ public class RoleServiceImpl extends GlobalService {
     * @date 2018年8月21日 下午9:55:31
     *
      */
+    @Override
     public List<Role> list() {
         return dao.list();
     }
+    @Override
     public List<Role>  pagelist() {
         List<Role>  list = dao.pageList();
         return list;
     }
 
+    @Override
     public boolean add(Role menu) {
         menu.setId(UUID.randomUUID().toString());
         boolean flag = true;
@@ -56,9 +61,18 @@ public class RoleServiceImpl extends GlobalService {
         return flag;
     }
 
+    @Override
     public Role findById(String menuId){
         return dao.findById(menuId);
     }
+
+    @Override
+    public Set<String> getRolesByUserId(String id) {
+        // todo 根据admin查询角色
+        return null;
+    }
+
+    @Override
     public boolean remove(String menuId){
         boolean flag = true;
         int num = dao.remove(menuId);
@@ -67,6 +81,7 @@ public class RoleServiceImpl extends GlobalService {
         }
         return flag;
     }
+    @Override
     public boolean update(Role menu){
         boolean flag = true;
         menu.setModifyTime(new Date());

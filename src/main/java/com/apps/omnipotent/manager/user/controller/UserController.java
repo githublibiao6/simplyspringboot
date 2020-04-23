@@ -3,6 +3,9 @@ package com.apps.omnipotent.manager.user.controller;
 import com.apps.omnipotent.system.shiro.entity.Permissions;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +34,27 @@ public class UserController extends GlobalController {
         HashMap map = new HashMap();
         map.put("token","admin-token");
         result.setData(map);
+        // shiro 调用
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        Subject subject = SecurityUtils.getSubject();
+        //如果获取不到用户名就是登录失败，但登录失败的话，会直接抛出异常
+        try{
+            //重点！！！！！！
+            //getAuthenticationInfo 执行时机
+            subject.login(token);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //重点！！！！！！
+        //        subject.hasRole(“admin”)
+        //        subject.isPermitted(“admin”)
+        //        @RequiresRoles(“admin”) ：在方法上加注解的时候；
+        //getAuthorizationInfo  执行时机 -- subject.hasRole()
+        if (subject.hasRole("admin")) {
+//            return "redirect:/admin/showComputerProblems";
+        } else if (!subject.hasRole("admin")) {
+//            return "redirect:/normal/showComputerProblems";
+        }
         return result;
     }
 

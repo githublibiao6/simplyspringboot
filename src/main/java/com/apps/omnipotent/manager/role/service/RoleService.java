@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.role.service;
 import com.apps.omnipotent.manager.role.mode.Role;
 
 import java.util.List;
+import java.util.Set;
 
 /**
 * @Description: 角色service
@@ -16,4 +17,5 @@ public interface RoleService {
     boolean update(Role menu);
     boolean remove(String id);
     Role findById(String id);
+    Set<String> getRolesByUserId(String id);
 }
