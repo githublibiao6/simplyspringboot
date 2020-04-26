@@ -1,14 +1,18 @@
 package com.apps.omnipotent.manager.user.controller;
 
+import com.apps.omnipotent.manager.admin.bean.Admin;
 import com.apps.omnipotent.system.shiro.entity.Permissions;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,7 +45,9 @@ public class UserController extends GlobalController {
         try{
             //重点！！！！！！
             //getAuthenticationInfo 执行时机
+            // 会触发 Realm的doGetAuthenticationInfo方法
             subject.login(token);
+            Session session = subject.getSession();
         }catch (Exception e){
             e.printStackTrace();
         }
