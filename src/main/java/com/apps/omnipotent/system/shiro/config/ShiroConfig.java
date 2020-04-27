@@ -51,6 +51,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/pic/**","anon");
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/ajaxLogin","anon");
+        // 放开登录接口
+        filterChainDefinitionMap.put("/**/login","anon");
+        filterChainDefinitionMap.put("/**/logout","anon");
         filterChainDefinitionMap.put("/logout","logout");
         //过滤器规则，从上而下顺序执行，将/**放在最后
         filterChainDefinitionMap.put("/**","authc");
@@ -60,6 +63,13 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    /**  网上复制的返回类型是SecurityManager，会报错
+    * @Description:
+    * @Param: []
+    * @return: org.apache.shiro.web.mgt.DefaultWebSecurityManager
+    * @Author: cles
+    * @Date: 2020/4/27 23:29
+    */
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager(){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();

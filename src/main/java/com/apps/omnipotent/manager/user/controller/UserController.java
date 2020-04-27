@@ -1,5 +1,6 @@
 package com.apps.omnipotent.manager.user.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.admin.bean.Admin;
 import com.apps.omnipotent.system.shiro.entity.Permissions;
 import com.apps.omnipotent.system.global.controller.GlobalController;
@@ -9,11 +10,13 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,13 +36,18 @@ public class UserController extends GlobalController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public Result login(String username,String password) {
+    public Result login(@RequestBody JSONObject json) {
         result.setCode(20000);
         HashMap map = new HashMap();
         map.put("token","admin-token");
         result.setData(map);
+        System.err.println(json);
+        Enumeration<String> set = request.getParameterNames();
+        while (set.hasMoreElements()){
+            System.err.println(set.nextElement());
+        }
         // shiro 调用
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(json.getString("username"), json.getString("password"));
         Subject subject = SecurityUtils.getSubject();
         //如果获取不到用户名就是登录失败，但登录失败的话，会直接抛出异常
         try{

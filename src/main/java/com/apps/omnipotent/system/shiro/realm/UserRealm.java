@@ -5,8 +5,11 @@ package com.apps.omnipotent.system.shiro.realm;
 
 import com.apps.omnipotent.manager.admin.bean.Admin;
 import com.apps.omnipotent.manager.admin.service.AdminService;
+import com.apps.omnipotent.manager.admin.service.impl.AdminServiceImpl;
 import com.apps.omnipotent.manager.menu.service.MenuService;
+import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.manager.role.service.RoleService;
+import com.apps.omnipotent.manager.role.service.impl.RoleServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -30,11 +33,11 @@ import java.util.Set;
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
-    AdminService adminService;
+    AdminServiceImpl adminService;
     @Autowired
-    RoleService roleService;
+    RoleServiceImpl roleService;
     @Autowired
-    MenuService menuService;
+    MenuServiceImpl menuService;
 
     {
         //设置用于匹配密码的CredentialsMatcher
@@ -87,7 +90,7 @@ public class UserRealm extends AuthorizingRealm {
             throw new AccountException("Null usernames are not allowed by this realm.");
         }
 
-        Admin admin = adminService.findById(username);
+        Admin admin = adminService.findById("001");
 
         if (admin == null) {
             throw new UnknownAccountException("No account found for admin [" + username + "]");
