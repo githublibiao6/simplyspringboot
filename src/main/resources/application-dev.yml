@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /om
 spring:
+  main:
+    allow-bean-definition-overriding: true
   profiles:
     active: dev
   mvc:

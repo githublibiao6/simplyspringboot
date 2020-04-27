@@ -57,8 +57,10 @@ public class UserController extends GlobalController {
         //        @RequiresRoles(“admin”) ：在方法上加注解的时候；
         //getAuthorizationInfo  执行时机 -- subject.hasRole()
         if (subject.hasRole("admin")) {
+            System.err.println("admin");
 //            return "redirect:/admin/showComputerProblems";
-        } else if (!subject.hasRole("admin")) {
+        } else if (!subject.hasRole("user")) {
+            System.err.println("user");
 //            return "redirect:/normal/showComputerProblems";
         }
         return result;
