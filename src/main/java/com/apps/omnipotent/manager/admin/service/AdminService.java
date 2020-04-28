@@ -3,7 +3,11 @@ package com.apps.omnipotent.manager.admin.service;
 import com.apps.omnipotent.manager.admin.bean.Admin;
 
 import java.util.List;
-
+/**
+* @Description: 管理员service接口
+* @Author: cles
+* @Date: 2020/4/28 23:13
+*/
 public interface AdminService {
     List<Admin> list();
     List<Admin> pagelist();

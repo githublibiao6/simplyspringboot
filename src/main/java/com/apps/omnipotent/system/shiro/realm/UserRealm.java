@@ -27,8 +27,8 @@ import java.util.Set;
 
 /**
  * @description: 用户Realm
- * @Auther cles
  * @Date 2020/4/23 22:39
+ * @author cles
  */
 public class UserRealm extends AuthorizingRealm {
 
@@ -97,7 +97,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         //查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
         //SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
-        // 额  Object a = SecurityUtils.getSubject().getPrincipal();
+        // Object a = SecurityUtils.getSubject().getPrincipal();
         Set<String> roles = roleService.getRolesByUserId(admin.getId());
         // 获取菜单权限
         Set<String> perms = new HashSet<>();
