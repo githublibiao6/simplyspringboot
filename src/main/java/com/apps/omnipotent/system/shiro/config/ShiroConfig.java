@@ -54,6 +54,10 @@ public class ShiroConfig {
         // 放开登录接口
         filterChainDefinitionMap.put("/**/login","anon");
         filterChainDefinitionMap.put("/**/logout","anon");
+        // 测试接口
+        filterChainDefinitionMap.put("/test/**","anon");
+        // 开放接口
+        filterChainDefinitionMap.put("/api/**","anon");
         filterChainDefinitionMap.put("/logout","logout");
         //过滤器规则，从上而下顺序执行，将/**放在最后
         filterChainDefinitionMap.put("/**","authc");

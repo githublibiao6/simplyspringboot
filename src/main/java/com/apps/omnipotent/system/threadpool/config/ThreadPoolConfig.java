@@ -3,6 +3,7 @@ package com.apps.omnipotent.system.threadpool.config;
  * Created by cles on 2020/4/28 23:34
  */
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -16,12 +17,13 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author cles
  * @Date 2020/4/28 23:34
  */
-@Configuration
-@EnableAsync
+//@Configuration
+@Slf4j
 public class ThreadPoolConfig {
 
     @Bean
     public TaskExecutor taskExecutor() {
+        log.info("配置？");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数
         executor.setCorePoolSize(2);
