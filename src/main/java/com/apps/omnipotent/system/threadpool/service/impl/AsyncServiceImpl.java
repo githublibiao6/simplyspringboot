@@ -19,15 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
  * @Date 2020/4/28 23:38
  */
 
-@Component
+@Service
 @Slf4j
-public class Task {
+public class AsyncServiceImpl {
 
-    @Async
+    @Async("taskExecutor")
     public void executeAsync() {
         log.info("start executeAsync");
         try{
-            Thread.sleep(10000);
+            Thread.sleep(1000);
         }catch(Exception e){
             e.printStackTrace();
         }

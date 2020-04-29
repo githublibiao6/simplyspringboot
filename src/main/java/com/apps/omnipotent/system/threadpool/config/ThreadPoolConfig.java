@@ -17,11 +17,11 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author cles
  * @Date 2020/4/28 23:34
  */
-//@Configuration
+@Configuration
 @Slf4j
 public class ThreadPoolConfig {
 
-    @Bean
+    @Bean(name = "taskExecutor")
     public TaskExecutor taskExecutor() {
         log.info("配置？");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
