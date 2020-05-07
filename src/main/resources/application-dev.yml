@@ -3,10 +3,17 @@ server:
   servlet:
     context-path: /om
 spring:
+  # rabbitmq配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   main:
     allow-bean-definition-overriding: true
-  profiles:
-    active: dev
+  data:
+    mongodb:
+      uri:  mongodb://121.199.72.15:27017/admin
   mvc:
     view:
       prefix: /

@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.ResourceUtils;
@@ -27,7 +28,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁
  */
 
-@SpringBootApplication
+/*mongodb*/
+@SpringBootApplication(exclude = MongoAutoConfiguration.class)
 /**
  * //开启异步调用
  */
