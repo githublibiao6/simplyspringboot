@@ -1,5 +1,6 @@
 package com.apps.omnipotent.system.controller;
 
+import com.apps.omnipotent.system.db.config.DbConfig;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
 import com.apps.omnipotent.system.threadpool.service.impl.AsyncServiceImpl;
@@ -49,6 +50,7 @@ public class TestController  extends GlobalController {
     @ResponseBody
     public Result mongo() {
         Query query = new Query();
+        DbConfig db = new DbConfig();
         //数据库表名称
         MongoCollection<Document> dbCollection = mongoTemplate.getCollection("user");
         //创建文档

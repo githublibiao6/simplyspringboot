@@ -31,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 /*mongodb*/
 @SpringBootApplication(exclude = MongoAutoConfiguration.class)
 /**
- * //开启异步调用
+ * 开启异步调用
  */
 @EnableAsync
 @MapperScan("com.apps.omnipotent")
