@@ -3,6 +3,8 @@ package com.apps.omnipotent.manager.dept.dao;
 import com.apps.omnipotent.manager.dept.bean.Dept;
 import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 

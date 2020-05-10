@@ -1,4 +1,4 @@
-package com.apps.omnipotent.system.db.config.bean;
+package com.apps.omnipotent.system.db.bean;
 /**
  * Created by cles on 2020/5/9 23:00
  */

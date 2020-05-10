@@ -15,8 +15,6 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class DbSourceHolder {
     // 对当前线程的操作-线程安全的
-    /*https://blog.csdn.net/z357904947/article/details/89157281*/
-    /*https://www.cnblogs.com/Gyoung/p/7147677.html*/
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<String>();
 
     // 调用此方法，切换数据源
