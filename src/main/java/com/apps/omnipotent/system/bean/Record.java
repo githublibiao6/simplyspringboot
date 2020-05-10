@@ -21,4 +21,8 @@ public class Record {
         }
         return o.toString();
     }
+
+    public void setString(String column, Object value){
+        map.put(column,value);
+    }
 }
