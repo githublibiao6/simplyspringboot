@@ -23,7 +23,7 @@ public class Db {
     * @Author: cles
     * @Date: 2020/5/10 23:11
     */
-    public void setDbSource(String key,DruidDataSource dataSource){
+    public static void setDbSource(String key,DruidDataSource dataSource){
         map.put(key,dataSource);
     }
     /**
@@ -33,7 +33,7 @@ public class Db {
     * @Author: cles
     * @Date: 2020/5/10 23:12
     */
-    public void setMain(String key,DruidDataSource dataSource){
+    public static void setMain(String key,DruidDataSource dataSource){
         main = dataSource;
     }
 

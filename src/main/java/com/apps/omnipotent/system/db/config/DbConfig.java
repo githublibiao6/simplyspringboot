@@ -6,12 +6,14 @@ package com.apps.omnipotent.system.db.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.stat.DruidDataSourceStatManager;
 import com.apps.omnipotent.system.db.bean.DataSource;
+import com.apps.omnipotent.system.db.utils.Db;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.util.StringUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,7 +29,7 @@ public class DbConfig extends AbstractRoutingDataSource {
     private boolean debug = true;
     private final String ORACLE_DERIVE_CLASS = "oracle.jdbc.driver.OracleDriver";
     private final String MYSQL_DERIVE_CLASS = "com.mysql.cj.jdbc.Driver";
-    private Map<Object, Object> dynamicTargetDataSources;
+    private Map<Object, Object> dynamicTargetDataSources = new HashMap<>();
     private Object dynamicDefaultTargetDataSource;
 
     @Override
@@ -58,35 +60,34 @@ public class DbConfig extends AbstractRoutingDataSource {
     /**
      * 添加数据源
      * @param key
-     * @param driveClass
      * @param url
      * @param username
      * @param password
-     * @param databasetype
      * @return
      */
-    public boolean createDataSource(String key, String driveClass, String url, String username, String password, String databasetype) {
+    public boolean createDataSource(String key,  String url, String username, String password, String dbType) {
+        @SuppressWarnings("resource")
+        DruidDataSource druidDataSource = new DruidDataSource();
+        String  driveClass = "";
+        if("mysql".equalsIgnoreCase(dbType)) {
+            driveClass = MYSQL_DERIVE_CLASS;
+        } else if("oracle".equalsIgnoreCase(dbType)){
+            driveClass = ORACLE_DERIVE_CLASS;
+            //是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+            druidDataSource.setPoolPreparedStatements(true);
+            druidDataSource.setMaxPoolPreparedStatementPerConnectionSize(50);
+//                int sqlQueryTimeout = ADIPropUtil.sqlQueryTimeOut();
+            //对于耗时长的查询sql，会受限于ReadTimeout的控制，单位毫秒
+//                druidDataSource.setConnectionProperties("oracle.net.CONNECT_TIMEOUT=6000;oracle.jdbc.ReadTimeout="+sqlQueryTimeout);
+        }
         try {
             try { // 排除连接不上的错误
                 Class.forName(driveClass);
                 // 相当于连接数据库
                 DriverManager.getConnection(url, username, password);
             } catch (Exception e) {
+                e.printStackTrace();
                 return false;
-            }
-//            HikariDataSource druidDataSource = new HikariDataSource();
-            @SuppressWarnings("resource")
-            DruidDataSource druidDataSource = new DruidDataSource();
-            if("mysql".equalsIgnoreCase(databasetype)) {
-                driveClass = MYSQL_DERIVE_CLASS;
-            } else if("oracle".equalsIgnoreCase(databasetype)){
-                driveClass = ORACLE_DERIVE_CLASS;
-                //是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
-                druidDataSource.setPoolPreparedStatements(true);
-                druidDataSource.setMaxPoolPreparedStatementPerConnectionSize(50);
-//                int sqlQueryTimeout = ADIPropUtil.sqlQueryTimeOut();
-                //对于耗时长的查询sql，会受限于ReadTimeout的控制，单位毫秒
-//                druidDataSource.setConnectionProperties("oracle.net.CONNECT_TIMEOUT=6000;oracle.jdbc.ReadTimeout="+sqlQueryTimeout);
             }
 
             druidDataSource.setName(key);
@@ -97,7 +98,7 @@ public class DbConfig extends AbstractRoutingDataSource {
             //初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
             druidDataSource.setInitialSize(50);
             //最大连接池数量
-            druidDataSource.setMaxActive(200);
+            druidDataSource.setMaxActive(100);
             //获取连接时最大等待时间，单位毫秒。当链接数已经达到了最大链接数的时候，应用如果还要获取链接就会出现等待的现象，等待链接释放并回到链接池，如果等待的时间过长就应该踢掉这个等待，不然应用很可能出现雪崩现象
             druidDataSource.setMaxWait(60000);
             //最小连接池数量
@@ -136,10 +137,11 @@ public class DbConfig extends AbstractRoutingDataSource {
             // 将TargetDataSources中的连接信息放入resolvedDataSources管理
             super.afterPropertiesSet();
             log.info(key+"数据源初始化成功");
-            //log.info(key+"数据源的概况："+druidDataSource.dump());
+            Db.setDbSource(key,druidDataSource);
+            // log.info(key+"数据源的概况："+druidDataSource.dump());
             return true;
         } catch (Exception e) {
-            log.error(e + "");
+            e.printStackTrace();
             return false;
         }
     }
@@ -171,7 +173,13 @@ public class DbConfig extends AbstractRoutingDataSource {
         }
     }
 
-    // 测试数据源连接是否有效
+    /**
+    * @Description: 测试数据源连接是否有效
+    * @Param: [key, driveClass, url, username, password]
+    * @return: boolean
+    * @Author: cles
+    * @Date: 2020/5/11 23:42
+    */
     public boolean testDatasource(String key, String driveClass, String url, String username, String password) {
         try {
             Class.forName(driveClass);
@@ -244,13 +252,13 @@ public class DbConfig extends AbstractRoutingDataSource {
         this.dynamicDefaultTargetDataSource = dynamicDefaultTargetDataSource;
     }
 
-    public void createDataSourceWithCheck(DataSource dataSource) throws Exception {
+    public void createDataSourceWithCheck(String key,DataSource dataSource) throws Exception {
         String datasourceId = dataSource.getDatasourceId();
         log.info("准备创建数据源"+datasourceId);
         Map<Object, Object> dynamicTargetDataSources2 = this.dynamicTargetDataSources;
         if (dynamicTargetDataSources2.containsKey(datasourceId)) {
             log.info("数据源"+datasourceId+"之前已经创建，准备测试数据源是否正常...");
-            //DataSource druidDataSource = (DataSource) dynamicTargetDataSources2.get(datasourceId);
+            // DataSource druidDataSource = (DataSource) dynamicTargetDataSources2.get(datasourceId);
             DruidDataSource druidDataSource = (DruidDataSource) dynamicTargetDataSources2.get(datasourceId);
             boolean rightFlag = true;
             Connection connection = null;
@@ -265,7 +273,8 @@ public class DbConfig extends AbstractRoutingDataSource {
                 connection = druidDataSource.getConnection();
                 log.info("数据源"+datasourceId+"正常");
             } catch (Exception e) {
-                log.error(e.getMessage(),e); //把异常信息打印到日志文件
+                //把异常信息打印到日志文件
+                log.error(e.getMessage(),e);
                 rightFlag = false;
                 log.info("缓存数据源"+datasourceId+"已失效，准备删除...");
                 if(delDataSources(datasourceId)) {
@@ -283,16 +292,16 @@ public class DbConfig extends AbstractRoutingDataSource {
                 return;
             } else {
                 log.info("准备重新创建数据源...");
-                createDataSource(dataSource);
+                createDataSource(key,dataSource);
                 log.info("重新创建数据源完成");
             }
         } else {
-            createDataSource(dataSource);
+            createDataSource(key,dataSource);
         }
 
     }
 
-    private  void createDataSource(DataSource dataSource) throws Exception {
+    private  void createDataSource(String key,DataSource dataSource) throws Exception {
         String datasourceId = dataSource.getDatasourceId();
         log.info("准备创建数据源"+datasourceId);
         String databasetype = dataSource.getDatabasetype();
@@ -311,7 +320,7 @@ public class DbConfig extends AbstractRoutingDataSource {
 //            driveClass = DBUtil.sql2005driver;
 //        }
         if(testDatasource(datasourceId,driveClass,url,username,password)) {
-            boolean result = this.createDataSource(datasourceId, driveClass, url, username, password, databasetype);
+            boolean result = this.createDataSource(key, url, username, password, databasetype);
             if(!result) {
                 log.error("数据源"+datasourceId+"配置正确，但是创建失败");
 //                throw new ADIException("数据源"+datasourceId+"配置正确，但是创建失败",500);

@@ -3,6 +3,8 @@ package com.apps.omnipotent.system.bean;
  * Created by cles on 2020/5/10 23:24
  */
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,9 +12,11 @@ import java.util.Map;
  * @author cles
  * @Date 2020/5/10 23:24
  */
-public class Record {
+public class Record  implements Serializable {
 
-    private Map<String , Object> map ;
+    private static final long serialVersionUID = 1L;
+
+    private Map<String , Object> map = new HashMap<>();
 
     public String getString(String column){
         Object o = map.get(column);
@@ -24,5 +28,10 @@ public class Record {
 
     public void setString(String column, Object value){
         map.put(column,value);
+    }
+
+    @Override
+    public String toString(){
+        return map.toString();
     }
 }

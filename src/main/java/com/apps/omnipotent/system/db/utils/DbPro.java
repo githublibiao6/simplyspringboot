@@ -27,10 +27,10 @@ public class DbPro {
         DbPro.dataSource = dataSource;
     }
 
-    public static List<Record> find(String sql){
+    public  List<Record> find(String sql){
         return DbHelper.find(dataSource,sql);
     }
-    public static Record findFirst(String sql){
+    public Record findFirst(String sql){
         List<Record> list = find(sql);
         if (list != null && list.size() > 0){
             return list.get(0);
