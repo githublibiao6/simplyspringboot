@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.ResourceUtils;
@@ -28,6 +29,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁
  */
 
+/**
+ * @Description:  springboot 启动
+ * @Author: cles
+ * @Date: 2020/4/29 23:17
+ */
 /*mongodb*/
 @SpringBootApplication(exclude = MongoAutoConfiguration.class)
 /**
@@ -35,11 +41,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  */
 @EnableAsync
 @MapperScan("com.apps.omnipotent")
-/**
- * @Description:  springboot 启动
- * @Author: cles
- * @Date: 2020/4/29 23:17
- */
+@EnableMongoRepositories
 public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
