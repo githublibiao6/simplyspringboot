@@ -1,6 +1,6 @@
-package com.apps.omnipotent.manager.dict.service;
+package com.apps.omnipotent.manager.dictionary.service;
 
-import com.apps.omnipotent.manager.dict.dao.DictDao;
+import com.apps.omnipotent.manager.dictionary.dao.DicDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class DictService {
+public class DicService {
     
     @Autowired
-    private DictDao dao;
+    private DicDao dao;
 }

@@ -1,4 +1,4 @@
-package com.apps.omnipotent.manager.dict.dao;
+package com.apps.omnipotent.manager.dictionary.dao;
 
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public interface DictObjDao {
+public interface DicTeamsDao {
     
     /**
      * 获取全部的字典对象
