@@ -15,8 +15,8 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
-@Configuration
-@EnableAutoConfiguration
+//@Configuration
+//@EnableAutoConfiguration
 public class JedisConfig {
 
     @Value("${spring.redis.host}")

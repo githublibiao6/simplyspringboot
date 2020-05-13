@@ -40,7 +40,7 @@ public class AfterStart implements ApplicationRunner {
         list.forEach(role->{
             String code = role.getCode();
             List<Menu> menuList = menuService.queryByRoleId(code);
-            JedisUtil.setList("role"+code,menuList);
+//            JedisUtil.setList("role"+code,menuList);
         });
     }
 }

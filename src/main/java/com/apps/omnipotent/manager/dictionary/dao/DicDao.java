@@ -1,6 +1,10 @@
 package com.apps.omnipotent.manager.dictionary.dao;
 
+import com.apps.omnipotent.manager.dictionary.bean.Dictionary;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 字典 Dao
@@ -9,13 +13,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DicDao {
-    
+
     /**
-     * 获取全部dict
-     * @param tableNameEng
+     * 获取全部dictionary
      * @return
      */
-//    public List<Dict> listDict();
+    @Select("select * from be_dictionary m where m.delete_flag='1'")
+    List<Dictionary> listDictionary();
     
     /**
      * 根据code查询记录
