@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * 字典 Entity
- * @author lb
+ * @author cles
  *
  */
 @Data

@@ -68,8 +68,10 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> roles = new HashSet<>();
         // 用户权限
         Set<String> permissions = new HashSet<>();
+        permissions.add("/**");
         info.setRoles(roles);
         info.setStringPermissions(permissions);
+        info.addStringPermission("menu/page");
         return info;
     }
 
@@ -104,7 +106,7 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(admin, admin.getLoginPassword(), getName());
 
         // 盐值？
-        info.setCredentialsSalt(ByteSource.Util.bytes(10));
+//        info.setCredentialsSalt(ByteSource.Util.bytes(10));
         return info;
     }
 }

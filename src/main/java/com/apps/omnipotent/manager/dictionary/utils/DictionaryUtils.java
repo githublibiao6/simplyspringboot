@@ -31,6 +31,9 @@ public class DictionaryUtils {
     @Autowired
     private static DicTeamsService staticDicTeamsService;
 
+    /**
+     * static 调用service的办法
+     */
     @PostConstruct
     public void initBefore() {
         staticDicService = dicService;
@@ -47,7 +50,6 @@ public class DictionaryUtils {
             });
             map.put(dic.getCode(),teamMap);
         });
-        System.err.println(333);
     }
 
     private static HashMap<String ,LinkedHashMap<String,String >> map = new HashMap<>();
