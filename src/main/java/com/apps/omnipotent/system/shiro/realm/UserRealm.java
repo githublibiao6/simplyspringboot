@@ -18,10 +18,16 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -93,6 +99,25 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         Admin admin = adminService.findById("001");
+        //单用户登录
+        //处理session
+        DefaultWebSecurityManager securityManager = (DefaultWebSecurityManager) SecurityUtils.getSecurityManager();
+        DefaultWebSessionManager sessionManager = (DefaultWebSessionManager) securityManager.getSessionManager();
+        //获取当前已登录的用户session列表
+        Collection<Session> sessions = sessionManager.getSessionDAO().getActiveSessions();
+        Admin temp;
+        for(Session session : sessions){
+            //清除该用户以前登录时保存的session，强制退出
+            Object attribute = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+            if (attribute == null) {
+                continue;
+            }
+
+            temp = (Admin) ((SimplePrincipalCollection) attribute).getPrimaryPrincipal();
+            if(username.equals(temp.getLoginName())) {
+                sessionManager.getSessionDAO().delete(session);
+            }
+        }
 
         if (admin == null) {
             throw new UnknownAccountException("No account found for admin [" + username + "]");

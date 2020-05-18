@@ -47,6 +47,7 @@
         </dependency>
 
         <!-- es -->
+        <!-- 安装报错的解决方案 https://blog.csdn.net/happyzxs/article/details/89156068 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>

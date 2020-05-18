@@ -3,22 +3,25 @@ package com.apps.omnipotent.system.shiro.config;
  * Created by cles on 2020/4/27 21:52
  */
 
+import com.apps.omnipotent.manager.menu.service.MenuService;
 import com.apps.omnipotent.system.shiro.realm.UserRealm;
+import com.apps.omnipotent.system.shiro.service.ShiroService;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.redis.support.collections.RedisProperties;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,7 +38,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager, ShiroService shiroService){
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
@@ -49,33 +52,19 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/system/unauthorizedUrl");
 
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        //配置匿名可访问页面和静态文件
-        filterChainDefinitionMap.put("/css/**","anon");
-        filterChainDefinitionMap.put("/js/**","anon");
-        filterChainDefinitionMap.put("/img/**","anon");
-        filterChainDefinitionMap.put("/images/**","anon");
-        filterChainDefinitionMap.put("/pic/**","anon");
-        filterChainDefinitionMap.put("/login","anon");
-        filterChainDefinitionMap.put("/ajaxLogin","anon");
-        // 放开登录接口
-        filterChainDefinitionMap.put("/**/login","anon");
-        filterChainDefinitionMap.put("/**/logout","anon");
-        // 测试接口
-        filterChainDefinitionMap.put("/test/**","anon");
-        // 开放接口
-        filterChainDefinitionMap.put("/api/**","anon");
-        // 获取信息接口
-        filterChainDefinitionMap.put("/user/info","anon");
-        filterChainDefinitionMap.put("/menu/list","anon");
-//        filterChainDefinitionMap.put("/menu/page","anon");
-        filterChainDefinitionMap.put("/logout","logout");
-        //过滤器规则，从上而下顺序执行，将/**放在最后
-        filterChainDefinitionMap.put("/**","authc");
+
         //设置规则
+        filterChainDefinitionMap = shiroService.loadFilterChainDefinitions();
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;
     }
+
+    /*@Bean
+    public CustomRolesAuthorizationFilter rolesAuthorizationFilter() {
+        return new CustomRolesAuthorizationFilter();
+    }*/
+
 
     /**  网上复制的返回类型是SecurityManager，会报错
     * @Description:
@@ -86,15 +75,16 @@ public class ShiroConfig {
     */
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 
-        securityManager.setRealm(myRealm());
+        manager.setRealm(myRealm());
+//        manager.setRealm(realm);
 //        多个 realms？
 /*        List<Realm> list = new ArrayList<>();
         list.add(myRealm());
         securityManager.setRealms(list);*/
-        securityManager.setSessionManager(sessionManager());
-        return securityManager;
+        manager.setSessionManager(sessionManager());
+        return manager;
     }
 
     /**
@@ -120,13 +110,14 @@ public class ShiroConfig {
         return new LifecycleBeanPostProcessor();
     }
 
-   /* @Bean(name = "advisorAutoProxyCreator")
+    @Bean("defaultAdvisorAutoProxyCreator")
     @DependsOn("lifecycleBeanPostProcessor")
-    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
-        DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
-        autoProxyCreator.setProxyTargetClass(true);
-        return autoProxyCreator;
-    }*/
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        //指定强制使用cglib为action创建代理对象
+        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
+        return defaultAdvisorAutoProxyCreator;
+    }
 
    /**
    * @Description:  开启注解
@@ -141,4 +132,16 @@ public class ShiroConfig {
         return advisor;
     }
 
+    /**
+     * Redis集群使用RedisClusterManager，单个Redis使用RedisManager
+     * @param redisProperties
+     * @return
+     */
+    /*@Bean
+    public RedisClusterManager redisManager(RedisProperties redisProperties) {
+        RedisClusterManager redisManager = new RedisClusterManager();
+        redisManager.setHost(redisProperties.getHost());
+        redisManager.setPassword(redisProperties.getPassword());
+        return redisManager;
+    }*/
 }
