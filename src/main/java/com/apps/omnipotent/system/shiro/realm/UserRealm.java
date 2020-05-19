@@ -19,6 +19,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
@@ -74,6 +75,7 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> roles = new HashSet<>();
         // 用户权限
         Set<String> permissions = new HashSet<>();
+        roles.add("admin");
         permissions.add("/**");
         info.setRoles(roles);
         info.setStringPermissions(permissions);
@@ -97,7 +99,6 @@ public class UserRealm extends AuthorizingRealm {
         if (username == null) {
             throw new AccountException("Null usernames are not allowed by this realm.");
         }
-
         Admin admin = adminService.findById("001");
         //单用户登录
         //处理session

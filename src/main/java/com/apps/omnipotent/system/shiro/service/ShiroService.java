@@ -60,7 +60,7 @@ public class ShiroService {
         filterChainDefinitionMap.put("/api/**","anon");
         // 获取信息接口
         filterChainDefinitionMap.put("/user/info","anon");
-        filterChainDefinitionMap.put("/menu/list","anon");
+//        filterChainDefinitionMap.put("/menu/list","anon");
 //        filterChainDefinitionMap.put("/menu/page","anon");
         filterChainDefinitionMap.put("/logout","logout");
         //过滤器规则，从上而下顺序执行，将/**放在最后

@@ -3,7 +3,6 @@ package com.apps.omnipotent.system.shiro.config;
  * Created by cles on 2020/5/18 23:08
  */
 
-import com.alibaba.fastjson.JSONObject;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
 import org.springframework.http.HttpMethod;

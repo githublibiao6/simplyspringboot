@@ -3,24 +3,24 @@ package com.apps.omnipotent.system.shiro.config;
  * Created by cles on 2020/4/27 21:52
  */
 
-import com.apps.omnipotent.manager.menu.service.MenuService;
 import com.apps.omnipotent.system.shiro.realm.UserRealm;
 import com.apps.omnipotent.system.shiro.service.ShiroService;
+import javax.servlet.Filter;
+
+import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
+import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.realm.Realm;
-import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.data.redis.support.collections.RedisProperties;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager, ShiroService shiroService){
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-
+        /*Shiro配置类的过滤器中启用安全管理器，即shiroFilterFactoryBean中配置SecurityManager*/
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         //设置拦截默认访问，如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
@@ -52,9 +52,13 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/system/unauthorizedUrl");
 
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
+        // 添加自己的过滤器
+        Map<String, Filter> filterMap = new HashMap<String, Filter>(1);
+        filterMap.put("jwt", new CustomRolesAuthorizationFilter());
+        shiroFilterFactoryBean.setFilters(filterMap);
         //设置规则
         filterChainDefinitionMap = shiroService.loadFilterChainDefinitions();
+        filterChainDefinitionMap.put("/**","jwt");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;
@@ -66,7 +70,7 @@ public class ShiroConfig {
     }*/
 
 
-    /**  网上复制的返回类型是SecurityManager，会报错
+    /**  SecurityManager安全管理器需要到realm中去验证认证信息，所以给SecurityManager设置Realm
     * @Description:
     * @Param: []
     * @return: org.apache.shiro.web.mgt.DefaultWebSecurityManager
@@ -83,6 +87,14 @@ public class ShiroConfig {
 /*        List<Realm> list = new ArrayList<>();
         list.add(myRealm());
         securityManager.setRealms(list);*/
+        /*
+         *SecurityManager安全管理器需要到realm中去验证认证信息，所以给SecurityManager设置Realm。*/
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
+        manager.setSubjectDAO(subjectDAO);
+
         manager.setSessionManager(sessionManager());
         return manager;
     }
@@ -110,6 +122,9 @@ public class ShiroConfig {
         return new LifecycleBeanPostProcessor();
     }
 
+    /**
+     * 添加注解支持
+     */
     @Bean("defaultAdvisorAutoProxyCreator")
     @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
