@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -56,7 +57,6 @@ public class MenuController extends GlobalController {
     @RequestMapping("/page")
     @ResponseBody
     public  Result pageList(PageEntity entity) {
-        System.err.println(entity.getPage());
         PageEntity page = service.pagelist(entity);
         result.setData(page);
         result.setCode(20000);
@@ -67,7 +67,6 @@ public class MenuController extends GlobalController {
     @ResponseBody
     public Result update(@RequestBody JSONObject json) {
         Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
-        System.err.println(m);
         boolean flag = service.update(m);
         String msg = "更新成功" ;
         result.setSuccess(flag);
@@ -79,11 +78,10 @@ public class MenuController extends GlobalController {
         return result;
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @ResponseBody
     public Result delete(@RequestBody JSONObject json) {
         Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
-        System.err.println(m);
         boolean flag = service.remove(json.getString("pk"));
         String msg ;
         result.setSuccess(flag);
@@ -126,10 +124,7 @@ public class MenuController extends GlobalController {
     @ResponseBody
     public Result list() {
 //        String hello = dubboService.sayHello("  dubbo "); // 执行远程方法
-//        System.out.println(hel1lo);
-        System.err.println("222");
         List<Menu> list = service.list();
-        System.err.println(list);
         result.setData(list);
         result.setCode(20000);
         result.setMessage("菜单信息");

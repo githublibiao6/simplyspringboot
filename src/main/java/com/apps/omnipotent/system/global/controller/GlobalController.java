@@ -21,6 +21,7 @@ public class GlobalController {
     public HttpServletResponse response;
 
     public Result result = new Result();
+
     PageHandle layui = new LayuiPageHandle();
 
     public <T> Result page(List<T> list,Integer page,Integer limit){

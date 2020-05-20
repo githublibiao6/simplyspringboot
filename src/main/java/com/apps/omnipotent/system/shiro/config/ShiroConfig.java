@@ -95,6 +95,7 @@ public class ShiroConfig {
         subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
         manager.setSubjectDAO(subjectDAO);
 
+//        manager.setCacheManager();
         manager.setSessionManager(sessionManager());
         return manager;
     }

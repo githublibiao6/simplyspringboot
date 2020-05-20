@@ -5,9 +5,12 @@ import com.apps.omnipotent.manager.admin.service.impl.AdminServiceImpl;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.rabbitmq.client.AMQP;
+import org.apache.ibatis.annotations.ResultType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -144,7 +147,7 @@ public class AdminController extends GlobalController {
         result.setData(admin);
         return result;
     }
-    @RequestMapping("/remove.do")
+    @RequestMapping(value="/remove.do",method= RequestMethod.DELETE)
     @ResponseBody
     public Result remove(String id) {
         boolean flag = service.remove(id);

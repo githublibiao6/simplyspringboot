@@ -46,14 +46,15 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     MenuServiceImpl menuService;
 
-    {
+    /* 判断密码？ */
+    /*{
         //设置用于匹配密码的CredentialsMatcher
         HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
         hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
         hashMatcher.setStoredCredentialsHexEncoded(false);
         hashMatcher.setHashIterations(1024);
         this.setCredentialsMatcher(hashMatcher);
-    }
+    }*/
     /** 
     * @Description: 定义如何获取用户的角色和权限的逻辑，给shiro做权限判断 
     * @Param: [principalCollection] 
