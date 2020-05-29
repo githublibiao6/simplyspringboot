@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class GlobalController {
+/**
+ * @author cles
+ */
+public abstract class GlobalController {
 
     @Autowired
     public HttpServletRequest request;
@@ -20,7 +23,7 @@ public class GlobalController {
     @Autowired
     public HttpServletResponse response;
 
-    public Result result = new Result();
+    protected Result result = new Result();
 
     PageHandle layui = new LayuiPageHandle();
 

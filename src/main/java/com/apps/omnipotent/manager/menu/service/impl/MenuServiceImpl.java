@@ -7,6 +7,7 @@ import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +46,16 @@ public class MenuServiceImpl extends GlobalService {
      */
     public PageEntity pagelist(PageEntity entity) {
         List<Menu> pageMenus = dao.pageList();
+        pageMenus.forEach(t->{
+            t.setHasChildren(false);
+        });
+        pageMenus.get(0).setHasChildren(true);
+        List<Menu> children = new ArrayList<>();
+        Menu m = dao.pageList().get(0);
+        m.setMenuId("12");
+        children.add(m);
+        pageMenus.get(0).setHasChildren(true);
+        pageMenus.get(0).setChildren(children);
         return getPageEntity(pageMenus,entity);
     }
 
