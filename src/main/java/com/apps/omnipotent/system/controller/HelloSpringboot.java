@@ -1,7 +1,7 @@
 package com.apps.omnipotent.system.controller;
 
-import com.apps.omnipotent.manager.menu.mode.Menu;
-import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
+import com.apps.omnipotent.manager.bean.Menu;
+import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.redis.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,13 +1,9 @@
 package com.apps.omnipotent;
 
-import com.apps.omnipotent.manager.admin.bean.Admin;
-import com.apps.omnipotent.manager.menu.mode.Menu;
-import com.apps.omnipotent.manager.menu.service.MenuService;
-import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
-import com.apps.omnipotent.manager.role.mode.Role;
-import com.apps.omnipotent.manager.role.service.RoleService;
-import com.apps.omnipotent.manager.role.service.impl.RoleServiceImpl;
-import com.apps.omnipotent.system.utils.JedisUtil;
+import com.apps.omnipotent.manager.bean.Menu;
+import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
+import com.apps.omnipotent.manager.bean.Role;
+import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -15,7 +11,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
 * @Description:  加载后执行

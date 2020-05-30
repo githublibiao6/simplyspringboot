@@ -3,27 +3,20 @@ package com.apps.omnipotent.system.shiro.realm;
  * Created by cles on 2020/4/23 22:39
  */
 
-import com.apps.omnipotent.manager.admin.bean.Admin;
-import com.apps.omnipotent.manager.admin.service.AdminService;
-import com.apps.omnipotent.manager.admin.service.impl.AdminServiceImpl;
-import com.apps.omnipotent.manager.menu.service.MenuService;
-import com.apps.omnipotent.manager.menu.service.impl.MenuServiceImpl;
-import com.apps.omnipotent.manager.role.service.RoleService;
-import com.apps.omnipotent.manager.role.service.impl.RoleServiceImpl;
+import com.apps.omnipotent.manager.bean.Admin;
+import com.apps.omnipotent.manager.service.impl.AdminServiceImpl;
+import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
+import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
-import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;

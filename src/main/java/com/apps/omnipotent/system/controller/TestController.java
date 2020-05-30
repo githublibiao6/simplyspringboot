@@ -1,6 +1,6 @@
 package com.apps.omnipotent.system.controller;
 
-import com.apps.omnipotent.manager.dictionary.utils.DictionaryUtils;
+import com.apps.omnipotent.manager.utils.DictionaryUtils;
 import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.config.DbConfig;
 import com.apps.omnipotent.system.db.utils.Db;
@@ -14,13 +14,11 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Dictionary;
 import java.util.List;
 
 /**
