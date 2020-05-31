@@ -1,5 +1,7 @@
 package com.apps.omnipotent.manager.bean;
 
+import com.apps.omnipotent.system.core.BaseModel;
+import com.apps.omnipotent.system.core.Table;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,7 +12,8 @@ import java.util.Date;
  *
  */
 @Data
-public class Dictionary {
+@Table("dictionary")
+public class Dictionary extends BaseModel<Dictionary> {
 
     /**
      * 主键

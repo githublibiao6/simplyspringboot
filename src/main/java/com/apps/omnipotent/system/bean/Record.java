@@ -18,6 +18,14 @@ public class Record  implements Serializable {
 
     private Map<String , Object> map = new HashMap<>();
 
+    public void setMap(Map<String , Object> map){
+        this.map = map;
+    }
+
+    public Map<String , Object> getMap(){
+        return this.map;
+    }
+
     public String getString(String column){
         Object o = map.get(column);
         if(o == null){

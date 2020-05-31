@@ -12,10 +12,10 @@ import lombok.Data;
  */
 @Data
 public class DataSource {
-    String datasourceId;
+    String id;
     String url;
-    String userName;
-    String passWord;
+    String username;
+    String password;
     String code;
-    String databasetype;
+    String dbType;
 }

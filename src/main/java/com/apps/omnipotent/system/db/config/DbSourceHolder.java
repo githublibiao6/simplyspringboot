@@ -14,10 +14,15 @@ import org.slf4j.LoggerFactory;
  */
 @Slf4j
 public class DbSourceHolder {
-    // 对当前线程的操作-线程安全的
+    /**
+    * 对当前线程的操作-线程安全的
+     */
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<String>();
 
-    // 调用此方法，切换数据源
+    /**
+     *  调用此方法，切换数据源
+     * @param dataSource
+     */
     public static void setDataSource(String dataSource) {
 
         contextHolder.set(dataSource);

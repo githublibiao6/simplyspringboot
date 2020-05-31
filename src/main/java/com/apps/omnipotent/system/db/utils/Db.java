@@ -4,6 +4,7 @@ package com.apps.omnipotent.system.db.utils;
  */
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ import java.util.HashMap;
  * @author cles
  * @Date 2020/5/10 22:44
  */
+@Slf4j
 public class Db {
     private static HashMap<String , DruidDataSource> map = new HashMap<>();
     private static DruidDataSource main = null ;
@@ -26,6 +28,9 @@ public class Db {
     public static void setDbSource(String key,DruidDataSource dataSource){
         map.put(key,dataSource);
     }
+    public static DruidDataSource getDbSource(String key){
+        return map.get(key);
+    }
     /**
     * @Description: 设置系统数据源
     * @Param: [key, dataSource]
@@ -33,7 +38,8 @@ public class Db {
     * @Author: cles
     * @Date: 2020/5/10 23:12
     */
-    public static void setMain(String key,DruidDataSource dataSource){
+    public static void setMain(DruidDataSource dataSource){
+        log.info("主数据源加入成功");
         main = dataSource;
     }
 

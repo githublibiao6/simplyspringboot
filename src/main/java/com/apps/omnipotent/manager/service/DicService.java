@@ -27,6 +27,7 @@ public class DicService {
     * @Date: 2020/5/13 23:28
     */
     public List<Dictionary> list(){
-        return dao.listDictionary();
+//        return dao.listDictionary();
+        return null;
     }
 }

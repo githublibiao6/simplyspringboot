@@ -8,12 +8,9 @@ import com.alibaba.druid.stat.DruidDataSourceStatManager;
 import com.apps.omnipotent.system.db.bean.DataSource;
 import com.apps.omnipotent.system.db.utils.Db;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
-import org.springframework.util.StringUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,41 +21,14 @@ import java.util.Set;
  * @Date 2020/5/6 23:24
  */
 @Slf4j
-public class DbConfig extends AbstractRoutingDataSource {
+public class DbConfig {
 
     private boolean debug = true;
     private final String ORACLE_DERIVE_CLASS = "oracle.jdbc.driver.OracleDriver";
     private final String MYSQL_DERIVE_CLASS = "com.mysql.cj.jdbc.Driver";
-    private Map<Object, Object> dynamicTargetDataSources = new HashMap<>();
-    private Object dynamicDefaultTargetDataSource;
-
-    @Override
-    protected Object determineCurrentLookupKey() {
-        String datasource = DbSourceHolder.getDataSource();
-        if (!StringUtils.isEmpty(datasource)) {
-            Map<Object, Object> dynamicTargetDataSources = this.dynamicTargetDataSources;
-            if (dynamicTargetDataSources.containsKey(datasource)) {
-                log.info("---当前数据源：" + datasource + "---");
-            } else {
-                log.info("不存在的数据源：");
-                return null;
-//                    throw new ADIException("不存在的数据源："+datasource,500);
-            }
-        } else {
-            log.info("---当前数据源：默认数据源---");
-        }
-        return datasource;
-    }
-
-    @Override
-    public void setTargetDataSources(Map<Object, Object> targetDataSources) {
-        super.setTargetDataSources(targetDataSources);
-        this.dynamicTargetDataSources = targetDataSources;
-
-    }
 
     /**
-     * 添加数据源
+     * 创建数据源
      * @param key
      * @param url
      * @param username
@@ -66,9 +36,33 @@ public class DbConfig extends AbstractRoutingDataSource {
      * @return
      */
     public boolean createDataSource(String key,  String url, String username, String password, String dbType) {
+        DruidDataSource druidDataSource;
+        try{
+            druidDataSource = buildDataSource(url,  username,  password,  dbType);
+            // log.info(key+"数据源的概况："+druidDataSource.dump());
+            if(druidDataSource == null){
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        log.info(key+"数据源初始化成功");
+        druidDataSource.setName(key);
+        Db.setDbSource(key,druidDataSource);
+        return true;
+    }
+    public DruidDataSource buildDataSource(String url, String username, String password, String dbType){
         @SuppressWarnings("resource")
         DruidDataSource druidDataSource = new DruidDataSource();
         String  driveClass = "";
+        if(dbType == null){
+            if(url.startsWith("jdbc:mysql")){
+                dbType = "mysql";
+            }else if(url.startsWith("jdbc:oracle")){
+                dbType = "oracle";
+            }
+        }
         if("mysql".equalsIgnoreCase(dbType)) {
             driveClass = MYSQL_DERIVE_CLASS;
         } else if("oracle".equalsIgnoreCase(dbType)){
@@ -87,10 +81,8 @@ public class DbConfig extends AbstractRoutingDataSource {
                 DriverManager.getConnection(url, username, password);
             } catch (Exception e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
-
-            druidDataSource.setName(key);
             druidDataSource.setDriverClassName(driveClass);
             druidDataSource.setUrl(url);
             druidDataSource.setUsername(username);
@@ -130,19 +122,15 @@ public class DbConfig extends AbstractRoutingDataSource {
             druidDataSource.init();
 //            Map<Object, Object> dynamicTargetDataSources2 = this.dynamicTargetDataSources;
 //            dynamicTargetDataSources2.put(key, createDataSource);// 加入map
-            this.dynamicTargetDataSources.put(key, druidDataSource);
             // 将map赋值给父类的TargetDataSources
-            setTargetDataSources(this.dynamicTargetDataSources);
 //            setTargetDataSources(dynamicTargetDataSources2);// 将map赋值给父类的TargetDataSources
             // 将TargetDataSources中的连接信息放入resolvedDataSources管理
-            super.afterPropertiesSet();
-            log.info(key+"数据源初始化成功");
-            Db.setDbSource(key,druidDataSource);
+
             // log.info(key+"数据源的概况："+druidDataSource.dump());
-            return true;
+            return druidDataSource;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
     /** 
@@ -153,24 +141,7 @@ public class DbConfig extends AbstractRoutingDataSource {
     * @Date: 2020/5/9 23:42
     */ 
     public boolean delDataSources(String key) {
-        Map<Object, Object> dynamicTargetDataSources = this.dynamicTargetDataSources;
-        if (dynamicTargetDataSources.containsKey(key)) {
-            Set<DruidDataSource> druidDataSourceInstances = DruidDataSourceStatManager.getDruidDataSourceInstances();
-            for (DruidDataSource l : druidDataSourceInstances) {
-                if (key.equals(l.getName())) {
-                    dynamicTargetDataSources.remove(key);
-                    DruidDataSourceStatManager.removeDataSource(l);
-                    // 将map赋值给父类的TargetDataSources
-                    setTargetDataSources(dynamicTargetDataSources);
-                    // 将TargetDataSources中的连接信息放入resolvedDataSources管理
-                    super.afterPropertiesSet();
-                    return true;
-                }
-            }
             return false;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -180,7 +151,7 @@ public class DbConfig extends AbstractRoutingDataSource {
     * @Author: cles
     * @Date: 2020/5/11 23:42
     */
-    public boolean testDatasource(String key, String driveClass, String url, String username, String password) {
+    public boolean testDatasource(String driveClass, String url, String username, String password) {
         try {
             Class.forName(driveClass);
             DriverManager.getConnection(url, username, password);
@@ -188,23 +159,6 @@ public class DbConfig extends AbstractRoutingDataSource {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    /**
-     * Specify the default target DataSource, if any.
-     * <p>
-     * The mapped value can either be a corresponding
-     * {@link javax.sql.DataSource} instance or a data source name String (to be
-     * resolved via a {@link #setDataSourceLookup DataSourceLookup}).
-     * <p>
-     * This DataSource will be used as target if none of the keyed
-     * {@link #setTargetDataSources targetDataSources} match the
-     * {@link #determineCurrentLookupKey()} current lookup key.
-     */
-    @Override
-    public void setDefaultTargetDataSource(Object defaultTargetDataSource) {
-        super.setDefaultTargetDataSource(defaultTargetDataSource);
-        this.dynamicDefaultTargetDataSource = defaultTargetDataSource;
     }
 
     /**
@@ -222,93 +176,65 @@ public class DbConfig extends AbstractRoutingDataSource {
         return debug;
     }
 
-    /**
-     * @return the dynamicTargetDataSources
-     */
-    public Map<Object, Object> getDynamicTargetDataSources() {
-        return dynamicTargetDataSources;
-    }
-
-    /**
-     * @param dynamicTargetDataSources
-     *            the dynamicTargetDataSources to set
-     */
-    public void setDynamicTargetDataSources(Map<Object, Object> dynamicTargetDataSources) {
-        this.dynamicTargetDataSources = dynamicTargetDataSources;
-    }
-
-    /**
-     * @return the dynamicDefaultTargetDataSource
-     */
-    public Object getDynamicDefaultTargetDataSource() {
-        return dynamicDefaultTargetDataSource;
-    }
-
-    /**
-     * @param dynamicDefaultTargetDataSource
-     *            the dynamicDefaultTargetDataSource to set
-     */
-    public void setDynamicDefaultTargetDataSource(Object dynamicDefaultTargetDataSource) {
-        this.dynamicDefaultTargetDataSource = dynamicDefaultTargetDataSource;
-    }
-
     public void createDataSourceWithCheck(String key,DataSource dataSource) throws Exception {
-        String datasourceId = dataSource.getDatasourceId();
+        String datasourceId = dataSource.getId();
         log.info("准备创建数据源"+datasourceId);
-        Map<Object, Object> dynamicTargetDataSources2 = this.dynamicTargetDataSources;
-        if (dynamicTargetDataSources2.containsKey(datasourceId)) {
-            log.info("数据源"+datasourceId+"之前已经创建，准备测试数据源是否正常...");
-            // DataSource druidDataSource = (DataSource) dynamicTargetDataSources2.get(datasourceId);
-            DruidDataSource druidDataSource = (DruidDataSource) dynamicTargetDataSources2.get(datasourceId);
-            boolean rightFlag = true;
-            Connection connection = null;
-            try {
-                log.info(datasourceId+"数据源的概况->当前闲置连接数："+druidDataSource.getPoolingCount());
-                long activeCount = druidDataSource.getActiveCount();
-                log.info(datasourceId+"数据源的概况->当前活动连接数："+activeCount);
-                if(activeCount > 0) {
-                    log.info(datasourceId+"数据源的概况->活跃连接堆栈信息："+druidDataSource.getActiveConnectionStackTrace());
-                }
-                log.info("准备获取数据库连接...");
-                connection = druidDataSource.getConnection();
-                log.info("数据源"+datasourceId+"正常");
-            } catch (Exception e) {
-                //把异常信息打印到日志文件
-                log.error(e.getMessage(),e);
-                rightFlag = false;
-                log.info("缓存数据源"+datasourceId+"已失效，准备删除...");
-                if(delDataSources(datasourceId)) {
-                    log.info("缓存数据源删除成功");
-                } else {
-                    log.info("缓存数据源删除失败");
-                }
-            } finally {
-                if(null != connection) {
-                    connection.close();
-                }
+        log.info("数据源"+datasourceId+"之前已经创建，准备测试数据源是否正常...");
+        // DataSource druidDataSource = (DataSource) dynamicTargetDataSources2.get(datasourceId);
+        DruidDataSource druidDataSource = Db.getDbSource(key);
+        boolean rightFlag = true;
+        Connection connection = null;
+        try {
+            log.info(datasourceId+"数据源的概况->当前闲置连接数："+druidDataSource.getPoolingCount());
+            long activeCount = druidDataSource.getActiveCount();
+            log.info(datasourceId+"数据源的概况->当前活动连接数："+activeCount);
+            if(activeCount > 0) {
+                log.info(datasourceId+"数据源的概况->活跃连接堆栈信息："+druidDataSource.getActiveConnectionStackTrace());
             }
-            if(rightFlag) {
-                log.info("不需要重新创建数据源");
-                return;
+            log.info("准备获取数据库连接...");
+            connection = druidDataSource.getConnection();
+            log.info("数据源"+datasourceId+"正常");
+        } catch (Exception e) {
+            //把异常信息打印到日志文件
+            log.error(e.getMessage(),e);
+            rightFlag = false;
+            log.info("缓存数据源"+datasourceId+"已失效，准备删除...");
+            if(delDataSources(datasourceId)) {
+                log.info("缓存数据源删除成功");
             } else {
-                log.info("准备重新创建数据源...");
-                createDataSource(key,dataSource);
-                log.info("重新创建数据源完成");
+                log.info("缓存数据源删除失败");
             }
+        } finally {
+            if(null != connection) {
+                connection.close();
+            }
+        }
+        if(rightFlag) {
+            log.info("不需要重新创建数据源");
+            return;
         } else {
+            log.info("准备重新创建数据源...");
             createDataSource(key,dataSource);
+            log.info("重新创建数据源完成");
         }
 
     }
 
     private  void createDataSource(String key,DataSource dataSource) throws Exception {
-        String datasourceId = dataSource.getDatasourceId();
+        String datasourceId = dataSource.getId();
         log.info("准备创建数据源"+datasourceId);
-        String databasetype = dataSource.getDatabasetype();
-        String username = dataSource.getUserName();
-        String password = dataSource.getPassWord();
+        String dbType = dataSource.getDbType();
+        String username = dataSource.getUsername();
+        String password = dataSource.getPassword();
 //        password = new String(SecurityTools.decrypt(Base64.decode(password)));
         String url = dataSource.getUrl();
+        if(dbType == null){
+            if(url.startsWith("jdbc:mysql")){
+                dbType = "mysql";
+            }else if(url.startsWith("jdbc:oracle")){
+                dbType = "oracle";
+            }
+        }
         String driveClass = "com.mysql.cj.jdbc.Driver";
 //        if("mysql".equalsIgnoreCase(databasetype)) {
 //            driveClass = DBUtil.mysqldriver;
@@ -319,8 +245,8 @@ public class DbConfig extends AbstractRoutingDataSource {
 //        } else if("sqlserver".equalsIgnoreCase(databasetype)){
 //            driveClass = DBUtil.sql2005driver;
 //        }
-        if(testDatasource(datasourceId,driveClass,url,username,password)) {
-            boolean result = this.createDataSource(key, url, username, password, databasetype);
+        if(testDatasource(driveClass,url,username,password)) {
+            boolean result = this.createDataSource(key, url, username, password, dbType);
             if(!result) {
                 log.error("数据源"+datasourceId+"配置正确，但是创建失败");
 //                throw new ADIException("数据源"+datasourceId+"配置正确，但是创建失败",500);

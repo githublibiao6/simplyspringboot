@@ -89,4 +89,36 @@ public class DbHelper {
         // todo DruidDataSource使用jdbc 连接操作数据
         return list;
     }
+
+    /**
+    * @Description: 删除
+    * @Param: [dataSource, sql]
+    * @return: java.lang.Integer
+    * @Author: cles
+    * @Date: 2020/5/31 20:32
+    */
+    public static Integer update(DruidDataSource dataSource, String sql) {
+        //2. 获得数据库连接
+        DruidPooledConnection conn = DbHelper.getInstance().getConnection(dataSource);
+        //3.操作数据库，实现增删改查
+        Statement stmt = null;
+        List<Record> list = new ArrayList<>();
+        try {
+            stmt = conn.createStatement();
+            int rs = stmt.executeUpdate(sql);
+            //如果有数据，rs.next()返回true
+            if(rs>0) {
+                // 删除成功 提交事务
+                //提交事务
+                conn.commit();
+            }else{
+                // 删除失败 回滚事务
+                conn.rollback();
+            }
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

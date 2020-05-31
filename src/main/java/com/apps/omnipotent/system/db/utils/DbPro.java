@@ -6,6 +6,7 @@ package com.apps.omnipotent.system.db.utils;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
 import com.apps.omnipotent.system.bean.Record;
+import com.apps.omnipotent.system.db.factory.DbMaker;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -20,6 +21,10 @@ import java.util.List;
 public class DbPro {
 
     private static DruidDataSource dataSource;
+    /**
+     * 默认的主键
+     */
+    private static String DEFAULT_PRIMARY_KEY  = "id";
     public DbPro(){
 
     }
@@ -36,5 +41,21 @@ public class DbPro {
             return list.get(0);
         }
         return null;
+    }
+
+    public int  deleteById(String tableName,String primaryKey, String id){
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,primaryKey,id);
+        return DbHelper.update(dataSource,sql);
+    }
+
+    public int  deleteById(String tableName, String id){
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,DEFAULT_PRIMARY_KEY,id);
+        DbHelper.update(dataSource,sql);
+        return 1;
+    }
+
+    public int  delete(String sql){
+        DbHelper.update(dataSource , sql);
+        return 1;
     }
 }
