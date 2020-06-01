@@ -73,7 +73,8 @@ public class DbHelper {
             while(rs.next()){
                 for (int i = 0; i < columnCount; i++) {
                     //通过序号获取列名,起始值为1
-                    String columnName = metaData.getColumnName(i+1);
+//                    String columnName = metaData.getColumnName(i+1);
+                    String columnName = metaData.getColumnLabel(i+1);
                     //通过列名获取值.如果列值为空,columnValue为null,不是字符型
                     String columnValue = rs.getString(columnName);
                     record.setString(columnName,columnValue);

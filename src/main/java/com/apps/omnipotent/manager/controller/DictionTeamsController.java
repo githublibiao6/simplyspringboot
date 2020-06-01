@@ -2,6 +2,7 @@ package com.apps.omnipotent.manager.controller;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.service.DicService;
+import com.apps.omnipotent.manager.service.DictionaryTeamsService;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
@@ -19,21 +20,21 @@ import java.util.List;
  *
  */
 @Controller
-@RequestMapping(value = "/dictionary")
-public class DictController extends GlobalController {
+@RequestMapping(value = "/dictionaryteams")
+public class DictionTeamsController extends GlobalController {
     
     @Autowired
-    private DicService dicService;
+    DicService dicService;
 
     @Autowired
-    MenuServiceImpl dbService;
+    DictionaryTeamsService teamsService;
 
 
     @RequestMapping("/page")
     @ResponseBody
     public Result pageList(PageEntity entity) {
-        PageEntity page = dbService.pagelist(entity);
-        result.setData(page);
+//        PageEntity page = teamsService.pagelist(entity,null);
+        result.setData(null);
         result.setCode(20000);
         return result;
     }
