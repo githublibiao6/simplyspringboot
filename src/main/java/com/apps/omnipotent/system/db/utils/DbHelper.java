@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: 数据库操作
@@ -55,12 +56,12 @@ public class DbHelper {
     * @Author: cles
     * @Date: 2020/5/11 0:15
     */
-    public static List<Record> find(DruidDataSource dataSource, String sql) {
+    public static List<Map> find(DruidDataSource dataSource, String sql) {
         //2. 获得数据库连接
         DruidPooledConnection conn = DbHelper.getInstance().getConnection(dataSource);
         //3.操作数据库，实现增删改查
         Statement stmt = null;
-        List<Record> list = new ArrayList<>();
+        List<Map> list = new ArrayList<>();
         try {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -79,7 +80,7 @@ public class DbHelper {
                     String columnValue = rs.getString(columnName);
                     record.setString(columnName,columnValue);
                 }
-                list.add(record);
+                list.add(record.getMap());
             }
         } catch (SQLException e) {
             e.printStackTrace();

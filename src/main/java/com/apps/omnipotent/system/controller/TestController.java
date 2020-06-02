@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @Description:  刚开始测试用的，没啥用
@@ -69,7 +70,7 @@ public class TestController  extends GlobalController {
                     "mysql","mysql");
             System.err.println(1111);
             System.err.println(flag);
-            List<Record> list = Db.use("test").find("select * from be_admin");
+            List<Map> list = Db.use("test").find("select * from be_admin");
             System.err.println(list.size());
             System.err.println(list.get(0));
         }catch (Exception e){

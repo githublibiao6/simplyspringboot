@@ -34,7 +34,7 @@ public class DictionaryController extends GlobalController {
     @RequestMapping("/list")
     @ResponseBody
     public Result list(PageEntity entity) {
-        List<Record> list = Db.use().find("select t.id, t.name label  from be_dictionary t ");
+        List<Map> list = Db.use().find("select t.id, t.name label  from be_dictionary t ");
         Map root = new HashMap();
         root.put("id",0);
         root.put("label","数据字典");

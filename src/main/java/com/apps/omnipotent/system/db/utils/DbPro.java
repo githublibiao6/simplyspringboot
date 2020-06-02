@@ -11,6 +11,7 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: 数据库操作实体
@@ -32,11 +33,11 @@ public class DbPro {
         DbPro.dataSource = dataSource;
     }
 
-    public  List<Record> find(String sql){
+    public  List<Map> find(String sql){
         return DbHelper.find(dataSource,sql);
     }
-    public Record findFirst(String sql){
-        List<Record> list = find(sql);
+    public Map findFirst(String sql){
+        List<Map> list = find(sql);
         if (list != null && list.size() > 0){
             return list.get(0);
         }
