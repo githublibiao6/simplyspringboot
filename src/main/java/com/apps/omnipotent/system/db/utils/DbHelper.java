@@ -61,10 +61,11 @@ public class DbHelper {
         DruidPooledConnection conn = DbHelper.getInstance().getConnection(dataSource);
         //3.操作数据库，实现增删改查
         Statement stmt = null;
+        ResultSet rs = null;
         List<Map> list = new ArrayList<>();
         try {
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             //如果有数据，rs.next()返回true
             Record record = new Record();
             //获取列集
@@ -85,9 +86,30 @@ public class DbHelper {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }finally {
+            // 关闭记录集
+            if(rs != null){
+                try{
+                    rs.close() ;
+                }catch(SQLException e){
+                    e.printStackTrace() ;
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-
         // todo DruidDataSource使用jdbc 连接操作数据
         return list;
     }
