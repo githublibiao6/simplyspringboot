@@ -115,7 +115,7 @@ public class DbHelper {
     }
 
     /**
-    * @Description: 删除
+    * @Description: 更新/删除
     * @Param: [dataSource, sql]
     * @return: java.lang.Integer
     * @Author: cles
@@ -132,17 +132,17 @@ public class DbHelper {
             int rs = stmt.executeUpdate(sql);
             //如果有数据，rs.next()返回true
             if(rs>0) {
-                // 删除成功 提交事务
+                // 更新/删除成功 提交事务
                 //提交事务
                 conn.commit();
             }else{
-                // 删除失败 回滚事务
+                // 更新/删除失败 回滚事务
                 conn.rollback();
             }
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
     }
 }

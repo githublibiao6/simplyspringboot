@@ -15,11 +15,18 @@ import java.util.List;
  */
 public interface MenuDao {
 
+    /**
+    * @Description: 添加菜单
+    * @Param: [menu]
+    * @return: int
+    * @Author: cles
+    * @Date: 2020/6/3 23:43
+    */
+    int  add(Menu menu);
+
     List<Menu> list();
 
     List<Menu> pageList();
-
-    int  add(Menu menu);
 
     int  update(Menu menu);
 

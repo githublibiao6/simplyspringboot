@@ -1,6 +1,7 @@
 package com.apps.omnipotent.manager.dao;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
+import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.system.bean.Record;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -20,9 +21,9 @@ public interface DicDao {
      * 获取全部dictionary
      * @return
      */
-//    @Select( "select * from be_dictionary m where m.delete_flag='1'")
-    List<Record> listDictionary();
-    
+    @Select( "select * from be_dictionary m where m.delete_flag='1'")
+    List<Dictionary> listDictionary();
+
     /**
      * 根据code查询记录
      * @param code

@@ -1,7 +1,7 @@
 package com.apps.omnipotent.manager.controller;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
-import com.apps.omnipotent.manager.service.DicService;
+import com.apps.omnipotent.manager.service.DictionaryService;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.utils.Db;
@@ -28,12 +28,26 @@ import java.util.Map;
 public class DictionaryController extends GlobalController {
     
     @Autowired
-    private DicService dicService;
+    private DictionaryService dicService;
 
+    @RequestMapping("/add.do")
+    @ResponseBody
+    public Result add(Dictionary m) {
+        boolean flag = dicService.add(m);
+        result.setSuccess(flag);
+        if(flag){
+            result.setMessage("添加成功");
+        }else {
+            result.setMessage("添加失败");
+        }
+        return result;
+    }
 
     @RequestMapping("/list")
     @ResponseBody
     public Result list(PageEntity entity) {
+//        dicService.list();
+        // todo
         List<Map> list = Db.use().find("select t.id, t.name label  from be_dictionary t ");
         Map root = new HashMap();
         root.put("id",0);
