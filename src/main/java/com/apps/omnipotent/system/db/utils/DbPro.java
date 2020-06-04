@@ -7,6 +7,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
 import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.factory.DbMaker;
+import com.apps.omnipotent.system.utils.StringUtil;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -29,6 +30,32 @@ public class DbPro {
     public DbPro(){
 
     }
+    public String getUserName(){
+        return dataSource.getUsername();
+    }
+
+    public String getPassword(){
+        return dataSource.getPassword();
+    }
+
+    public String getDbType(){
+        return dataSource.getDbType();
+    }
+
+    public String getTableSchema(){
+        if("oracle".equals(getDbType())){
+            return getUserName();
+        }else if("mysql".equals(getDbType())){
+            Map  m =  findFirst("select database() table_schema");
+            if(m != null && m.get("table_schema") != null && StringUtil.notBlank(m.get("table_schema").toString())){
+                return m.get("table_schema").toString();
+            }else {
+                return "";
+            }
+        }
+        return "";
+    }
+
     public DbPro(DruidDataSource dataSource){
         DbPro.dataSource = dataSource;
     }

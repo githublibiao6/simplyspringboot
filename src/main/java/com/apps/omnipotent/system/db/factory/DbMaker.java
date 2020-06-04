@@ -20,6 +20,10 @@ public class DbMaker {
         return getDbFactory(dbType).getSqlMaker();
     }
 
+    public static TableInfo getDbTableInfor(String dbType){
+        return getDbFactory(dbType).getTableInfo();
+    }
+
     private static DbFactory getDbFactory(String dbType){
         DbFactory factory;
         if(MYSQL.equals(dbType)){

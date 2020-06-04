@@ -48,6 +48,17 @@ public class StringUtil {
         return count;
     }
 
+    public static boolean isBlank(String str) {
+        if(str == null || "".equals(str)){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean notBlank(String str) {
+        return !isBlank(str);
+    }
+
 
     public static void main(String[] args) {
 

@@ -1,7 +1,7 @@
 package com.apps.omnipotent.manager.controller;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
-import com.apps.omnipotent.manager.service.DicService;
+import com.apps.omnipotent.manager.service.DictionaryService;
 import com.apps.omnipotent.manager.service.DictionaryTeamsService;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.global.controller.GlobalController;
@@ -24,7 +24,7 @@ import java.util.List;
 public class DictionTeamsController extends GlobalController {
     
     @Autowired
-    DicService dicService;
+    DictionaryService dicService;
 
     @Autowired
     DictionaryTeamsService teamsService;

@@ -5,7 +5,6 @@ package com.apps.omnopotent;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.dao.DicDao;
-import com.apps.omnipotent.manager.service.DicService;
 import com.apps.omnipotent.system.bean.Record;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class JunitTest extends TestMall{
         Dictionary d = new Dictionary();
         d.setCode("code");
         d.delete();
-        List<Record> list = dao.listDictionary();
+        List<Dictionary> list = dao.listDictionary();
         list.forEach(t->{
             System.err.println(t);
         });
