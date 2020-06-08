@@ -5,6 +5,8 @@ package com.apps.omnipotent.system.db.bean;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @description: 表信息
  * @author cles
@@ -12,4 +14,8 @@ import lombok.Data;
  */
 @Data
 public class TableInfo {
+    private String tableName;
+    private String tableComment;
+    private List<TableFieldInfo> fields;
+    private String[] pks;
 }

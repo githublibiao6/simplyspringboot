@@ -50,10 +50,10 @@ public class DbPro {
             if(m != null && m.get("table_schema") != null && StringUtil.notBlank(m.get("table_schema").toString())){
                 return m.get("table_schema").toString();
             }else {
-                return "";
+                return null;
             }
         }
-        return "";
+        return null;
     }
 
     public DbPro(DruidDataSource dataSource){

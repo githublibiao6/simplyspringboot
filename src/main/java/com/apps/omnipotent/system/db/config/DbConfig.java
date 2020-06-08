@@ -220,7 +220,7 @@ public class DbConfig {
 
     }
 
-    private  void createDataSource(String key,DataSource dataSource) throws Exception {
+    private  void createDataSource(String key,DataSource dataSource) {
         String datasourceId = dataSource.getId();
         log.info("准备创建数据源"+datasourceId);
         String dbType = dataSource.getDbType();

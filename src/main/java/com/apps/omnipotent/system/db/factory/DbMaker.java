@@ -3,6 +3,7 @@ package com.apps.omnipotent.system.db.factory;
  * Created by cles on 2020/5/31 21:52
  */
 
+import com.apps.omnipotent.system.core.DbTableInfo;
 import com.apps.omnipotent.system.db.factory.impl.MysqlFactory;
 import com.apps.omnipotent.system.db.factory.impl.OracleFactory;
 
@@ -20,7 +21,7 @@ public class DbMaker {
         return getDbFactory(dbType).getSqlMaker();
     }
 
-    public static TableInfo getDbTableInfor(String dbType){
+    public static DbTableInfo getDbTableInfor(String dbType){
         return getDbFactory(dbType).getTableInfo();
     }
 

@@ -52,7 +52,7 @@ public class StringUtil {
         if(str == null || "".equals(str)){
             return true;
         }
-        return false;
+        return "".equals(str.trim());
     }
 
     public static boolean notBlank(String str) {

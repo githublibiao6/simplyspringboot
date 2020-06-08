@@ -20,8 +20,8 @@ import java.util.List;
  *
  */
 @Controller
-@RequestMapping(value = "/dictionaryteams")
-public class DictionTeamsController extends GlobalController {
+@RequestMapping(value = "dictionaryteams")
+public class DictionaryTeamsController extends GlobalController {
     
     @Autowired
     DictionaryService dicService;

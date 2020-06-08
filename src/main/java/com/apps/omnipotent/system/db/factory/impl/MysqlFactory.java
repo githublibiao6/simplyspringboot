@@ -7,7 +7,6 @@ import com.apps.omnipotent.system.core.DbTableInfo;
 import com.apps.omnipotent.system.core.impl.MysqlTableInfo;
 import com.apps.omnipotent.system.db.factory.DbFactory;
 import com.apps.omnipotent.system.db.factory.SqlMaker;
-import com.apps.omnipotent.system.db.factory.TableInfo;
 import com.apps.omnipotent.system.db.utils.Db;
 
 /**
