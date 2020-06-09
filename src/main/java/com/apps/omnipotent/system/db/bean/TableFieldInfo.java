@@ -17,4 +17,5 @@ public class TableFieldInfo {
     private String colType;
     private String colLength;
     private boolean pk;
+
 }

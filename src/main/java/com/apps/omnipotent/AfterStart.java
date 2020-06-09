@@ -4,6 +4,7 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
+import com.apps.omnipotent.system.db.config.MainDb;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -31,11 +32,14 @@ public class AfterStart implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("启动后执行");
+        /*将菜单缓存进redis*/
         List<Role> list= roleService.list();
         list.forEach(role->{
             String code = role.getCode();
             List<Menu> menuList = menuService.queryByRoleId(code);
 //            JedisUtil.setList("role"+code,menuList);
         });
+        /* 将主数据源的表缓存 */
+        MainDb.init();
     }
 }

@@ -21,7 +21,7 @@ public class DbMaker {
         return getDbFactory(dbType).getSqlMaker();
     }
 
-    public static DbTableInfo getDbTableInfor(String dbType){
+    public static DbTableInfo getDbTableInfo(String dbType){
         return getDbFactory(dbType).getTableInfo();
     }
 

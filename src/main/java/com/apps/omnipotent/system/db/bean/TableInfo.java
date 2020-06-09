@@ -17,5 +17,5 @@ public class TableInfo {
     private String tableName;
     private String tableComment;
     private List<TableFieldInfo> fields;
-    private String[] pks;
+    private List<String> pks;
 }
