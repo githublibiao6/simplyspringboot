@@ -67,12 +67,13 @@ public class DbHelper {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
             //如果有数据，rs.next()返回true
-            Record record = new Record();
+
             //获取列集
             ResultSetMetaData metaData = rs.getMetaData();
             //获取列的数量
             int columnCount = metaData.getColumnCount();
             while(rs.next()){
+                Record record = new Record();
                 for (int i = 0; i < columnCount; i++) {
                     //通过序号获取列名,起始值为1
 //                    String columnName = metaData.getColumnName(i+1);

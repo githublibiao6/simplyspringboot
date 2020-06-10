@@ -7,7 +7,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.apps.omnipotent.system.core.DbTableInfo;
 import com.apps.omnipotent.system.db.bean.TableFieldInfo;
 import com.apps.omnipotent.system.db.bean.TableInfo;
-import com.apps.omnipotent.system.db.factory.DbFactory;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.db.utils.Db;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,7 +28,6 @@ import java.util.Map;
 public class MainDb {
 
     private static Map<String , TableInfo> map = new HashMap<>();
-
     private String url;
     private String username;
     private String password;
@@ -120,5 +118,9 @@ public class MainDb {
     */
     public static TableInfo getTableInfo(String tableName){
         return map.get(tableName);
+    }
+
+    public static Map<String, TableInfo> getTableMap(){
+        return map;
     }
 }

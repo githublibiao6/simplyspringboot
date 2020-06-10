@@ -18,7 +18,6 @@ public class MysqlTableInfo implements DbTableInfo {
     @Override
     public List<Map> listTable() {
         String tableSchema = Db.use().getTableSchema();
-        System.err.println(123);
         return Db.use().find("select table_name from information_schema.tables where table_schema='"+tableSchema+"'");
     }
 

@@ -15,18 +15,17 @@ public interface DbTableInfo {
 
     /**
     * @Description: 获取所有的表
-    * @Param: []
-    * @return: java.util.List<java.util.Map>
     * @Author: cles
-    * @Date: 2020/6/4 23:05
-    */
+     * @Date: 2020/6/4 23:05
+     * @return: java.util.List<java.util.Map>
+     */
     List<Map> listTable();
     /**
     * @Description: 获取所有的字段
     * @Param: []
     * @return: java.util.List<java.util.Map>
     * @Author: cles
-    * @Date: 2020/6/4 23:05
+    * @Date: 2020/6/10 21:22
     */
     List<Map> listTableColumns();
 }

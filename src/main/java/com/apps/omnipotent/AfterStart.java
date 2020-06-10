@@ -4,6 +4,7 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
+import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.config.MainDb;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+
 /**
 * @Description:  加载后执行
 * @Author: cles
@@ -41,5 +44,10 @@ public class AfterStart implements ApplicationRunner {
         });
         /* 将主数据源的表缓存 */
         MainDb.init();
+        Map<String, TableInfo> map = MainDb.getTableMap();
+        System.err.println(map.size());
+        map.forEach((k,v)->{
+            System.err.println(k);
+        });
     }
 }
