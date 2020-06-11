@@ -3,6 +3,8 @@ package com.apps.omnipotent.system.bean;
  * Created by cles on 2020/5/10 23:24
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,12 +24,12 @@ public class Record  implements Serializable {
         this.map = map;
     }
 
-    public Map<String , Object> getMap(){
+    public Map<String , Object> getColumns(){
         return this.map;
     }
 
     public String getString(String column){
-        Object o = map.get(column);
+        Object o = this.map.get(column);
         if(o == null){
             return null;
         }
@@ -40,6 +42,12 @@ public class Record  implements Serializable {
 
     @Override
     public String toString(){
+        System.err.println(map.toString());
+        return map.toString();
+    }
+
+    public String toJson(){
+        System.err.println(map.toString());
         return map.toString();
     }
 }

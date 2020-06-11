@@ -82,7 +82,66 @@ public class DbHelper {
                     String columnValue = rs.getString(columnName);
                     record.setString(columnName,columnValue);
                 }
-                list.add(record.getMap());
+                list.add(record.getColumns());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }finally {
+            // 关闭记录集
+            if(rs != null){
+                try{
+                    rs.close() ;
+                }catch(SQLException e){
+                    e.printStackTrace() ;
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(stmt != null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        // todo DruidDataSource使用jdbc 连接操作数据
+        return list;
+    }
+
+    public static List<Record> findRecord(DruidDataSource dataSource, String sql) {
+        //2. 获得数据库连接
+        DruidPooledConnection conn = DbHelper.getInstance().getConnection(dataSource);
+        //3.操作数据库，实现增删改查
+        Statement stmt = null;
+        ResultSet rs = null;
+        List<Record> list = new ArrayList<>();
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            //如果有数据，rs.next()返回true
+
+            //获取列集
+            ResultSetMetaData metaData = rs.getMetaData();
+            //获取列的数量
+            int columnCount = metaData.getColumnCount();
+            while(rs.next()){
+                Record record = new Record();
+                for (int i = 0; i < columnCount; i++) {
+                    //通过序号获取列名,起始值为1
+//                    String columnName = metaData.getColumnName(i+1);
+                    String columnName = metaData.getColumnLabel(i+1);
+                    //通过列名获取值.如果列值为空,columnValue为null,不是字符型
+                    String columnValue = rs.getString(columnName);
+                    record.setString(columnName,columnValue);
+                }
+                list.add(record);
             }
         } catch (SQLException e) {
             e.printStackTrace();

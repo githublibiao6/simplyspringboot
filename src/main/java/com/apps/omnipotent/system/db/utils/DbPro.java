@@ -4,13 +4,11 @@ package com.apps.omnipotent.system.db.utils;
  */
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.DruidPooledConnection;
 import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.utils.StringUtil;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +60,10 @@ public class DbPro {
 
     public  List<Map> find(String sql){
         return DbHelper.find(dataSource,sql);
+    }
+
+    public List<Record> findRecord(String sql){
+        return DbHelper.findRecord(dataSource,sql);
     }
     public Map findFirst(String sql){
         List<Map> list = find(sql);

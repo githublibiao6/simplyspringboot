@@ -4,8 +4,10 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
+import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.config.MainDb;
+import com.apps.omnipotent.system.db.utils.Db;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -45,6 +47,8 @@ public class AfterStart implements ApplicationRunner {
         /* 将主数据源的表缓存 */
         MainDb.init();
         Map<String, TableInfo> map = MainDb.getTableMap();
+        List<Record> t = Db.use().findRecord("select * from be_admin");
+        System.err.println(t);
         System.err.println(map.size());
         map.forEach((k,v)->{
             System.err.println(k);
