@@ -5,6 +5,7 @@ package com.apps.omnipotent.system.db.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.system.bean.Record;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +39,7 @@ public class DbHelper {
         return instance;
     }
 
-    public DruidPooledConnection getConnection(DruidDataSource dataSource) {
+    private DruidPooledConnection getConnection(DruidDataSource dataSource) {
         DruidPooledConnection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -76,7 +77,6 @@ public class DbHelper {
                 Record record = new Record();
                 for (int i = 0; i < columnCount; i++) {
                     //通过序号获取列名,起始值为1
-//                    String columnName = metaData.getColumnName(i+1);
                     String columnName = metaData.getColumnLabel(i+1);
                     //通过列名获取值.如果列值为空,columnValue为null,不是字符型
                     String columnValue = rs.getString(columnName);
@@ -89,39 +89,19 @@ public class DbHelper {
             return null;
         }finally {
             // 关闭记录集
-            if(rs != null){
-                try{
-                    rs.close() ;
-                }catch(SQLException e){
-                    e.printStackTrace() ;
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            closeConnection(rs, conn, stmt);
         }
         // todo DruidDataSource使用jdbc 连接操作数据
         return list;
     }
 
-    public static List<Record> findRecord(DruidDataSource dataSource, String sql) {
+    public static List<JSONObject> findList(DruidDataSource dataSource, String sql) {
         //2. 获得数据库连接
         DruidPooledConnection conn = DbHelper.getInstance().getConnection(dataSource);
         //3.操作数据库，实现增删改查
         Statement stmt = null;
         ResultSet rs = null;
-        List<Record> list = new ArrayList<>();
+        List<JSONObject> list = new ArrayList<>();
         try {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
@@ -132,46 +112,55 @@ public class DbHelper {
             //获取列的数量
             int columnCount = metaData.getColumnCount();
             while(rs.next()){
-                Record record = new Record();
+                JSONObject obj = new JSONObject();
                 for (int i = 0; i < columnCount; i++) {
                     //通过序号获取列名,起始值为1
-//                    String columnName = metaData.getColumnName(i+1);
                     String columnName = metaData.getColumnLabel(i+1);
                     //通过列名获取值.如果列值为空,columnValue为null,不是字符型
                     String columnValue = rs.getString(columnName);
-                    record.setString(columnName,columnValue);
+                    obj.put(columnName,columnValue);
                 }
-                list.add(record);
+                list.add(obj);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }finally {
             // 关闭记录集
-            if(rs != null){
-                try{
-                    rs.close() ;
-                }catch(SQLException e){
-                    e.printStackTrace() ;
-                }
-            }
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(stmt != null){
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            closeConnection(rs, conn, stmt);
+        }
+        return list;
+    }
+
+    /**
+    * @Description: 关闭数据库连接等操作
+    * @Param: [rs, conn, stmt]
+    * @return: void
+    * @Author: cles
+    * @Date: 2020/6/11 22:33
+    */
+    private static void closeConnection(ResultSet rs, DruidPooledConnection conn, Statement stmt){
+        if(rs != null){
+            try{
+                rs.close() ;
+            }catch(SQLException e){
+                e.printStackTrace() ;
             }
         }
-        // todo DruidDataSource使用jdbc 连接操作数据
-        return list;
+        if(conn != null){
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(stmt != null){
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

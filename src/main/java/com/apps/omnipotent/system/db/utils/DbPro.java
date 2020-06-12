@@ -4,6 +4,7 @@ package com.apps.omnipotent.system.db.utils;
  */
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.utils.StringUtil;
@@ -62,8 +63,8 @@ public class DbPro {
         return DbHelper.find(dataSource,sql);
     }
 
-    public List<Record> findRecord(String sql){
-        return DbHelper.findRecord(dataSource,sql);
+    public List<JSONObject> findList(String sql){
+        return DbHelper.findList(dataSource,sql);
     }
     public Map findFirst(String sql){
         List<Map> list = find(sql);

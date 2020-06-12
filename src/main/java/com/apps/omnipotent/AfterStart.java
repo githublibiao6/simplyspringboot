@@ -1,5 +1,6 @@
 package com.apps.omnipotent;
 
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.manager.bean.Role;
@@ -47,7 +48,7 @@ public class AfterStart implements ApplicationRunner {
         /* 将主数据源的表缓存 */
         MainDb.init();
         Map<String, TableInfo> map = MainDb.getTableMap();
-        List<Record> t = Db.use().findRecord("select * from be_admin");
+        List<JSONObject> t = Db.use().findList("select * from be_admin");
         System.err.println(t);
         System.err.println(map.size());
         map.forEach((k,v)->{

@@ -37,7 +37,7 @@ public class Record  implements Serializable {
     }
 
     public void setString(String column, Object value){
-        map.put(column,value);
+        this.map.put(column,value);
     }
 
     @Override
