@@ -6,6 +6,8 @@ package com.apps.omnipotent.system.db.utils;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.system.bean.Record;
+import com.apps.omnipotent.system.db.bean.TableInfo;
+import com.apps.omnipotent.system.db.config.MainDb;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.utils.StringUtil;
 import lombok.Data;
@@ -79,14 +81,30 @@ public class DbPro {
         return DbHelper.update(dataSource,sql);
     }
 
+    /**
+    * @Description: 根据id删除
+    * @Param: [tableName, id]
+    * @return: int
+    * @Author: cles
+    * @Date: 2020/6/14 23:25
+    */
     public int  deleteById(String tableName, String id){
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,DEFAULT_PRIMARY_KEY,id);
-        DbHelper.update(dataSource,sql);
-        return 1;
+        TableInfo table = MainDb.getTableInfo(tableName);
+        List<String> pks = table.getPks();
+        String sql;
+        if(pks == null || pks.size() == 0){
+            throw new RuntimeException(this.getClass()+"has no primary key");
+        }else {
+            sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,pks.get(0),id);
+        }
+        return  DbHelper.update(dataSource,sql);
     }
 
     public int  delete(String sql){
         DbHelper.update(dataSource , sql);
         return 1;
+    }
+
+    public void save(String tableName) {
     }
 }

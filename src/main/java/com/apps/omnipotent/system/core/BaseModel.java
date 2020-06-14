@@ -8,6 +8,7 @@ import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.exception.MyException;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @description: 尝试
@@ -31,7 +32,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
         /**
          * 根据类获取注解信息
          */
-        Db.use().deleteById(tableName,null);
+        Db.use().save(tableName);
         return true;
     }
 
@@ -67,6 +68,15 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
         return true;
     }
 
+    public boolean deleteById(String id){
+        String tableName = getTableName();
+        /**
+         * 根据类获取注解信息
+         */
+        int delete = Db.use().deleteById(tableName, id);
+        return delete > 0;
+    }
+
     public boolean update(){
         String tableName = getTableName();
         /**
@@ -90,14 +100,27 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
     */
     private String getTableName(){
         String tableName = "";
-        boolean tableAnnoExits = this.getClass().isAnnotationPresent(Table.class);
-        if(tableAnnoExits){
+        boolean tableAnnExits = this.getClass().isAnnotationPresent(Table.class);
+        if(tableAnnExits){
             Table table = this.getClass().getAnnotation(Table.class);
             tableName = table.value();
         }else {
             throw new RuntimeException(this.getClass()+"has not bind table");
         }
         return tableName;
+    }
+
+    //todo 获取字典映射关系
+    private List<String> getTablefield(){
+        String tableName = "";
+        boolean tableAnnExits = this.getClass().isAnnotationPresent(Table.class);
+        if(tableAnnExits){
+            Table table = this.getClass().getAnnotation(Table.class);
+            tableName = table.value();
+        }else {
+            throw new RuntimeException(this.getClass()+"has not bind table");
+        }
+        return null;
     }
 
 
