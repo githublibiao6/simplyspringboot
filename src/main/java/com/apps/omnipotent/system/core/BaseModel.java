@@ -3,11 +3,15 @@ package com.apps.omnipotent.system.core;
  * Created by cles on 2020/5/31 12:12
  */
 
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.exception.MyException;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,8 +115,29 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
     }
 
     //todo 获取字典映射关系
-    private List<String> getTablefield(){
+    private List<JSONObject> getTablefield(){
         String tableName = "";
+        Class<? extends BaseModel> clazz = this.getClass();
+        Field[] fields = clazz.getFields();
+        for (Field field : fields){
+            String column = field.getName();
+            JSONObject obj = new JSONObject();
+            obj.put("entity_field", column);
+            Type type = field.getGenericType();
+            if (int.class.equals(type)) {
+                obj.put("field_type","int");
+            }else if(String.class.equals(type)){
+                obj.put("field_type","String");
+            }else if(Date.class.equals(type)){
+                obj.put("field_type","Date");
+            }
+            boolean tableFieldExists = field.isAnnotationPresent(TableField.class);
+            if(tableFieldExists){
+                TableField tableField = field.getDeclaredAnnotation(TableField.class);
+                column = tableField.value();
+                obj.put("table_field", column);
+            }
+        }
         boolean tableAnnExits = this.getClass().isAnnotationPresent(Table.class);
         if(tableAnnExits){
             Table table = this.getClass().getAnnotation(Table.class);

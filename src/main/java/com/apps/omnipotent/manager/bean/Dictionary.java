@@ -2,7 +2,9 @@ package com.apps.omnipotent.manager.bean;
 
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
+import com.apps.omnipotent.system.core.TableField;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Dictionary extends BaseModel<Dictionary> {
     /**
      * 主键
      */
+    @TableField("id")
     private String id;
     /**
     * 编码
