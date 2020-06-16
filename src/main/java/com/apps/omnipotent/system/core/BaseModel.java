@@ -8,9 +8,14 @@ import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.exception.MyException;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,10 +38,11 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
         // todo
         Object obj = new Object[0];
         String tableName = getTableName();
-        /**
-         * 根据类获取注解信息
+        List<JSONObject> list =  getTableField();
+        /*
+          根据类获取注解信息
          */
-        Db.use().save(tableName);
+        Db.use().save(tableName,list);
         return true;
     }
 
@@ -115,8 +121,9 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
     }
 
     //todo 获取字典映射关系
-    private List<JSONObject> getTablefield(){
-        String tableName = "";
+    private List<JSONObject> getTableField()  {
+        List<JSONObject> list = new ArrayList<>();
+        String tableName = getTableName();
         Class<? extends BaseModel> clazz = this.getClass();
         Field[] fields = clazz.getFields();
         for (Field field : fields){
@@ -131,21 +138,34 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
             }else if(Date.class.equals(type)){
                 obj.put("field_type","Date");
             }
+
+            PropertyDescriptor pd = null;
+            try {
+                pd = new PropertyDescriptor(field.getName(), clazz);
+            } catch (IntrospectionException e) {
+                e.printStackTrace();
+                return null;
+            }
+            Method getMethod = pd.getReadMethod();
+            //执行get方法返回一个Object
+            Object value= null;
+            try {
+                value = getMethod.invoke(clazz);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            obj.put("field_value", value);
+            obj.put("table_name", tableName);
+            obj.put("entity_name", clazz.getName());
             boolean tableFieldExists = field.isAnnotationPresent(TableField.class);
             if(tableFieldExists){
                 TableField tableField = field.getDeclaredAnnotation(TableField.class);
                 column = tableField.value();
                 obj.put("table_field", column);
             }
+            list.add(obj);
         }
-        boolean tableAnnExits = this.getClass().isAnnotationPresent(Table.class);
-        if(tableAnnExits){
-            Table table = this.getClass().getAnnotation(Table.class);
-            tableName = table.value();
-        }else {
-            throw new RuntimeException(this.getClass()+"has not bind table");
-        }
-        return null;
+        return list;
     }
 
 

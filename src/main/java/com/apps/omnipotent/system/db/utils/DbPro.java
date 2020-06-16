@@ -89,15 +89,8 @@ public class DbPro {
     * @Date: 2020/6/14 23:25
     */
     public int  deleteById(String tableName, String id){
-        TableInfo table = MainDb.getTableInfo(tableName);
-        List<String> pks = table.getPks();
-        String sql;
-        if(pks == null || pks.size() == 0){
-            throw new RuntimeException(this.getClass()+"has no primary key");
-        }else {
-            sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,pks.get(0),id);
-        }
-        return  DbHelper.update(dataSource,sql);
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,getPrimaryKey(tableName).get(0),id);
+        return DbHelper.update(dataSource, sql);
     }
 
     public int  delete(String sql){
@@ -105,6 +98,26 @@ public class DbPro {
         return 1;
     }
 
-    public void save(String tableName) {
+    public String save(String tableName, List<JSONObject> list) {
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName,getPrimaryKey(tableName).get(0),list);
+        int n = DbHelper.save(dataSource,sql);
+        return "";
+    }
+
+    /**
+    * @Description: 获取主键
+    * @Param: [tableName]
+    * @return: java.util.List<java.lang.String>
+    * @Author: cles
+    * @Date: 2020/6/16 23:31
+    */
+    private List<String> getPrimaryKey(String tableName){
+        TableInfo table = MainDb.getTableInfo(tableName);
+        List<String> pks = table.getPks();
+        if(pks == null || pks.size() == 0){
+            throw new RuntimeException(this.getClass()+"has no primary key");
+        }else {
+            return pks;
+        }
     }
 }
