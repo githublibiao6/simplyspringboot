@@ -5,7 +5,6 @@ package com.apps.omnipotent.system.db.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSONObject;
-import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.config.MainDb;
 import com.apps.omnipotent.system.db.factory.DbMaker;
@@ -99,9 +98,14 @@ public class DbPro {
     }
 
     public String save(String tableName, List<JSONObject> list) {
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName,getPrimaryKey(tableName).get(0),list);
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName,getPrimaryKey(tableName).get(0) , list);
         int n = DbHelper.save(dataSource,sql);
         return "";
+    }
+
+    public int update(String tableName, List<JSONObject> list) {
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).updateSql(tableName, getPrimaryKey(tableName).get(0),list);
+        return DbHelper.update(dataSource,sql);
     }
 
     /**

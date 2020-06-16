@@ -19,15 +19,20 @@ public abstract class SqlMaker {
     }
 
     /**
-    * @Description: 保存实体类的sql语句
-     * @Param: [tableName, list]
-    * @return: java.lang.String
-    * @Author: cles
-    * @Date: 2020/6/16 23:03
-    */
-    public  String saveSql(String tableName,String primaryKey, List<JSONObject> list) {
-//        INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
-        StringBuilder sql = new StringBuilder("INSERT INTO "+tableName);
-        return sql.toString();
-    }
+     * 保存实体类的sql语句
+     * @param tableName
+     * @param primaryKey
+     * @param list
+     * @return
+     */
+    public abstract String saveSql(String tableName,String primaryKey, List<JSONObject> list);
+
+    /**
+     * 保存实体类的sql语句
+     * @param tableName
+     * @param primaryKey
+     * @param list
+     * @return
+     */
+    public abstract String updateSql(String tableName,String primaryKey, List<JSONObject> list);
 }
