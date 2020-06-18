@@ -16,20 +16,25 @@ import java.util.List;
  */
 public interface DictionaryService {
     /**
-    * @Description: 获取全部字典
-    * @Param: []
-    * @return: java.util.List<com.apps.omnipotent.manager.bean.Dictionary>
-    * @Author: cles
-    * @Date: 2020/5/13 23:28
-    */
+     * 功能描述：
+     *  <获取全部字典>
+     * @Description: list
+     * @Author: cles
+     * @Date: 2020/6/18 0:32
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.Dictionary>
+     * @version: 1.0.0
+     */
     List<Dictionary> list();
 
     /**
-    * @Description: 添加字典
-    * @Param: [m]
-    * @return: boolean
-    * @Author: cles
-    * @Date: 2020/6/3 23:43
-    */
+     * 功能描述：
+     *  <添加字典>
+     * @Description: add
+     * @Author: cles
+     * @Date: 2020/6/18 0:32
+     * @param m 参数1
+     * @return: boolean
+     * @version: 1.0.0
+     */
     boolean add(Dictionary m);
 }

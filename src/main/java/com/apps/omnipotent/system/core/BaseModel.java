@@ -36,29 +36,12 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
     */
     public boolean save(){
         // todo
-        Object obj = new Object[0];
         String tableName = getTableName();
         List<JSONObject> list =  getTableField();
         /*
           根据类获取注解信息
          */
         Db.use().save(tableName,list);
-        return true;
-    }
-
-    /**
-    * @Description: 不加主键的保存
-    * @Param: []
-    * @return: boolean
-    * @Author: cles
-    * @Date: 2020/6/3 23:58
-    */
-    public boolean save2(){
-        String tableName = getTableName();
-        /**
-         * 根据类获取注解信息
-         */
-        Db.use().deleteById(tableName,null);
         return true;
     }
 
@@ -125,7 +108,8 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
         List<JSONObject> list = new ArrayList<>();
         String tableName = getTableName();
         Class<? extends BaseModel> clazz = this.getClass();
-        Field[] fields = clazz.getFields();
+        Field[] fields = clazz.getDeclaredFields();
+        System.err.println(fields.length);
         for (Field field : fields){
             String column = field.getName();
             JSONObject obj = new JSONObject();
@@ -138,31 +122,30 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
             }else if(Date.class.equals(type)){
                 obj.put("field_type","Date");
             }
+            /*field.setAccessible(true);
+            try {
+                System.err.println(field.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            field.setAccessible(false);*/
 
-            PropertyDescriptor pd = null;
             try {
-                pd = new PropertyDescriptor(field.getName(), clazz);
-            } catch (IntrospectionException e) {
-                e.printStackTrace();
-                return null;
-            }
-            Method getMethod = pd.getReadMethod();
-            //执行get方法返回一个Object
-            Object value= null;
-            try {
-                value = getMethod.invoke(clazz);
-            } catch (IllegalAccessException | InvocationTargetException e) {
+                PropertyDescriptor pd = new PropertyDescriptor(field.getName(), clazz);
+                Method getMethod = pd.getReadMethod();
+                Object value = getMethod.invoke(this);
+                obj.put("field_value", value);
+            } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
-            obj.put("field_value", value);
             obj.put("table_name", tableName);
             obj.put("entity_name", clazz.getName());
             boolean tableFieldExists = field.isAnnotationPresent(TableField.class);
             if(tableFieldExists){
                 TableField tableField = field.getDeclaredAnnotation(TableField.class);
                 column = tableField.value();
-                obj.put("table_field", column);
             }
+            obj.put("table_field", column);
             list.add(obj);
         }
         return list;

@@ -10,6 +10,7 @@ import com.apps.omnipotent.system.db.config.MainDb;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.utils.StringUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @author cles
  * @Date 2020/5/10 22:53
  */
+@Slf4j
 @Data
 public class DbPro {
 
@@ -99,6 +101,8 @@ public class DbPro {
 
     public String save(String tableName, List<JSONObject> list) {
         String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName,getPrimaryKey(tableName).get(0) , list);
+        log.info(sql);
+        System.err.println(sql);
         int n = DbHelper.save(dataSource,sql);
         return "";
     }

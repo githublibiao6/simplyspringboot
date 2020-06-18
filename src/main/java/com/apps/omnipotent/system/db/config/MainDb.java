@@ -9,6 +9,7 @@ import com.apps.omnipotent.system.db.bean.TableFieldInfo;
 import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.db.utils.Db;
+import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,12 +53,14 @@ public class MainDb {
     }
 
     /**
-    * @Description: 初始化主数据源的表
-    * @Param: []
-    * @return: void
-    * @Author: cles
-    * @Date: 2020/6/9 23:32
-    */
+     * 功能描述：
+     *  < 初始化主数据源的表 >
+     * @Description: init
+     * @Author: cles
+     * @Date: 2020/6/18 22:37
+     * @return: void
+     * @version: 1.0.0
+     */
     public static void init(){
         DbTableInfo dbTableInfo = DbMaker.getDbTableInfo(Db.use().getDbType());
         List<Map> tables = dbTableInfo.listTable();
@@ -84,12 +87,15 @@ public class MainDb {
     }
 
     /**
-    * @Description: 将字段map转为字段实体
-    * @Param: [map]
-    * @return: com.apps.omnipotent.system.db.bean.TableFieldInfo
-    * @Author: cles
-    * @Date: 2020/6/9 23:32
-    */
+     * 功能描述：
+     *  < 将字段map转为字段实体>
+     * @Description: convertField
+     * @Author: cles
+     * @Date: 2020/6/18 22:39
+     * @param map 参数1
+     * @return: com.apps.omnipotent.system.db.bean.TableFieldInfo
+     * @version: 1.0.0
+     */
     private static TableFieldInfo convertField(Map map){
         TableFieldInfo field = new TableFieldInfo();
         if(map.get("column_name") != null){
@@ -102,10 +108,9 @@ public class MainDb {
             field.setColLength(map.get("col_length").toString());
         }
         field.setPk(false);
-        if(map.get("pk") != null){
+        if(map.get("pk") != null && StringUtil.notBlank(map.get("pk").toString())){
             field.setPk(true);
         }
-        field.setColumnName("");
         return field;
     }
 
