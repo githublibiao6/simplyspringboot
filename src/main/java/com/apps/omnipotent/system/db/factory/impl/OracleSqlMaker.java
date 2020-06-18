@@ -4,7 +4,7 @@ package com.apps.omnipotent.system.db.factory.impl;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.apps.omnipotent.system.db.factory.SqlMaker;
+import com.apps.omnipotent.system.db.factory.BaseSqlMaker;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author cles
  * @Date 2020/5/31 21:42
  */
-public class OracleSqlMaker extends SqlMaker {
+public class OracleSqlMaker extends BaseSqlMaker {
 
     @Override
     public String saveSql(String tableName, String primaryKey, List<JSONObject> list) {

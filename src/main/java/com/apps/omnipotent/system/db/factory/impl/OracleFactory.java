@@ -7,7 +7,7 @@ import com.apps.omnipotent.system.core.DbTableInfo;
 import com.apps.omnipotent.system.core.impl.MysqlTableInfo;
 import com.apps.omnipotent.system.core.impl.OracleTableInfo;
 import com.apps.omnipotent.system.db.factory.DbFactory;
-import com.apps.omnipotent.system.db.factory.SqlMaker;
+import com.apps.omnipotent.system.db.factory.BaseSqlMaker;
 
 /**
  * @description: sql语句生成工厂
@@ -17,7 +17,7 @@ import com.apps.omnipotent.system.db.factory.SqlMaker;
 public class OracleFactory implements DbFactory {
 
     @Override
-    public SqlMaker getSqlMaker() {
+    public BaseSqlMaker getSqlMaker() {
         return new OracleSqlMaker();
     }
 

@@ -17,7 +17,7 @@ public class DbMaker {
     private static final String MYSQL = "mysql";
     private static final String ORACLE = "oracle";
 
-    public static SqlMaker getDbSqlMaker(String dbType){
+    public static BaseSqlMaker getDbSqlMaker(String dbType){
         return getDbFactory(dbType).getSqlMaker();
     }
 

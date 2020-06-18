@@ -4,7 +4,7 @@ package com.apps.omnipotent.system.db.factory.impl;
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.apps.omnipotent.system.db.factory.SqlMaker;
+import com.apps.omnipotent.system.db.factory.BaseSqlMaker;
 import com.apps.omnipotent.system.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author cles
  * @Date 2020/5/31 21:42
  */
-public class MysqlSqlMaker extends SqlMaker {
+public class MysqlSqlMaker extends BaseSqlMaker {
 
     @Override
     public String saveSql(String tableName, String primaryKey, List<JSONObject> list) {
@@ -28,6 +28,7 @@ public class MysqlSqlMaker extends SqlMaker {
         list.forEach(t->{
             if(primaryKey.equals(t.getString("table_field"))){
                 if(StringUtil.isBlank(t.getString("field_value"))){
+                    System.err.println(UUID.randomUUID());
                     t.put("field_value", UUID.randomUUID());
                 }
             }

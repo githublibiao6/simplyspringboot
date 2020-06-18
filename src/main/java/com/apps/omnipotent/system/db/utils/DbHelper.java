@@ -57,6 +57,7 @@ public class DbHelper {
         Statement stmt = null;
         int rs ;
         try {
+            conn.setAutoCommit(false);
             stmt = conn.createStatement();
             rs = stmt.executeUpdate(sql);
             //如果有数据，rs.next()返回true

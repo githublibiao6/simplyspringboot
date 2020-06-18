@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @description: 数据库操作实体
@@ -77,11 +78,6 @@ public class DbPro {
         return null;
     }
 
-    public int  deleteById(String tableName,String primaryKey, String id){
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,primaryKey,id);
-        return DbHelper.update(dataSource,sql);
-    }
-
     /**
     * @Description: 根据id删除
     * @Param: [tableName, id]
@@ -89,8 +85,8 @@ public class DbPro {
     * @Author: cles
     * @Date: 2020/6/14 23:25
     */
-    public int  deleteById(String tableName, String id){
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName,getPrimaryKey(tableName).get(0),id);
+    public int  deleteById(String tableName,String primaryKey, String id){
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).deleteSql(tableName, primaryKey, id);
         return DbHelper.update(dataSource, sql);
     }
 
@@ -99,33 +95,16 @@ public class DbPro {
         return 1;
     }
 
-    public String save(String tableName, List<JSONObject> list) {
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName,getPrimaryKey(tableName).get(0) , list);
+    public String save(String tableName,String primaryKey,  List<JSONObject> list) {
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName, primaryKey , list);
         log.info(sql);
-        System.err.println(sql);
+        System.err.println(UUID.randomUUID());
         int n = DbHelper.save(dataSource,sql);
         return "";
     }
 
-    public int update(String tableName, List<JSONObject> list) {
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).updateSql(tableName, getPrimaryKey(tableName).get(0),list);
+    public int update(String tableName ,String primaryKey, List<JSONObject> list) {
+        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).updateSql(tableName, primaryKey, list);
         return DbHelper.update(dataSource,sql);
-    }
-
-    /**
-    * @Description: 获取主键
-    * @Param: [tableName]
-    * @return: java.util.List<java.lang.String>
-    * @Author: cles
-    * @Date: 2020/6/16 23:31
-    */
-    private List<String> getPrimaryKey(String tableName){
-        TableInfo table = MainDb.getTableInfo(tableName);
-        List<String> pks = table.getPks();
-        if(pks == null || pks.size() == 0){
-            throw new RuntimeException(this.getClass()+"has no primary key");
-        }else {
-            return pks;
-        }
     }
 }

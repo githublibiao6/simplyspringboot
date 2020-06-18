@@ -49,8 +49,6 @@ public class AfterStart implements ApplicationRunner {
         MainDb.init();
         Map<String, TableInfo> map = MainDb.getTableMap();
         List<JSONObject> t = Db.use().findList("select * from be_admin");
-        System.err.println(t);
-        System.err.println(map.size());
         map.forEach((k,v)->{
             System.err.println(k);
         });

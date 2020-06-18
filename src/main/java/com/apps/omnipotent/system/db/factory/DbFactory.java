@@ -15,7 +15,7 @@ public interface DbFactory {
      * 获取sql创建方法
      * @return
      */
-    SqlMaker getSqlMaker();
+    BaseSqlMaker getSqlMaker();
 
     /**
      * 获取sql创建方法

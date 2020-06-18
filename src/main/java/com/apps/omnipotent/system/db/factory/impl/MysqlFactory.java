@@ -5,9 +5,8 @@ package com.apps.omnipotent.system.db.factory.impl;
 
 import com.apps.omnipotent.system.core.DbTableInfo;
 import com.apps.omnipotent.system.core.impl.MysqlTableInfo;
+import com.apps.omnipotent.system.db.factory.BaseSqlMaker;
 import com.apps.omnipotent.system.db.factory.DbFactory;
-import com.apps.omnipotent.system.db.factory.SqlMaker;
-import com.apps.omnipotent.system.db.utils.Db;
 
 /**
  * @description: sql语句生成工厂
@@ -17,7 +16,7 @@ import com.apps.omnipotent.system.db.utils.Db;
 public class MysqlFactory implements DbFactory {
 
     @Override
-    public SqlMaker getSqlMaker() {
+    public BaseSqlMaker getSqlMaker() {
         return new MysqlSqlMaker();
     }
 
