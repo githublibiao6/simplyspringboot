@@ -31,6 +31,7 @@ public class SystemController extends GlobalController {
     @RequestMapping("/login")
     @ResponseBody
     public Result login(@RequestBody JSONObject json) {
+        result = new Result();
         result.setCode(20000);
         HashMap map = new HashMap();
         map.put("token","admin-token");
@@ -45,11 +46,15 @@ public class SystemController extends GlobalController {
         Subject subject = SecurityUtils.getSubject();
         //如果获取不到用户名就是登录失败，但登录失败的话，会直接抛出异常
         try{
+            Session session = subject.getSession();
+            session.setAttribute("userId",123);
+            System.err.println(session.getAttribute("session"));
+            System.err.println(SecurityUtils.getSubject().getSession().getAttribute("session"));
             //重点！！！！！！
             //getAuthenticationInfo 执行时机
             // 会触发 Realm的doGetAuthenticationInfo方法
             subject.login(token);
-            Session session = subject.getSession();
+
         }catch (Exception e){
             e.printStackTrace();
         }

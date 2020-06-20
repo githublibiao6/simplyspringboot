@@ -7,7 +7,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.system.db.factory.BaseSqlMaker;
 import com.apps.omnipotent.system.utils.StringUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -58,8 +60,11 @@ public class MysqlSqlMaker extends BaseSqlMaker {
                             .append(",");
                     break;
                 case "Date":
+                    Date date = t.getDate("field_value");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String value = sdf.format(date);
                     sql.append("'")
-                            .append(t.getDate("field_value"))
+                            .append(value)
                             .append("'")
                             .append(",");
                     break;

@@ -41,7 +41,6 @@ public class DictionaryImplService implements DictionaryService {
     */
     @Override
     public boolean add(Dictionary m) {
-        boolean a = m.save();
-        return false;
+        return m.save();
     }
 }

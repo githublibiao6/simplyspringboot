@@ -36,18 +36,22 @@ public class Dictionary extends BaseModel<Dictionary> {
     /**
      * 创建者
      */
+    @TableField("create_user")
     private String createUser;
     /**
      * 创建时间
      */
+    @TableField("create_time")
     private Date createTime;
     /**
      * 修改者
      */
+    @TableField("modify_user")
     private String modifyUser;
     /**
      * 修改时间
      */
+    @TableField("modify_time")
     private Date modifyTime;
     /**
      * 生效标志

@@ -37,6 +37,7 @@ public class DictionaryController extends GlobalController {
     @RequestMapping("/add")
     @ResponseBody
     public Result add(@RequestBody JSONObject json) {
+        result = new Result();
         Dictionary m = JSONObject.parseObject(json.toJSONString(),Dictionary.class);
         boolean flag = dicService.add(m);
         result.setSuccess(flag);

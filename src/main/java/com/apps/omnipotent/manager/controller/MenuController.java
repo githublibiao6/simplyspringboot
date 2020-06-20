@@ -66,6 +66,7 @@ public class MenuController extends GlobalController {
     @RequestMapping("/update")
     @ResponseBody
     public Result update(@RequestBody JSONObject json) {
+        result = new Result();
         Menu m = JSONObject.parseObject(json.toJSONString(),Menu.class);
         boolean flag = service.update(m);
         String msg = "更新成功" ;
@@ -74,7 +75,7 @@ public class MenuController extends GlobalController {
             msg = "更新失败";
         }
         result.setMessage(msg);
-        result.setMessage(msg);
+        result.setSuccess(flag);
         return result;
     }
 

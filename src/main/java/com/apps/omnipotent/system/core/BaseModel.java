@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.config.MainDb;
 import com.apps.omnipotent.system.db.utils.Db;
+import com.apps.omnipotent.system.utils.SessionUtils;
 import com.apps.omnipotent.system.utils.StringUtil;
 
 import java.beans.IntrospectionException;
@@ -47,7 +48,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
                 t.put("field_value",new Date());
             }
             if("create_user".equals(t.getString("table_field"))){
-                t.put("field_value","li");
+                t.put("field_value", SessionUtils.getUserId());
             }
         });
         Db.use().save(tableName, getPrimaryKey(tableName), list);
@@ -120,7 +121,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
                 t.put("field_value",new Date());
             }
             if("modify_user".equals(t.getString("table_field"))){
-                t.put("field_value","zhang");
+                t.put("field_value",SessionUtils.getUserId());
             }
         });
         Db.use().update(tableName, getPrimaryKey(tableName),list);
