@@ -41,7 +41,7 @@ public class AdminServiceImpl extends GlobalService{
      * @return
      */
     public Admin getByname(String username, String pass) {
-        return dao.getByname(username,pass);
+        return dao.getByName(username,pass);
     }
     public List<Admin> list() {
         return dao.list();

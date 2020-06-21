@@ -13,9 +13,14 @@ import java.util.List;
  */
 public interface AdminDao {
     /**
-     * 查看传入的admin是否存在
-     * @param admin
-     * @return
+     * 功能描述：
+     *  < 查看传入的admin是否存在 >
+     * @Description: verification
+     * @Author: cles
+     * @Date: 2020/6/21 23:51
+     * @param admin 参数1
+     * @return: com.apps.omnipotent.manager.bean.Admin
+     * @version: 1.0.0
      */
     Admin verification(@Param("admin") Admin admin);
 
@@ -24,7 +29,7 @@ public interface AdminDao {
      * @param name
      * @return
      */
-    Admin getByname(@Param("name") String name, @Param("pass") String pass);
+    Admin getByName(@Param("name") String name, @Param("pass") String pass);
 
     List<Admin> listAdmin(@Param("name") QueryCondition queryCondition);
 

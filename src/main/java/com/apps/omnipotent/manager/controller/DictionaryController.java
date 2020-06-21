@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.DictionaryService;
-import com.apps.omnipotent.manager.service.impl.DictionaryImplService;
+import com.apps.omnipotent.manager.service.impl.DictionaryServiceImpl;
 import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
@@ -29,7 +29,7 @@ import java.util.Map;
 public class DictionaryController extends GlobalController {
     
     @Autowired
-    private DictionaryImplService dicService;
+    private DictionaryServiceImpl dicService;
 
     /**
      * 添加字典
@@ -45,6 +45,31 @@ public class DictionaryController extends GlobalController {
             result.setMessage("添加成功");
         }else {
             result.setMessage("添加失败");
+        }
+        return result;
+    }
+
+    /**
+     * 功能描述：
+     *  < 删除 >
+     * @Description: remove
+     * @Author: cles
+     * @Date: 2020/6/21 23:46
+     * @param json 参数1
+     * @return: com.apps.omnipotent.system.global.entity.Result
+     * @version: 1.0.0
+     */
+    @RequestMapping("/remove")
+    @ResponseBody
+    public Result remove(@RequestBody JSONObject json) {
+        result = new Result();
+        Dictionary m = JSONObject.parseObject(json.toJSONString(),Dictionary.class);
+        boolean flag = dicService.remove(json.getString("id"));
+        result.setSuccess(flag);
+        if(flag){
+            result.setMessage("删除成功");
+        }else {
+            result.setMessage("删除失败");
         }
         return result;
     }

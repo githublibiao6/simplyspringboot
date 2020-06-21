@@ -7,7 +7,7 @@ import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.bean.DictionaryTeams;
 import com.apps.omnipotent.manager.service.DicTeamsService;
 import com.apps.omnipotent.manager.service.DictionaryService;
-import com.apps.omnipotent.manager.service.impl.DictionaryImplService;
+import com.apps.omnipotent.manager.service.impl.DictionaryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +24,9 @@ import java.util.List;
 @Component
 public class DictionaryUtils {
     @Autowired
-    private DictionaryImplService dicService;
+    private DictionaryServiceImpl dicService;
     @Autowired
-    private static DictionaryImplService staticDicService;
+    private static DictionaryServiceImpl staticDicService;
     @Autowired
     private  DicTeamsService dicTeamsService;
     @Autowired

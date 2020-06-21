@@ -37,4 +37,28 @@ public interface DictionaryService {
      * @version: 1.0.0
      */
     boolean add(Dictionary m);
+
+    /**
+     * 功能描述：
+     *  < 更新字典 >
+     * @Description: update
+     * @Author: cles
+     * @Date: 2020/6/21 23:45
+     * @param m 参数1
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    boolean update(Dictionary m);
+
+    /**
+     * 功能描述：
+     *  < 根据id删除字典>
+     * @Description: remove
+     * @Author: cles
+     * @Date: 2020/6/21 23:19
+     * @param id 字典主键
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    boolean remove(String id);
 }

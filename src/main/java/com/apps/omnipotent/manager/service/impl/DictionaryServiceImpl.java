@@ -15,7 +15,7 @@ import java.util.List;
  *
  */
 @Service
-public class DictionaryImplService implements DictionaryService {
+public class DictionaryServiceImpl implements DictionaryService {
     
     @Autowired
     private DicDao dao;
@@ -42,5 +42,35 @@ public class DictionaryImplService implements DictionaryService {
     @Override
     public boolean add(Dictionary m) {
         return m.save();
+    }
+
+    /**
+     * 功能描述：
+     *  < 更新字典 >
+     * @Description: update
+     * @Author: cles
+     * @Date: 2020/6/21 23:47
+     * @param m 参数1
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    @Override
+    public boolean update(Dictionary m) {
+        return m.update();
+    }
+
+    /**
+     * 功能描述：
+     *  < 根据主键删除字典 >
+     * @Description: remove
+     * @Author: cles
+     * @Date: 2020/6/21 23:20
+     * @param id 字典主键
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    @Override
+    public boolean remove(String id) {
+        return Dictionary.DAO.deleteById(id);
     }
 }
