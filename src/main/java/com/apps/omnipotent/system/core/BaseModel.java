@@ -149,7 +149,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
             Table table = this.getClass().getAnnotation(Table.class);
             tableName = table.value();
         }else {
-            throw new RuntimeException(this.getClass()+"has not bind table");
+            throw new RuntimeException(this.getClass()+" has not bind table");
         }
         return tableName;
     }

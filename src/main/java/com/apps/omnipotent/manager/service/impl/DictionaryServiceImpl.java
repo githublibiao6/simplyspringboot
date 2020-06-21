@@ -71,6 +71,8 @@ public class DictionaryServiceImpl implements DictionaryService {
      */
     @Override
     public boolean remove(String id) {
-        return Dictionary.DAO.deleteById(id);
+        Dictionary mode = new Dictionary();
+        mode.setId(id);
+        return mode.delete();
     }
 }
