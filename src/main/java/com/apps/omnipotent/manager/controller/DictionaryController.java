@@ -49,6 +49,21 @@ public class DictionaryController extends GlobalController {
         return result;
     }
 
+    @RequestMapping("/update")
+    @ResponseBody
+    public Result update(@RequestBody JSONObject json) {
+        result = new Result();
+        Dictionary m = JSONObject.parseObject(json.toJSONString(),Dictionary.class);
+        boolean flag = dicService.update(m);
+        result.setSuccess(flag);
+        if(flag){
+            result.setMessage("更新成功");
+        }else {
+            result.setMessage("更新失败");
+        }
+        return result;
+    }
+
     /**
      * 功能描述：
      *  < 删除 >
@@ -80,7 +95,7 @@ public class DictionaryController extends GlobalController {
     @RequestMapping("/list")
     @ResponseBody
     public Result list() {
-        List<JSONObject> records = Db.use().findList("select t.id, t.name label  from be_dictionary t ");
+        List<JSONObject> records = Db.use().findList("select t.*, t.name label  from be_dictionary t ");
         Map<String , Object> root = new HashMap<>(3);
         root.put("id",0);
         root.put("label","数据字典");

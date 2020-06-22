@@ -61,4 +61,5 @@ public interface DictionaryService {
      * @version: 1.0.0
      */
     boolean remove(String id);
+
 }

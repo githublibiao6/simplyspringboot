@@ -124,8 +124,8 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
                 t.put("field_value",SessionUtils.getUserId());
             }
         });
-        Db.use().update(tableName, getPrimaryKey(tableName),list);
-        return true;
+        int res = Db.use().update(tableName, getPrimaryKey(tableName),list);
+        return res>0;
     }
 
     public Object findById(){

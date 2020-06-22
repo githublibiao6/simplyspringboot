@@ -94,6 +94,7 @@ public class DbHelper {
         Statement stmt = null;
         List<Record> list = new ArrayList<>();
         try {
+            conn.setAutoCommit(false);
             stmt = conn.createStatement();
             int rs = stmt.executeUpdate(sql);
             //如果有数据，rs.next()返回true

@@ -87,8 +87,7 @@ public class MysqlSqlMaker extends BaseSqlMaker {
         list.forEach(t->{
             if(primaryKey.equals(t.getString("table_field"))){
                 primaryValue.set(t.getString("field_value"));
-            }
-            if(t.get("field_value") != null){
+            }else if(t.get("field_value") != null){
                 columns.add(t);
             }
         });
@@ -106,13 +105,18 @@ public class MysqlSqlMaker extends BaseSqlMaker {
                             .append(t.getString("field_value")).append("'").append(",");
                     break;
                 case "Date":
-                    sql.append(t.getString("table_field")).append("=").append("'")
-                            .append(t.getDate("field_value")).append("'").append(",");
+                    sql.append(t.getString("table_field")).append("=");
+                    Date date = t.getDate("field_value");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String value = sdf.format(date);
+                    sql.append("'")
+                            .append(value)
+                            .append("'")
+                            .append(",");
                     break;
                 default:
                     break;
             }
-            sql.append(t.getString("table_field")).append(",");
         });
         sql.deleteCharAt(sql.length()-1);
         sql.append(" WHERE ").append(primaryKey).append(" = '").append(primaryValue.get()).append("'");
