@@ -57,7 +57,7 @@ public class MenuController extends GlobalController {
     @RequestMapping("/page")
     @ResponseBody
     public  Result pageList(PageEntity entity) {
-        PageEntity page = service.pagelist(entity);
+        PageEntity page = service.page(entity);
         result.setData(page);
         result.setCode(20000);
         return result;

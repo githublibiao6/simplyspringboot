@@ -1,10 +1,16 @@
 package com.apps.omnipotent.manager.service.impl;
 
 import com.apps.omnipotent.manager.bean.DictionaryTeams;
+import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.dao.DicTeamsDao;
 import com.apps.omnipotent.manager.service.DictionaryTeamsService;
+import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -13,10 +19,16 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class DictionaryTeamsServiceImpl implements DictionaryTeamsService {
+public class DictionaryTeamsServiceImpl extends GlobalService implements DictionaryTeamsService{
 
     @Autowired
     private DicTeamsDao dao;
+
+    @Override
+    public PageEntity page(String dicId, PageEntity entity) {
+        List<DictionaryTeams> pageMenus = dao.listTeamsByDicId(dicId);
+        return getPageEntity(pageMenus,entity);
+    }
 
     /**
      * @Description: 添加字典
@@ -60,5 +72,9 @@ public class DictionaryTeamsServiceImpl implements DictionaryTeamsService {
         DictionaryTeams mode = new DictionaryTeams();
         mode.setId(id);
         return mode.delete();
+    }
+
+    public List<DictionaryTeams> listTeamsByDicId(String id) {
+        return dao.listTeamsByDicId(id);
     }
 }

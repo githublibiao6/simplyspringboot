@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -93,10 +94,11 @@ public class DictionaryTeamsController extends GlobalController {
 
     @RequestMapping("/page")
     @ResponseBody
-    public Result pageList(PageEntity entity) {
-//        PageEntity page = teamsService.pagelist(entity,null);
-        result.setData(null);
+    public Result page(PageEntity entity, @RequestParam("dic_id") String dicId) {
+        result = new Result();
         result.setCode(20000);
+        PageEntity page = teamsService.page(dicId,entity);
+        result.setData(page);
         return result;
     }
 

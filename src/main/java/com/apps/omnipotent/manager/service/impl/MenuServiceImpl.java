@@ -2,6 +2,7 @@ package com.apps.omnipotent.manager.service.impl;
 
 import com.apps.omnipotent.manager.dao.MenuDao;
 import com.apps.omnipotent.manager.bean.Menu;
+import com.apps.omnipotent.manager.service.MenuService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ import java.util.UUID;
 /**
  * 菜单service
 * @Description
-* @MethodName  AdminService
+* @MethodName  MenuServiceImpl
 * @author lb
 * @date 2018年8月20日 下午11:12:29
 *
  */
 @Service
-public class MenuServiceImpl extends GlobalService {
+public class MenuServiceImpl extends GlobalService  implements MenuService {
 
     @Autowired
     MenuDao dao;
@@ -36,15 +37,23 @@ public class MenuServiceImpl extends GlobalService {
     * @date 2018年8月21日 下午9:55:31
     *
      */
+    @Override
     public List<Menu> list() {
         return dao.list();
     }
 
     /**
-     * 分页获取菜单
-     * @return
+     * 功能描述：
+     *  < 分页获取菜单 >
+     * @Description: pageList
+     * @Author: cles
+     * @Date: 2020/6/23 23:00
+     * @param entity 参数1
+     * @return: com.apps.omnipotent.system.pagehelper.entity.PageEntity
+     * @version: 1.0.0
      */
-    public PageEntity pagelist(PageEntity entity) {
+    @Override
+    public PageEntity page(PageEntity entity) {
         List<Menu> pageMenus = dao.pageList();
         pageMenus.forEach(t->{
             t.setHasChildren(false);
@@ -59,6 +68,7 @@ public class MenuServiceImpl extends GlobalService {
         return getPageEntity(pageMenus,entity);
     }
 
+    @Override
     public boolean add(Menu menu) {
         menu.setMenuId(UUID.randomUUID().toString());
         boolean flag = true;
@@ -73,9 +83,12 @@ public class MenuServiceImpl extends GlobalService {
         return flag;
     }
 
+    @Override
     public Menu findById(String menuId){
         return dao.findById(menuId);
     }
+
+    @Override
     public boolean remove(String menuId){
         boolean flag = true;
         int num = dao.remove(menuId);
@@ -84,6 +97,8 @@ public class MenuServiceImpl extends GlobalService {
         }
         return flag;
     }
+
+    @Override
     public boolean update(Menu menu ){
         boolean flag = false;
         menu.setModifyTime(new Date());

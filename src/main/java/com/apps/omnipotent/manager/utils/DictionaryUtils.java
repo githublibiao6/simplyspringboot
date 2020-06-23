@@ -5,9 +5,8 @@ package com.apps.omnipotent.manager.utils;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.bean.DictionaryTeams;
-import com.apps.omnipotent.manager.service.DicTeamsService;
-import com.apps.omnipotent.manager.service.DictionaryService;
 import com.apps.omnipotent.manager.service.impl.DictionaryServiceImpl;
+import com.apps.omnipotent.manager.service.impl.DictionaryTeamsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +27,9 @@ public class DictionaryUtils {
     @Autowired
     private static DictionaryServiceImpl staticDicService;
     @Autowired
-    private  DicTeamsService dicTeamsService;
+    private DictionaryTeamsServiceImpl dicTeamsService;
     @Autowired
-    private static DicTeamsService staticDicTeamsService;
+    private static DictionaryTeamsServiceImpl staticDicTeamsService;
 
     /**
      * static 调用service的办法

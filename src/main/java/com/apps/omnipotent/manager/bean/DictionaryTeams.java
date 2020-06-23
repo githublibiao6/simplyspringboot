@@ -1,8 +1,11 @@
 package com.apps.omnipotent.manager.bean;
 
 import com.apps.omnipotent.system.core.BaseModel;
+import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -11,6 +14,7 @@ import java.util.Date;
  * @author lb
  *
  */
+@Table("be_dictionary_teams")
 public class DictionaryTeams extends BaseModel<DictionaryTeams> {
 
     /**
@@ -20,14 +24,17 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
     /**
      * 字典对象
      */
+    @TableField("dic_id")
     private String dicId;
     /**
      *  字典值
      */
+    @TableField("dic_value")
     private String dicValue;
     /**
      *  字典项
      */
+    @TableField("dic_text")
     private String dicText;
     /**
      *  说明
@@ -45,6 +52,7 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("create_time")
     private Date createTime;
     /**
@@ -55,6 +63,7 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
     /**
      * 修改时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("modify_time")
     private Date modifyTime;
     /**
@@ -124,6 +133,7 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
         this.createUser = createUser;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -140,6 +150,7 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
         this.modifyUser = modifyUser;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getModifyTime() {
         return modifyTime;
     }

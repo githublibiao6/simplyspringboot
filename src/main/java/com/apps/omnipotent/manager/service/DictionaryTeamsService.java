@@ -22,6 +22,19 @@ import java.util.List;
 @Service
 public interface DictionaryTeamsService {
 
+
+    /**
+     * 功能描述：
+     *  < 分页获取字典项 >
+     * @Description: page
+     * @param dicId
+     * @param entity
+     * @Author: cles
+     * @Date: 2020/6/23 23:02
+     * @return: com.apps.omnipotent.system.pagehelper.entity.PageEntity
+     * @version: 1.0.0
+     */
+    PageEntity page(String dicId, PageEntity entity);
     /**
      * 功能描述：
      *  <添加字典>

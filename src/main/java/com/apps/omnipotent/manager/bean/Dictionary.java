@@ -3,6 +3,8 @@ package com.apps.omnipotent.manager.bean;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -39,6 +41,7 @@ public class Dictionary extends BaseModel<Dictionary> {
     /**
      * 创建时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("create_time")
     private Date createTime;
     /**
@@ -49,6 +52,7 @@ public class Dictionary extends BaseModel<Dictionary> {
     /**
      * 修改时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("modify_time")
     private Date modifyTime;
     /**
@@ -100,6 +104,7 @@ public class Dictionary extends BaseModel<Dictionary> {
         this.createUser = createUser;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -116,6 +121,7 @@ public class Dictionary extends BaseModel<Dictionary> {
         this.modifyUser = modifyUser;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getModifyTime() {
         return modifyTime;
     }

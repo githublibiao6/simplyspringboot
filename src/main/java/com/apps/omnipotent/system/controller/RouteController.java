@@ -1,6 +1,6 @@
 package com.apps.omnipotent.system.controller;
 
-import com.apps.omnipotent.manager.service.MenuService;
+import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RouteController {
 
     @Autowired
-    MenuService service;
+    MenuServiceImpl service;
 
     /**
      * 主路径
