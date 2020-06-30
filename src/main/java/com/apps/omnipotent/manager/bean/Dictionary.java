@@ -58,10 +58,12 @@ public class Dictionary extends BaseModel<Dictionary> {
     /**
      * 生效标志
      */
+    @TableField("effective_flag")
     private String effectiveFlag;
     /**
      * 删除标志
      */
+    @TableField("delete_flag")
     private String deleteFlag;
 
     public String getId() {
@@ -104,7 +106,7 @@ public class Dictionary extends BaseModel<Dictionary> {
         this.createUser = createUser;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getCreateTime() {
         return createTime;
     }
@@ -121,7 +123,7 @@ public class Dictionary extends BaseModel<Dictionary> {
         this.modifyUser = modifyUser;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getModifyTime() {
         return modifyTime;
     }

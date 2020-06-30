@@ -70,16 +70,16 @@ public class DictionaryTeamsController extends GlobalController {
     /**
      * 功能描述：
      *  < 删除 >
-     * @Description: remove
+     * @Description: delete
      * @Author: cles
      * @Date: 2020/6/21 23:46
      * @param json 参数1
      * @return: com.apps.omnipotent.system.global.entity.Result
      * @version: 1.0.0
      */
-    @RequestMapping("/remove")
+    @RequestMapping("/delete")
     @ResponseBody
-    public Result remove(@RequestBody JSONObject json) {
+    public Result delete(@RequestBody JSONObject json) {
         result = new Result();
         DictionaryTeams m = JSONObject.parseObject(json.toJSONString(),DictionaryTeams.class);
         boolean flag = teamsService.remove(json.getString("id"));
@@ -94,7 +94,7 @@ public class DictionaryTeamsController extends GlobalController {
 
     @RequestMapping("/page")
     @ResponseBody
-    public Result page(PageEntity entity, @RequestParam("dic_id") String dicId) {
+    public Result page(PageEntity entity, @RequestParam(value = "dic_id", defaultValue = "0") String dicId) {
         result = new Result();
         result.setCode(20000);
         PageEntity page = teamsService.page(dicId,entity);

@@ -133,7 +133,7 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
         this.createUser = createUser;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getCreateTime() {
         return createTime;
     }
@@ -150,7 +150,7 @@ public class DictionaryTeams extends BaseModel<DictionaryTeams> {
         this.modifyUser = modifyUser;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public Date getModifyTime() {
         return modifyTime;
     }
