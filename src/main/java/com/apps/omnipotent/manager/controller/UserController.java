@@ -1,10 +1,18 @@
 package com.apps.omnipotent.manager.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.apps.omnipotent.manager.bean.User;
+import com.apps.omnipotent.manager.service.impl.DictionaryServiceImpl;
+import com.apps.omnipotent.manager.service.impl.UserServiceImpl;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.shiro.entity.Permissions;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -19,6 +27,9 @@ import java.util.Set;
 @RequestMapping("user")
 @Controller
 public class UserController extends GlobalController {
+
+    @Autowired
+    private UserServiceImpl service;
     
     /**
      * 菜单跳转
@@ -51,6 +62,50 @@ public class UserController extends GlobalController {
         result.setCode(20000);
         result.setSuccess(true);
         result.setMessage("用户重置");
+        return result;
+    }
+
+    /**
+     * 获取分页菜单
+     */
+    @RequestMapping("/page")
+    @ResponseBody
+    public  Result pageList(PageEntity entity) {
+        PageEntity page = service.page(entity);
+        result.setData(page);
+        result.setCode(20000);
+        return result;
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public Result update(@RequestBody JSONObject json) {
+        result = new Result();
+        User m = JSONObject.parseObject(json.toJSONString(),User.class);
+        boolean flag = service.update(m);
+        String msg = "更新成功" ;
+        result.setSuccess(flag);
+        if(!flag){
+            msg = "更新失败";
+        }
+        result.setMessage(msg);
+        result.setSuccess(flag);
+        return result;
+    }
+
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    @ResponseBody
+    public Result delete(@RequestBody JSONObject json) {
+        User m = JSONObject.parseObject(json.toJSONString(),User.class);
+        boolean flag = service.remove(json.getString("pk"));
+        String msg ;
+        result.setSuccess(flag);
+        if(flag){
+            msg = "删除成功";
+        }else {
+            msg = "删除失败";
+        }
+        result.setMessage(msg);
         return result;
     }
 
