@@ -77,6 +77,24 @@ public class UserController extends GlobalController {
         return result;
     }
 
+    /**
+     * 添加字典
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public Result add(@RequestBody JSONObject json) {
+        result = new Result();
+        User m = JSONObject.parseObject(json.toJSONString(),User.class);
+        boolean flag = service.add(m);
+        result.setSuccess(flag);
+        if(flag){
+            result.setMessage("添加成功");
+        }else {
+            result.setMessage("添加失败");
+        }
+        return result;
+    }
+
     @RequestMapping("/update")
     @ResponseBody
     public Result update(@RequestBody JSONObject json) {
