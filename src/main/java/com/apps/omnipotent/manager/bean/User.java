@@ -80,8 +80,8 @@ public class User extends BaseModel<User> {
     /**
      * 办公室电话
      */
-    @TableField("officeNo")
-    private String office_no;
+    @TableField("office_no")
+    private String officeNo;
 
     /**
      * 邮件
@@ -243,11 +243,11 @@ public class User extends BaseModel<User> {
     }
 
     public String getOffice_no() {
-        return office_no;
+        return officeNo;
     }
 
-    public void setOffice_no(String office_no) {
-        this.office_no = office_no;
+    public void setOffice_no(String officeNo) {
+        this.officeNo = officeNo;
     }
 
     public String getEmail() {

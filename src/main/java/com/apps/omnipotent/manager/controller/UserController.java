@@ -66,7 +66,7 @@ public class UserController extends GlobalController {
     }
 
     /**
-     * 获取分页菜单
+     * 获取分页
      */
     @RequestMapping("/page")
     @ResponseBody
@@ -83,8 +83,8 @@ public class UserController extends GlobalController {
         result = new Result();
         User m = JSONObject.parseObject(json.toJSONString(),User.class);
         boolean flag = service.update(m);
-        String msg = "更新成功" ;
         result.setSuccess(flag);
+        String msg = "更新成功" ;
         if(!flag){
             msg = "更新失败";
         }

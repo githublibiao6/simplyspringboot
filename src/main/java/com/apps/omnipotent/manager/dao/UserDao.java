@@ -1,6 +1,7 @@
 package com.apps.omnipotent.manager.dao;
 
 import com.apps.omnipotent.manager.bean.Dictionary;
+import com.apps.omnipotent.manager.bean.User;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +16,14 @@ import java.util.List;
 public interface UserDao {
 
     /**
-     * 获取全部
-     * @return
+     * 功能描述：
+     *  < 获取全部 >
+     * @Description: listUser
+     * @Author: cles
+     * @Date: 2020/7/2 23:09
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.User>
+     * @version: 1.0.0
      */
     @Select( "select * from be_user m where m.delete_flag='1'")
-    List<Dictionary> listUser();
-
+    List<User> listUser();
 }

@@ -6,14 +6,12 @@ import com.apps.omnipotent.manager.dao.RoleDao;
 import com.apps.omnipotent.manager.dao.UserDao;
 import com.apps.omnipotent.manager.service.RoleService;
 import com.apps.omnipotent.manager.service.UserService;
+import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -25,7 +23,7 @@ import java.util.UUID;
 *
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GlobalService implements UserService {
 
     @Autowired
     UserDao dao;
@@ -33,26 +31,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageEntity page(PageEntity entity) {
-        return null;
+        List<User> page = dao.listUser();
+        return getPageEntity(page,entity);
     }
 
     @Override
     public List<User> list() {
-        return null;
+        return dao.listUser();
     }
 
     @Override
     public boolean add(User m) {
-        return false;
+        m.setCreateTime(new Date());
+        m.setCreateUser("");
+        m.setDeleteFlag("1");
+        return m.save();
     }
 
     @Override
     public boolean update(User m) {
-        return false;
+        return m.update();
     }
 
     @Override
     public boolean remove(String id) {
-        return false;
+        User mode = new User();
+        mode.setId(id);
+        return mode.delete();
     }
 }
