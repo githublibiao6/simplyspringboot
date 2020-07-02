@@ -17,6 +17,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
+import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,8 +124,11 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> roles = roleService.getRolesByUserId(admin.getId());
         // 获取菜单权限
         Set<String> perms = new HashSet<>();
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(admin, admin.getLoginPassword(), getName());
 
+        // todo upToken.getPassword() 前台传的密码
+        // 和 admin.getLoginPassword() 比较
+        SimpleAuthenticationInfo  info = new SimpleAuthenticationInfo(admin, upToken.getPassword(), getName());
+        System.err.println("info:"+info);
         // 盐值？
 //        info.setCredentialsSalt(ByteSource.Util.bytes(10));
         return info;

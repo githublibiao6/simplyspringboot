@@ -242,11 +242,11 @@ public class User extends BaseModel<User> {
         this.phone = phone;
     }
 
-    public String getOffice_no() {
+    public String getOfficeNo() {
         return officeNo;
     }
 
-    public void setOffice_no(String officeNo) {
+    public void setOfficeNo(String officeNo) {
         this.officeNo = officeNo;
     }
 
