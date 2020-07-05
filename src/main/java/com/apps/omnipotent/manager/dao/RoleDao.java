@@ -16,14 +16,6 @@ public interface RoleDao {
 
     List<Role> list();
 
-    List<Role> pageList();
-
-    int  add(Role role);
-
-    int  update(Role role);
-
     Role findById(String id);
-
-    int  remove(String id);
 
 }

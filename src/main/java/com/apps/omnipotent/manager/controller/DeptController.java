@@ -1,6 +1,7 @@
 package com.apps.omnipotent.manager.controller;
 
 import com.apps.omnipotent.manager.service.DeptService;
+import com.apps.omnipotent.manager.service.impl.DeptServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DeptController {
     
     @Autowired
-    DeptService service;
+    DeptServiceImpl service;
     
     @RequestMapping("main")
     public String test(){

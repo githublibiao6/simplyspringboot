@@ -1,15 +1,17 @@
 package com.apps.omnipotent.manager.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * 菜单controller
@@ -38,105 +40,55 @@ public class RoleController extends GlobalController {
 
 
     /**
-     * 菜单跳转新增编辑页面
-     *
-     * @return
+     * 获取分页
      */
-    @RequestMapping("/addoreditrender.do")
-    public String addOrEditRender() {
-        return "system/role/addoredit";
-    }
-
-    /**
-     * 获取分页菜单
-     */
-    @RequestMapping("/pagelist.do")
+    @RequestMapping("/page")
     @ResponseBody
-    public Result paageList(Integer page, Integer limit) {
-        List<Role>  list = service.pagelist();
-        result.setData(list);
-        result=page(list,page,limit);
+    public  Result pageList(PageEntity entity) {
+        PageEntity page = service.page(entity);
+        result.setData(page);
+        result.setCode(20000);
         return result;
     }
 
-
     /**
-     * 获取菜单
-     *
-     * @return List<Role>
-     * @Description
-     * @MethodName index
-     * @author lb
-     * @date 2018年8月21日 下午9:56:33
+     * 添加字典
      */
-    @RequestMapping("/treelist.do")
+    @RequestMapping("/add")
     @ResponseBody
-    public List<Role> treeList() {
-        List<Role> list = service.list();
-        return list;
-    }
-
-
-    /**
-     * 获取菜单
-     *
-     * @return List<Role>
-     * @Description
-     * @MethodName index
-     * @author lb
-     * @date 2018年8月21日 下午9:56:33
-     */
-    @RequestMapping("/list.do")
-    @ResponseBody
-    public Result list() {
-        List<Role> list = service.list();
-        result.setData(list);
-        return result;
-    }
-
-    @RequestMapping("/add.do")
-    @ResponseBody
-    public Result add(Role role) {
-        boolean flag = service.add(role);
-        String msg ;
-        result.setSuccess(flag);
+    public Result add(@RequestBody JSONObject json) {
+        result = new Result();
+        Role m = JSONObject.parseObject(json.toJSONString(),Role.class);
+        boolean flag = service.add(m);
         if(flag){
-            msg = "添加成功";
+            result.setMessage("添加成功");
         }else {
-            msg = "添加失败";
+            result.setMessage("添加失败");
         }
-        result.setMessage(msg);
+        result.setSuccess(flag);
         return result;
     }
 
-    @RequestMapping("/update.do")
+    @RequestMapping("/update")
     @ResponseBody
-    public Result update(Role role) {
-        boolean flag = service.update(role);
-        String msg ;
-        result.setSuccess(flag);
-        if(flag){
-            msg = "更新成功";
-        }else {
+    public Result update(@RequestBody JSONObject json) {
+        result = new Result();
+        Role m = JSONObject.parseObject(json.toJSONString(),Role.class);
+        boolean flag = service.update(m);
+        String msg = "更新成功" ;
+        if(!flag){
             msg = "更新失败";
         }
+        result.setSuccess(flag);
         result.setMessage(msg);
         return result;
     }
 
-
-    @RequestMapping("/findById.do")
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @ResponseBody
-    public Result findById(String id) {
-        Role role = service.findById(id);
-        result.setData(role);
-        return result;
-    }
-    @RequestMapping("/remove.do")
-    @ResponseBody
-    public Result remove(String id) {
-        boolean flag = service.remove(id);
-        String msg ;
+    public Result delete(@RequestBody JSONObject json) {
+        boolean flag = service.remove(json.getString("pk"));
+        String msg = "";
         result.setSuccess(flag);
         if(flag){
             msg = "删除成功";

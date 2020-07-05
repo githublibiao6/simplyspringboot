@@ -6,17 +6,11 @@
         select t.id,t.code from be_role t where effective_flag = 1 and delete_flag=1
     </select>
 
-    <select id="pageList" resultType="com.apps.omnipotent.manager.bean.Role">
-        select t.*
-            from be_role t
-            where t.effective_flag = 1 and t.delete_flag=1
-    </select>
-
     <select id="findById" resultType="com.apps.omnipotent.manager.bean.Role">
         select * from be_role where id=#{id}
     </select>
 
-    <update  id="remove" parameterType="com.apps.omnipotent.manager.bean.Role">
+    <!--<update  id="remove" parameterType="com.apps.omnipotent.manager.bean.Role">
         update be_role  set delete_flag = 0 where id=#{id}
     </update >
 
@@ -28,5 +22,5 @@
     <update  id="update" parameterType="com.apps.omnipotent.manager.bean.Role">
     	update be_role set name=#{name},code=#{code},notes=#{notes}
          where id=#{id}
-    </update >
+    </update >-->
 </mapper>

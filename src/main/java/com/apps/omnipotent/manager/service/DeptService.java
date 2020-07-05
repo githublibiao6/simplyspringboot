@@ -1,52 +1,93 @@
 package com.apps.omnipotent.manager.service;
 
 import com.apps.omnipotent.manager.bean.Dept;
-import com.apps.omnipotent.manager.dao.DeptDao;
-import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.apps.omnipotent.manager.bean.Role;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
 /**
- * 部门service
- * @author lb
- *
- */
-@Service
-public class DeptService {
-    
-    @Autowired
-    DeptDao dao;
-    
+* @Description: 角色service
+* @Author: cles
+* @Date: 2020/4/15 23:48
+*/
+public interface DeptService {
     /**
-     * 获得全部的部门信息 （分页查询）
-     * @param draw
-     * @param start
-     * @param length
-     * @param queryCondition
-     * @return
+     * 功能描述：
+     *  < 分页获取 >
+     * @Description: page
+     * @Author: cles
+     * @Date: 2020/7/6 0:06
+     * @param entity 参数1
+     * @return: com.apps.omnipotent.system.pagehelper.entity.PageEntity
+     * @version: 1.0.0
      */
-    public Map<String,Object> listDept(Integer draw, Integer start,Integer length, QueryCondition queryCondition) {
-        Map<String,Object> result =  new HashMap<String, Object>();
-//        PageHelper.offsetPage(start, length);
-//        List<Dept> list = dao.listDept(queryCondition);
-//        PageInfo<Dept> page = new PageInfo<Dept>(list);
-//        result.put("data", list);
-//        result.put("recordsTotal",page.getTotal());//总记录数目
-//        result.put("recordsFiltered", page.getTotal());// 条件过滤的记录数
-//        result.put("draw", draw);
-        return result;
-    }
-    
+    PageEntity page(PageEntity entity);
     /**
-     * 根据id获取部门详细信息
-     * @param id
-     * @return
+     * 功能描述：
+     *  < 获取全部>
+     * @Description: list
+     * @Author: cles
+     * @Date: 2020/7/6 0:07
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.Role>
+     * @version: 1.0.0
      */
-    public Dept getDeptById(String id){
-        return dao.getDeptById(id);
-        
-    }
+    List<Dept> list();
+    /**
+     * 功能描述：
+     *  < 新增>
+     * @Description: add
+     * @Author: cles
+     * @Date: 2020/7/6 0:07
+     * @param m 参数1
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    boolean add(Dept m);
+    /**
+     * 功能描述：
+     *  < 更新 >
+     * @Description: update
+     * @Author: cles
+     * @Date: 2020/7/6 0:07
+     * @param m 参数1
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    boolean update(Dept m);
+    /**
+     * 功能描述：
+     *  < 删除 >
+     * @Description: remove
+     * @Author: cles
+     * @Date: 2020/7/6 0:07
+     * @param id 参数1
+     * @return: boolean
+     * @version: 1.0.0
+     */
+    boolean remove(String id);
+    /**
+     * 功能描述：
+     *  < 根据人员获取角色 >
+     * @Description: getRolesByUserId
+     * @Author: cles
+     * @Date: 2020/7/6 0:08
+     * @param id 参数1
+     * @return: java.util.Set<java.lang.String>
+     * @version: 1.0.0
+     */
+    Set<String> getRolesByUserId(String id);
+
+    /**
+     * 功能描述：
+     *  < 根据主键获取 >
+     * @Description: findById
+     * @Author: cles
+     * @Date: 2020/7/6 0:08
+     * @param id 参数1
+     * @return: com.apps.omnipotent.manager.bean.Role
+     * @version: 1.0.0
+     */
+    Dept findById(String id);
 }
