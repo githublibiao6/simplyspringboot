@@ -1,6 +1,10 @@
 package com.apps.omnipotent.manager.bean;
 
+import com.apps.omnipotent.system.core.BaseModel;
+import com.apps.omnipotent.system.core.Table;
+import com.apps.omnipotent.system.core.TableField;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -9,8 +13,9 @@ import java.util.Date;
  * 
  * @author lb
  */
-@Data
-public class Dept {
+@Table("be_dept")
+public class Dept extends BaseModel<Dept> {
+    private String id;
     /**
      * 编号
      */
@@ -20,35 +25,120 @@ public class Dept {
      */
     private String name;
     /**
-     * 创建时间
+     * 说明
      */
-    private Date createTime;
+    private String comments;
+
     /**
-     *  创建人
+     * 创建者
      */
+    @TableField("create_user")
     private String createUser;
     /**
-     * 修改人
+     * 创建时间
      */
-    private Date modifyUser;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("create_time")
+    private Date createTime;
+    /**
+     * 修改者
+     */
+    @TableField("modify_user")
+    private String modifyUser;
     /**
      * 修改时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("modify_time")
     private Date modifyTime;
     /**
-     * 状态
+     * 生效标志
      */
-    private String state;
+    @TableField("effective_flag")
+    private String effectiveFlag;
     /**
-     * 说明
+     * 删除标志
      */
-    private String notes;
+    @TableField("delete_flag")
+    private String deleteFlag;
 
-    @Override
-    public String toString() {
-        return "Dept [code=" + code + ", name=" + name + ", createUser=" + createUser + ", createTime=" + createTime
-                + ", modifyUser=" + modifyUser + ", modifyTime=" + modifyTime + ", state=" + state + ", notes=" + notes
-                + "]";
+    public String getId() {
+        return id;
     }
-    
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifyUser() {
+        return modifyUser;
+    }
+
+    public void setModifyUser(String modifyUser) {
+        this.modifyUser = modifyUser;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public String getEffectiveFlag() {
+        return effectiveFlag;
+    }
+
+    public void setEffectiveFlag(String effectiveFlag) {
+        this.effectiveFlag = effectiveFlag;
+    }
+
+    public String getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
 }
