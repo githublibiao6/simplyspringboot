@@ -14,8 +14,27 @@ import java.util.List;
  */
 public interface RoleDao {
 
+    /**
+     * 功能描述：
+     *  < 获取全部角色 >
+     * @Description: list
+     * @Author: cles
+     * @Date: 2020/7/6 22:17
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.Role>
+     * @version: 1.0.0
+     */
     List<Role> list();
 
+    /**
+     * 功能描述：
+     *  < 根据主键获取数据 >
+     * @Description: findById
+     * @Author: cles
+     * @Date: 2020/7/6 22:17
+     * @param id 参数1
+     * @return: com.apps.omnipotent.manager.bean.Role
+     * @version: 1.0.0
+     */
     Role findById(String id);
 
 }

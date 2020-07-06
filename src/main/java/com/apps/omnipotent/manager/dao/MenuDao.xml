@@ -8,7 +8,7 @@
     </select>
 
     <select id="queryByRoleId" resultType="com.apps.omnipotent.manager.bean.Menu">
-        select t.* from be_menu t where effective_flag = 1 and delete_flag=1 and t.id in (select m.menu_id from  bj_role_menu m where role_id= '#{roleId}')
+        select t.* from be_menu t where effective_flag = 1 and delete_flag=1 and t.menuId in (select m.menu_id from  be_role_menu m where role_id= #{roleId})
     </select>
 
     <select id="pageList" resultType="com.apps.omnipotent.manager.bean.Menu">

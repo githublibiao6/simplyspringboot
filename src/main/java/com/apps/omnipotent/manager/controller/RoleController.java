@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * 菜单controller
 * @Description 
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 * @date 2018年8月20日 下午11:10:32
 *
  */
-@RequestMapping("role")
+@RequestMapping("roles")
 @Controller
 public class RoleController extends GlobalController {
 
@@ -38,6 +40,18 @@ public class RoleController extends GlobalController {
         return "system/role/index";
     }
 
+
+    /**
+     * 获取分页
+     */
+    @RequestMapping("/list")
+    @ResponseBody
+    public  Result list() {
+        List<Role> list = service.list();
+        result.setData(list);
+        result.setCode(20000);
+        return result;
+    }
 
     /**
      * 获取分页

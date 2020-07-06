@@ -3,7 +3,6 @@ package com.apps.omnipotent.manager.service.impl;
 import com.apps.omnipotent.manager.dao.RoleDao;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.RoleService;
-import com.apps.omnipotent.manager.service.UserService;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;

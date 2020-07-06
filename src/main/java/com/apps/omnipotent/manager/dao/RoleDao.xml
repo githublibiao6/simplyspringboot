@@ -3,7 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.apps.omnipotent.manager.dao.RoleDao">
      <select id="list" resultType="com.apps.omnipotent.manager.bean.Role">
-        select t.id,t.code from be_role t where effective_flag = 1 and delete_flag=1
+        select t.* from be_role t where effective_flag = 1 and delete_flag=1
     </select>
 
     <select id="findById" resultType="com.apps.omnipotent.manager.bean.Role">
