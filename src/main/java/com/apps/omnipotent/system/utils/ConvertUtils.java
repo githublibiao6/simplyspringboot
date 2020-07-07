@@ -3,10 +3,9 @@ package com.apps.omnipotent.system.utils;
  * Created by cles on 2020/5/30 0:33
  */
 
-import com.apps.omnipotent.system.bean.Record;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: 转换工具类
@@ -22,21 +21,21 @@ public class ConvertUtils {
     * @Author: cles
     * @Date: 2020/5/30 0:34
     */
-    private void convertTree(List<Record> list,String idField, String parentField,
-                             String childrenField ,String pid, boolean removeChildren){
-        List<Record> children = new ArrayList<>();
+    public static void convertTree(List<Map> list, String idField, String parentField,
+                             String childrenField , String pid, boolean removeChildren){
+        List<Map> children = new ArrayList<>();
         list.forEach(t->{
-            if(pid.equals(t.getString(parentField))){
-                for (Record record : list) {
-                    if(record.getString(parentField).equals(t.getString(idField))){
+            if(pid.equals(t.get(parentField))){
+                for (Map record : list) {
+                    if(record.get(parentField).equals(t.get(idField))){
                         children.add(record);
                     }
                 }
                 if(children.size() > 0){
                     children.forEach(child->{
-                        convertTree(list,idField,parentField,childrenField,t.getString(idField),removeChildren);
+                        convertTree(list,idField,parentField,childrenField,t.get(idField).toString(),removeChildren);
                     });
-                    t.setString(childrenField,children);
+                    t.put(childrenField,children);
                 }
             }
         });

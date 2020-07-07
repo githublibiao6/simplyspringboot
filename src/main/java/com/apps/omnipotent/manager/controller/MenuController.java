@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单controller
@@ -129,6 +130,19 @@ public class MenuController extends GlobalController {
         result.setData(list);
         result.setCode(20000);
         result.setMessage("菜单信息");
+        return result;
+    }
+
+    /**
+     *  查询字典树
+     */
+    @RequestMapping("/listMap")
+    @ResponseBody
+    public Result listMap() {
+        List<Map> data = service.listMap();
+        result.setData(data);
+        System.err.println(result.toString());
+        result.setCode(20000);
         return result;
     }
 

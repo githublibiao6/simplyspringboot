@@ -2,8 +2,10 @@ package com.apps.omnipotent.manager.dao;
 
 
 import com.apps.omnipotent.manager.bean.Menu;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单dao
@@ -25,6 +27,10 @@ public interface MenuDao {
     int  add(Menu menu);
 
     List<Menu> list();
+
+
+    @Select("select t.* from be_menu t where effective_flag = 1 and delete_flag=1")
+    List<Map> listMap();
 
     List<Menu> pageList();
 

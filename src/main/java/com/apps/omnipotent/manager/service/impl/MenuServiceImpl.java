@@ -5,13 +5,11 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.MenuService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.utils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -40,6 +38,13 @@ public class MenuServiceImpl extends GlobalService  implements MenuService {
     @Override
     public List<Menu> list() {
         return dao.list();
+    }
+
+    @Override
+    public List<Map> listMap() {
+        List<Map> list = dao.listMap();
+        ConvertUtils.convertTree(list,"menuId","parent","children","-1",true);
+        return list;
     }
 
     /**
