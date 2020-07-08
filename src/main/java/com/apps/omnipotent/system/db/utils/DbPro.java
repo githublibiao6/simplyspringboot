@@ -96,11 +96,14 @@ public class DbPro {
     }
 
     public String save(String tableName,String primaryKey,  List<JSONObject> list) {
-        String sql = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName, primaryKey , list);
+        JSONObject object = DbMaker.getDbSqlMaker(dataSource.getDbType()).saveSql(tableName, primaryKey , list);
+        String sql = object.getString("sql");
         log.info(sql);
-        System.err.println(UUID.randomUUID());
         int n = DbHelper.save(dataSource,sql);
-        return "";
+        if(n > 0){
+            return object.getString("id");
+        }
+        return null;
     }
 
     public int update(String tableName ,String primaryKey, List<JSONObject> list) {

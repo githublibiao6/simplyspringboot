@@ -10,6 +10,11 @@
         select * from be_role where id=#{id}
     </select>
 
+
+    <select id="findByRoleId" resultType="com.apps.omnipotent.manager.bean.RoleMenu">
+        select * from be_role_menu where role_id=#{roleId}
+    </select>
+
     <!--<update  id="remove" parameterType="com.apps.omnipotent.manager.bean.Role">
         update be_role  set delete_flag = 0 where id=#{id}
     </update >

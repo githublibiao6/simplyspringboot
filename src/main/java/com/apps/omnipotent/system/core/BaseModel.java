@@ -36,10 +36,10 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
      * @Description: save
      * @Author: cles
      * @Date: 2020/6/19 0:18
-     * @return: boolean
+     * @return: String
      * @version: 1.0.0
      */
-    public boolean save(){
+    public String save(){
         String tableName = getTableName();
         List<JSONObject> list =  getTableField();
         // 生成时间，与生成人员
@@ -51,8 +51,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
                 t.put("field_value", SessionUtils.getUserId());
             }
         });
-        Db.use().save(tableName, getPrimaryKey(tableName), list);
-        return true;
+        return Db.use().save(tableName, getPrimaryKey(tableName), list);
     }
 
     /**

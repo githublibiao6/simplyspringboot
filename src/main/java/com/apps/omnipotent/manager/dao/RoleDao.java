@@ -1,6 +1,7 @@
 package com.apps.omnipotent.manager.dao;
 
 import com.apps.omnipotent.manager.bean.Role;
+import com.apps.omnipotent.manager.bean.RoleMenu;
 
 import java.util.List;
 
@@ -37,4 +38,15 @@ public interface RoleDao {
      */
     Role findById(String id);
 
+    /**
+     * 功能描述：
+     *  < 根据菜单和角色查询菜单角色关联 >
+     * @Description: findByMenuAndRole
+     * @Author: cles
+     * @Date: 2020/7/8 22:42
+     * @param roleId 参数1
+     * @return: com.apps.omnipotent.manager.bean.RoleMenu
+     * @version: 1.0.0
+     */
+    List<RoleMenu> findByRoleId(String roleId);
 }

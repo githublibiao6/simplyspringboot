@@ -42,7 +42,7 @@ public abstract class BaseSqlMaker {
      * @return: java.lang.String
      * @version: 1.0.0
      */
-    public abstract String saveSql(String tableName,String primaryKey, List<JSONObject> list);
+    public abstract JSONObject saveSql(String tableName,String primaryKey, List<JSONObject> list);
 
     /**
      * 功能描述：

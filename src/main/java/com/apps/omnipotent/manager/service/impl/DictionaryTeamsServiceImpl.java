@@ -6,6 +6,7 @@ import com.apps.omnipotent.manager.dao.DicTeamsDao;
 import com.apps.omnipotent.manager.service.DictionaryTeamsService;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
+import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,8 @@ public class DictionaryTeamsServiceImpl extends GlobalService implements Diction
      */
     @Override
     public boolean add(DictionaryTeams m) {
-        return m.save();
+        String id = m.save();
+        return !StringUtil.isBlank(id);
     }
 
     /**

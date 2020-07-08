@@ -1,6 +1,7 @@
 package com.apps.omnipotent.manager.service;
 
 import com.apps.omnipotent.manager.bean.Role;
+import com.apps.omnipotent.manager.bean.RoleMenu;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 
 import java.util.List;
@@ -33,6 +34,18 @@ public interface RoleService {
      * @version: 1.0.0
      */
     List<Role> list();
+
+    /**
+     * 功能描述：
+     *  < >
+     * @Description: findByRoleId
+     * @Author: cles
+     * @Date: 2020/7/8 23:37
+     * @param roleId 参数1
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.Role>
+     * @version: 1.0.0
+     */
+    List<RoleMenu> findByRoleId(String roleId);
     /**
      * 功能描述：
      *  < 新增>
@@ -40,10 +53,11 @@ public interface RoleService {
      * @Author: cles
      * @Date: 2020/7/6 0:07
      * @param role 参数1
+     * @param menus 参数1
      * @return: boolean
      * @version: 1.0.0
      */
-    boolean add(Role role);
+    boolean add(Role role, String menus);
     /**
      * 功能描述：
      *  < 更新 >
@@ -51,10 +65,11 @@ public interface RoleService {
      * @Author: cles
      * @Date: 2020/7/6 0:07
      * @param role 参数1
+     * @param menus 参数1
      * @return: boolean
      * @version: 1.0.0
      */
-    boolean update(Role role);
+    boolean update(Role role, String menus);
     /**
      * 功能描述：
      *  < 删除 >

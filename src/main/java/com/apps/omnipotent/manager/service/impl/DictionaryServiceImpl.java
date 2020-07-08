@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.service.impl;
 import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.dao.DicDao;
 import com.apps.omnipotent.manager.service.DictionaryService;
+import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,8 @@ public class DictionaryServiceImpl implements DictionaryService {
     */
     @Override
     public boolean add(Dictionary m) {
-        return m.save();
+        String id = m.save();
+        return !StringUtil.isBlank(id);
     }
 
     /**

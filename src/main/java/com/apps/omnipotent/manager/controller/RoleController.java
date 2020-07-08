@@ -2,16 +2,15 @@ package com.apps.omnipotent.manager.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.bean.Role;
+import com.apps.omnipotent.manager.bean.RoleMenu;
 import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,6 +65,19 @@ public class RoleController extends GlobalController {
     }
 
     /**
+     * 获取分页
+     */
+    @RequestMapping("/listMenusByRoleId")
+    @ResponseBody
+    public  Result listMenusByRoleId(@RequestParam(value = "role_id", defaultValue = "") String roleId) {
+        result = new Result();
+        List<RoleMenu> list = service.findByRoleId(roleId);
+        result.setData(list);
+        result.setCode(20000);
+        return result;
+    }
+
+    /**
      * 添加字典
      */
     @RequestMapping("/add")
@@ -73,7 +85,7 @@ public class RoleController extends GlobalController {
     public Result add(@RequestBody JSONObject json) {
         result = new Result();
         Role m = JSONObject.parseObject(json.toJSONString(),Role.class);
-        boolean flag = service.add(m);
+        boolean flag = service.add(m, json.getString("menus"));
         if(flag){
             result.setMessage("添加成功");
         }else {
@@ -88,7 +100,7 @@ public class RoleController extends GlobalController {
     public Result update(@RequestBody JSONObject json) {
         result = new Result();
         Role m = JSONObject.parseObject(json.toJSONString(),Role.class);
-        boolean flag = service.update(m);
+        boolean flag = service.update(m, json.getString("menus"));
         String msg = "更新成功" ;
         if(!flag){
             msg = "更新失败";

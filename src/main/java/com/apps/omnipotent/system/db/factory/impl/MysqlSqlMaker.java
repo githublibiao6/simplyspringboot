@@ -22,16 +22,18 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MysqlSqlMaker extends BaseSqlMaker {
 
     @Override
-    public String saveSql(String tableName, String primaryKey, List<JSONObject> list) {
-//        INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+    public JSONObject saveSql(String tableName, String primaryKey, List<JSONObject> list) {
+        // 设置默认的id
+        AtomicReference<String> id = new AtomicReference<>(UUID.randomUUID().toString());
         StringBuilder sql = new StringBuilder("INSERT INTO "+tableName);
         List<JSONObject> columns = new ArrayList<>();
         AtomicReference<String> primaryValue = new AtomicReference<>("");
         list.forEach(t->{
             if(primaryKey.equals(t.getString("table_field"))){
                 if(StringUtil.isBlank(t.getString("field_value"))){
-                    System.err.println(UUID.randomUUID());
-                    t.put("field_value", UUID.randomUUID());
+                    t.put("field_value", id);
+                }else {
+                    id.set(t.getString("field_value"));
                 }
             }
             if(t.get("field_value") != null){
@@ -75,7 +77,10 @@ public class MysqlSqlMaker extends BaseSqlMaker {
         });
         sql.deleteCharAt(sql.length()-1);
         sql.append(")");
-        return sql.toString();
+        JSONObject obj = new JSONObject();
+        obj.put("sql",sql.toString());
+        obj.put("id",id.get());
+        return obj;
     }
 
     @Override
