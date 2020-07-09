@@ -112,8 +112,8 @@ public class RoleController extends GlobalController {
 
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestBody JSONObject json) {
-        boolean flag = service.remove(json.getString("pk"));
+    public Result deleteOne(@RequestParam(value = "id", defaultValue = "") String id) {
+        boolean flag = service.remove(id);
         String msg = "";
         result.setSuccess(flag);
         if(flag){

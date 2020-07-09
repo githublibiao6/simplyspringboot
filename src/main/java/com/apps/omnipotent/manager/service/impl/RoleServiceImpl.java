@@ -57,6 +57,8 @@ public class RoleServiceImpl extends GlobalService implements RoleService {
 
     @Override
     public boolean add(Role role, String menus) {
+        role.setEffectiveFlag("1");
+        role.setDeleteFlag("1");
         String id = role.save();
         if(StringUtil.notBlank(id)){
             saveRoleMenu(id, menus);
@@ -120,7 +122,7 @@ public class RoleServiceImpl extends GlobalService implements RoleService {
             roleMenu.save();
         }
         list.forEach(t->{
-            if(sets.contains(t.getMenuId())){
+            if(!sets.contains(t.getMenuId())){
                 t.delete();
             }
         });
