@@ -91,6 +91,7 @@ public class RoleController extends GlobalController {
         }else {
             result.setMessage("添加失败");
         }
+        result.setData(m);
         result.setSuccess(flag);
         return result;
     }
