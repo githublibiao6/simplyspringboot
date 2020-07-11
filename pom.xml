@@ -76,6 +76,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- 支付宝  -->
+        <dependency>
+            <groupId>com.alipay.api</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>20170615110434</version>
+        </dependency>
         <!-- 获取配置文件 -->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
