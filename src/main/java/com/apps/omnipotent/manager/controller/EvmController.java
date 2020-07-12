@@ -1,4 +1,4 @@
-package com.apps.omnipotent.system.controller;
+package com.apps.omnipotent.manager.controller;
 
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.utils.EVMUtils;
