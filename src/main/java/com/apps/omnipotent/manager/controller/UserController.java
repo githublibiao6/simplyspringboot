@@ -46,6 +46,7 @@ public class UserController extends GlobalController {
         map.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         map.put("introduction","I am a super administrator");
         map.put("name","super Admin");
+        map.put("id","001");
         String[] roles= {"admin"};
         map.put("roles",roles);
         result.setCode(20000);

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -48,5 +50,15 @@ public abstract class GlobalController {
             s.set(t,json.get(s.getName()));
         }
         return t;
+    }
+
+    public String getProjectUrl(){
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return "http://"+address.getHostAddress() +":"+request.getServerPort()+"/"+request.getContextPath();
     }
 }
