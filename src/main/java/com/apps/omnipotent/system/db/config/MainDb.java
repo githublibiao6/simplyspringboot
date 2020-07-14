@@ -44,7 +44,9 @@ public class MainDb {
         this.password = password;
     }
 
-    // application.properteis中对应属性的前缀
+    /**
+     *  application.properteis中对应属性的前缀
+     */
     @Bean(name = "main_db")
     public void dataSource() {
         DbConfig db = new DbConfig();

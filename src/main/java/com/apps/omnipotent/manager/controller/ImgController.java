@@ -1,19 +1,17 @@
 package com.apps.omnipotent.manager.controller;
 
 import com.apps.omnipotent.manager.bean.Img;
-import com.apps.omnipotent.manager.service.ImgService;
-import com.apps.omnipotent.manager.service.ProjectService;
 import com.apps.omnipotent.manager.service.impl.ImgServiceImpl;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -69,9 +67,9 @@ public class ImgController extends GlobalController {
      * @return: com.apps.omnipotent.system.global.entity.Result
      * @version: 1.0.0
      */
-    @RequestMapping(value = "/getImg")
+    @RequestMapping(value = "/getImg/{id}")
     @ResponseBody
-    public Result getImageUrl(@RequestParam(value = "id",defaultValue = "")String id){
+    public Result getImageUrl(@PathVariable(value = "id")String id){
         result = new Result();
         String url = getProjectUrl()+"/img/get?code=01&id="+id;
         result.setData(url);

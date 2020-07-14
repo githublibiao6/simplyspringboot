@@ -171,6 +171,13 @@
             <artifactId>shiro-spring-boot-starter</artifactId>
             <version>1.5.2</version>
         </dependency>
+
+        <!-- 处理 Spring Boot Configuration Annotation Processor not found in classpath-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 
