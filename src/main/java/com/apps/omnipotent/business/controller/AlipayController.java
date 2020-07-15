@@ -1,6 +1,7 @@
 package com.apps.omnipotent.business.controller;
 
 import com.apps.omnipotent.business.service.AlipayService;
+import com.apps.omnipotent.business.service.impl.AlipayServiceImpl;
 import com.apps.omnipotent.manager.service.ProjectService;
 import com.apps.omnipotent.system.utils.EVMUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
 public class AlipayController {
 
     @Autowired
-    AlipayService service;
+    AlipayServiceImpl service;
     /** 测试异步执行
      * @Author cles
      * @Description

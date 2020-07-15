@@ -3,12 +3,15 @@ package com.apps.omnipotent.business.service;
  *  Created by cles on 2020/7/14 23:24
  */
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author cles
  * @description:
  * @Date 2020/7/14 23:24
  * @version: 1.0.0
  */
+
 public interface AlipayService {
     /**
      * 功能描述：
