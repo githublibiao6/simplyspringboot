@@ -19,20 +19,20 @@ import java.util.Map;
  */
 public class JunitTest extends TestMall{
 
-    @Autowired
-    private DicDao dao;
+//    @Autowired
+//    private DicDao dao;
 
-    @Test
+//    @Test
     public void test() {
 //        Model
-        Dictionary d = new Dictionary();
-        d.setCode("code");
-        d.delete();
-        List<Dictionary> list = dao.listDictionary();
-        list.forEach(t->{
-            System.err.println(t);
-        });
-        System.out.println("Hi Junit.");
+//        Dictionary d = new Dictionary();
+//        d.setCode("code");
+//        d.delete();
+//        List<Dictionary> list = dao.listDictionary();
+//        list.forEach(t->{
+//            System.err.println(t);
+//        });
+//        System.out.println("Hi Junit.");
 
     }
 

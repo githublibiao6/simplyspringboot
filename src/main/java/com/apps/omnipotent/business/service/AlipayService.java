@@ -22,5 +22,5 @@ public interface AlipayService {
      * @return: void
      * @version: 1.0.0
      */
-    void index();
+    String index();
 }

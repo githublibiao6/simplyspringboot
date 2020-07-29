@@ -89,6 +89,12 @@
             <artifactId>core</artifactId>
             <version>3.3.0</version>
         </dependency>
+        <!-- 微信支付 -->
+        <dependency>
+            <groupId>com.github.wxpay</groupId>
+            <artifactId>wxpay-sdk</artifactId>
+            <version>0.0.3</version>
+        </dependency>
 
         <dependency>
             <groupId>net.glxn</groupId>
@@ -140,7 +146,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.62</version>
+            <version>1.2.7</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

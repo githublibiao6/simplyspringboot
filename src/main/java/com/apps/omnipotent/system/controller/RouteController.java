@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author cles
+ */
 @Controller
 @RequestMapping("/route")
 public class RouteController {
@@ -19,5 +22,10 @@ public class RouteController {
     @RequestMapping("/index")
     public String index() {
         return "/index";
+    }
+
+    @RequestMapping("/index1")
+    public String index1() {
+        return "/index1";
     }
 }

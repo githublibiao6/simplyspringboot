@@ -18,17 +18,17 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * @Date 2020/5/30 21:06
  */
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = DemoApplication.class , webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = DemoApplication.class , webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@AutoConfigureMockMvc
 public class TestMall {
-    @Before
-    public void init() {
-        System.out.println("开始测试################################");
-    }
-    @After
-    public void after() {
-
-        System.out.println("测试结束#################################");
-    }
+//    @Before
+//    public void init() {
+//        System.out.println("开始测试################################");
+//    }
+//    @After
+//    public void after() {
+//
+//        System.out.println("测试结束#################################");
+//    }
 }

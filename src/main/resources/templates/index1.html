@@ -8,6 +8,7 @@
 		<script src="../static/plugins/vue.js"></script>
 		<script type="text/javascript" src="../static/html.js"></script>
 		<script type="text/javascript" src="../static/plugins/echarts-3.7.1/echarts.min.js"></script>
+		<script type="text/javascript" src="../static/plugins/jquery/jquery-2.2.3.min.js"></script>
 	</head>
 	<style type="text/css">
 		html,
@@ -21,9 +22,11 @@
 		}
 	</style>
 	<body>
+		<a onclick="sub()"></a>
 		<div id="app" style="width: 100%;height: 100%;">
 
 		</div>
+
 		<script type="text/javascript">
 			var name = '${list1}';
 			var app = new Vue({
@@ -36,12 +39,15 @@
 						}).then(function(res) {
 							console.log(res);
 						});
+					},sub(){
+						console.log(123)
 					}
 				}
 			});
 			let myChart = echarts.init(document.getElementById('app'));
 			myChart.on('click', function (params) {
 				console.log(params);
+				window.open('/om/pay/index');
 			});
 			/* https://www.cnblogs.com/koala2016/archive/2016/12/01/6123003.html */
 			let option = {

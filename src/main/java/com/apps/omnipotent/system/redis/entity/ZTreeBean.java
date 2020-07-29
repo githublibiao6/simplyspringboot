@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.LinkedList;
 
+/**
+ * @author cles
+ */
 @Data
 @Builder
 @NoArgsConstructor
