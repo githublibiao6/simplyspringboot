@@ -18,12 +18,6 @@ import java.io.IOException;
 @Configuration
 @ConfigurationProperties(prefix = "alibaba.alipay")
 public class AliPayConfig {
-
-    /**
-     *  netapp映射的地址，，，根据自己的需要修改
-     */
-    public static String netUrl ;
-
     /**
      * 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号 按照我文章图上的信息填写
      */
@@ -64,11 +58,6 @@ public class AliPayConfig {
      * 支付宝网关
      */
     public static String gatewayUrl ;
-
-
-    public void setNetUrl(String netUrl) {
-        AliPayConfig.netUrl = netUrl;
-    }
 
     public void setAppId(String appId) {
         AliPayConfig.appId = appId;

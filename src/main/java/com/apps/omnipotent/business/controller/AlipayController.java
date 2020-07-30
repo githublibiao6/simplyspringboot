@@ -46,7 +46,7 @@ public class AlipayController {
      */
     @RequestMapping("/success")
     public String chat() {
-        return "/alipay/success";
+        return "alipay/success";
     }
 
     /**
@@ -55,7 +55,7 @@ public class AlipayController {
      */
     @RequestMapping("/notify")
     public String index2() {
-        return "/alipay/notify";
+        return "alipay/notify";
     }
     
 }
