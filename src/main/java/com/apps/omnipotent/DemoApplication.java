@@ -41,7 +41,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * 开启异步调用
  */
 @EnableAsync
-@MapperScan("com.apps.omnipotent")
+@MapperScan("com.apps.omnipotent.**.dao")
 @EnableMongoRepositories
 public class DemoApplication {
     public static void main(String[] args) {

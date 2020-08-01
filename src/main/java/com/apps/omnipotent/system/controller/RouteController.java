@@ -1,5 +1,6 @@
 package com.apps.omnipotent.system.controller;
 
+import com.apps.omnipotent.manager.service.MenuService;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RouteController {
 
     @Autowired
-    MenuServiceImpl service;
+    MenuService service;
 
     /**
      * 主路径
@@ -21,6 +22,7 @@ public class RouteController {
      */
     @RequestMapping("/index")
     public String index() {
+        service.list();
         return "/index";
     }
 
