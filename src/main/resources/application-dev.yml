@@ -33,8 +33,8 @@ spring:
     password: 123456
     #客户端超时时间单位是毫秒 默认是2000
     timeout: 5000
-    #数据库
-    database: 0
+    #数据库数量
+    database: 8
     jedis:
       pool:
         # 最大空闲连接数

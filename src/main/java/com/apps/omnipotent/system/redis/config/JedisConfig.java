@@ -34,29 +34,43 @@ public class JedisConfig {
     @Value("${spring.redis.jedis.pool.max-active}")
     private int maxActive;
 
-    //可用连接实例的最大数目，默认值为8；
+    /**
+     * 可用连接实例的最大数目，默认值为8；
+     */
     private static final int MAX_TOTAL = 50;
 
-    //控制一个pool最多有多少个状态为idle(空闲的)的jedis实例，默认值也是8。
+    /**
+     * 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例，默认值也是8。
+     */
     private static final int MAX_IDLE = 10;
 
-    //等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException；
+    /**
+     * 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException；
+     */
     private static final int MAX_WAIT = 3000;
 
-    //超时时间
+    /**
+     * 超时时间
+     */
     private static final int TIME_OUT = 3000;
 
-    //在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；
+    /**
+     * 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；
+     */
     private static final boolean TEST_ON_BORROW = true;
 
     private static final boolean TEST_ON_RETURN = true;
 
-    //redis连接池
+    /**
+     * redis连接池
+     */
     public static JedisPool jedisPool;
-    //
+
     public static Jedis jedis;
 
-    //资源锁
+    /**
+     * 资源锁
+     */
     private static ReentrantLock lock = new ReentrantLock();
 
     /**
@@ -82,7 +96,7 @@ public class JedisConfig {
     /**
      * 从JedisPool中获取Jedis
      */
-    private static void openJedis(Connect connect) throws Exception {
+    private static void openJedis(Connect connect){
         log.info("正在建立新连接...");
         //销毁旧的连接池
         freeJedisPool();

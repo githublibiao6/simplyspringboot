@@ -2,6 +2,7 @@ package com.apps.omnipotent.system.utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.apps.omnipotent.system.redis.config.JedisConfig;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class JedisUtil {
         JSONArray arr = new JSONArray();
         arr.addAll(list);
         String res = JedisConfig.getJedis().set(key,arr.toJSONString());
+        Jedis jeids = JedisConfig.getJedis();
+        jeids.select(0);
         return "OK".equals(res);
     }
 
