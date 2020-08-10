@@ -5,7 +5,6 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.impl.RoleServiceImpl;
-import com.apps.omnipotent.system.bean.Record;
 import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.config.MainDb;
 import com.apps.omnipotent.system.db.utils.Db;

@@ -11,31 +11,79 @@ import java.util.Date;
  */
 public class Employee {
 
-    private String id;// 编号
-    private String name;// 姓名
-    private String password;// 登录密码ID
+    /**
+     *
+     */
+    private String id;
+    /**
+     * 姓名
+     */
+    private String name;
+    /**
+     * 登录密码ID
+     */
+    private String password;
     private String citizenNo;
     private String sex;
     private String photoUri;
-    private String position;// 职位
+    /**
+     * 职位
+     */
+    private String position;
     @JsonFormat(locale="zh",timezone="GMT+8",pattern="yy-MM-dd")
     private Date birth;
     private String nation;
-    private String polity;// 政治面貌
-    private String marriage;// 婚姻状态
+    /**
+     * 政治面貌
+     */
+    private String polity;
+    /**
+     * 婚姻状态
+     */
+    private String marriage;
     private String phone;
     private String officeNo;
     private String email;
-    private String education;// 学历
-    private String degree;// 学位
-    private Date contractStart;// 合同起始时间
-    private Date contractEnd;// 合同结束时间
-    private String createUser;// 创建人
-    private Date createTime;// 创建时间
-    private Date modifyUser;// 修改人
-    private Date modifyTime;// 修改时间
-    private String state;// 在职状态
-    private String notes;// 说明
+    /**
+     * 学历
+     */
+    private String education;
+    /**
+     * 学位
+     */
+    private String degree;
+    /**
+     * 合同起始时间
+     */
+    private Date contractStart;
+    /**
+     * 合同结束时间
+     */
+    private Date contractEnd;
+    /**
+     * 创建人
+     */
+    private String createUser;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 修改人
+     */
+    private Date modifyUser;
+    /**
+     * 修改时间
+     */
+    private Date modifyTime;
+    /**
+     * 在职状态
+     */
+    private String state;
+    /**
+     * 说明
+     */
+    private String notes;
     public String getId() {
         return id;
     }

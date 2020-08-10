@@ -23,7 +23,7 @@ public class OpenApiController extends GlobalController {
     @ResponseBody
     public Result say() {
         result.setSuccess(true);
-        result.setData(JedisUtil.getList("list"));
+        result.setData(JedisUtil.use(0).getList("list"));
         return result;
     }
 }

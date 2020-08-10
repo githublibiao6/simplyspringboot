@@ -33,7 +33,7 @@ public class FileController extends GlobalController {
         }
         result.setMessage("文件存在");
         result.setSuccess(true);
-        result.setData(JedisUtil.getList("list"));
+        result.setData(JedisUtil.use(0).getList("list"));
         FileUtil.downLoadFile(response,file);
         return result;
     }

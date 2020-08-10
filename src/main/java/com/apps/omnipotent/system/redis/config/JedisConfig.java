@@ -146,11 +146,12 @@ public class JedisConfig {
         }
     }
 
-    public static Jedis getJedis() {
+    public static Jedis getJedis(int index) {
         if(jedis == null){
             log.info("redis初始化错误");
             return new Jedis();
         }
+        jedis.select(index);
         return jedis;
     }
 }
