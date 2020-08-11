@@ -1,5 +1,7 @@
 package com.apps.omnipotent.business.entity;
 
+import com.apps.omnipotent.manager.bean.Dictionary;
+import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +14,7 @@ import java.util.Date;
  * @date 2018年5月14日 下午10:33:42
  */
 @Table("essay")
-public class Essay {
+public class Essay extends BaseModel<Essay> {
 
     private String id;
     /**
