@@ -9,6 +9,7 @@ import com.apps.omnipotent.manager.service.impl.DictionaryServiceImpl;
 import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +33,16 @@ public class EssayController extends GlobalController {
     @Autowired
     private EssayService service;
 
+    @RequestMapping("/page")
+    @ResponseBody
+    public  Result pageList(PageEntity entity) {
+        PageEntity page = service.page(entity);
+        result.setData(page);
+        result.setCode(20000);
+        return result;
+    }
     /**
-     * 添加字典
+     * 添加文章
      */
     @RequestMapping("/add")
     @ResponseBody

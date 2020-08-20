@@ -2,7 +2,10 @@ package com.apps.omnipotent.business.service;
 
 import com.apps.omnipotent.business.entity.Essay;
 import com.apps.omnipotent.manager.bean.Dictionary;
+import com.apps.omnipotent.manager.bean.Menu;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,6 +15,8 @@ import java.util.List;
  *
  */
 public interface EssayService {
+
+    public PageEntity page(PageEntity entity) ;
     /**
      * 功能描述：
      *  <获取全部字典>

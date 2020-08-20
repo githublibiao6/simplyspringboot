@@ -15,6 +15,8 @@ import java.util.List;
 @Repository
 public interface EssayDao {
 
+
+
     /**
      * 获取全部dictionary
      * @return

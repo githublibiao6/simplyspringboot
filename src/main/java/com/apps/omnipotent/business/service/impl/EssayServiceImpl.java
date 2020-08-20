@@ -4,12 +4,16 @@ import com.apps.omnipotent.business.dao.EssayDao;
 import com.apps.omnipotent.business.entity.Essay;
 import com.apps.omnipotent.business.service.EssayService;
 import com.apps.omnipotent.manager.bean.Dictionary;
+import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.dao.DicDao;
 import com.apps.omnipotent.manager.service.DictionaryService;
+import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,10 +23,16 @@ import java.util.List;
  *
  */
 @Service
-public class EssayServiceImpl implements EssayService {
-    
+public class EssayServiceImpl extends GlobalService implements EssayService {
+
     @Autowired
     private EssayDao dao;
+
+    @Override
+    public PageEntity page(PageEntity entity) {
+        List<Essay> pageMenus = dao.listEssay();
+        return getPageEntity(pageMenus,entity);
+    }
 
     /**
     * @Description: 获取全部字典
