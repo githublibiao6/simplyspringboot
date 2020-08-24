@@ -1,6 +1,5 @@
 package com.apps.omnipotent.business.entity;
 
-import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
@@ -26,6 +25,14 @@ public class Essay extends BaseModel<Essay> {
      */
     private String title;
     /**
+     * 重要性
+     */
+    private Integer importance;
+    /**
+     * 状态
+     */
+    private String status;
+    /**
      * 副标题
      */
     @TableField("sub_title")
@@ -42,6 +49,18 @@ public class Essay extends BaseModel<Essay> {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField("create_time")
     private Date createTime;
+
+    /**
+     * 创建者
+     */
+    @TableField("modify_user")
+    private String modifyUser;
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("modify_time")
+    private Date modifyTime;
 
     /**
      * 生效标志
@@ -116,5 +135,37 @@ public class Essay extends BaseModel<Essay> {
 
     public void setDeleteFlag(String deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public String getModifyUser() {
+        return modifyUser;
+    }
+
+    public void setModifyUser(String modifyUser) {
+        this.modifyUser = modifyUser;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public Integer getImportance() {
+        return importance;
+    }
+
+    public void setImportance(Integer importance) {
+        this.importance = importance;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
