@@ -25,6 +25,18 @@ public interface EssayDao {
     List<Essay> listEssay();
 
     /**
+     * 功能描述：根据id查询文章
+     *  < >
+     * @Description: findById
+     * @Author: cles
+     * @Date: 2020/8/26 23:32
+     * @param id 主键
+     * @return: com.apps.omnipotent.business.entity.Essay
+     * @version: 1.0.0
+     */
+    Essay findById(String id);
+
+    /**
      * 根据code查询记录
      * @param code
      * @return

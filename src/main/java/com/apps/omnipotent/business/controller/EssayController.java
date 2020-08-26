@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -95,6 +96,16 @@ public class EssayController extends GlobalController {
         }else {
             result.setMessage("删除失败");
         }
+        return result;
+    }
+
+    @RequestMapping("/detail")
+    @ResponseBody
+    public Result detail(@RequestParam(value = "id",defaultValue = "") String id) {
+        result = new Result();
+        Essay essay = service.detail(id);
+        result.setData(essay);
+
         return result;
     }
 }

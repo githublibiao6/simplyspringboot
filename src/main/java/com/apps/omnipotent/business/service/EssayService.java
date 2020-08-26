@@ -64,4 +64,15 @@ public interface EssayService {
      */
     boolean remove(String id);
 
+    /**
+     * 功能描述：根据主键查询文章
+     *  < >
+     * @Description: detail
+     * @Author: cles
+     * @Date: 2020/8/26 23:27
+     * @param id 参数1
+     * @return: com.apps.omnipotent.business.entity.Essay
+     * @version: 1.0.0
+     */
+    Essay detail(String id);
 }

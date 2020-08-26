@@ -127,9 +127,9 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
         return res>0;
     }
 
-    public Object findById(){
+    public T findById(String id){
         String tableName = getTableName();
-        return true;
+        return null;
     }
 
     /**

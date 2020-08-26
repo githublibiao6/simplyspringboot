@@ -90,4 +90,18 @@ public class EssayServiceImpl extends GlobalService implements EssayService {
         mode.setId(id);
         return mode.delete();
     }
+
+    /**
+     * 功能描述：
+     * @Description: detail
+     * @Author: cles
+     * @Date: 2020/8/26 23:39
+     * @param id 参数1
+     * @return: com.apps.omnipotent.business.entity.Essay
+     * @version: 1.0.0
+     */
+    @Override
+    public Essay detail(String id) {
+        return dao.findById(id);
+    }
 }
