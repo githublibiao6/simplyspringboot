@@ -33,6 +33,12 @@ public class Essay extends BaseModel<Essay> {
      */
     private String status;
     /**
+     * 发布时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("publish_time")
+    private Date publishTime;
+    /**
      * 副标题
      */
     @TableField("sub_title")
@@ -167,5 +173,13 @@ public class Essay extends BaseModel<Essay> {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
     }
 }
