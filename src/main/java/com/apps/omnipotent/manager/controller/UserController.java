@@ -8,15 +8,14 @@ import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.shiro.entity.Permissions;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -74,6 +73,19 @@ public class UserController extends GlobalController {
     public  Result pageList(PageEntity entity) {
         PageEntity page = service.page(entity);
         result.setData(page);
+        result.setCode(20000);
+        return result;
+    }
+
+    /**
+     * 获取分页
+     */
+    @RequestMapping("/list")
+    @ResponseBody
+    public  Result list(@RequestParam(value = "name",defaultValue = "") String name) {
+        System.err.println(name);
+        List<User> list = service.list(name);
+        result.setData(list);
         result.setCode(20000);
         return result;
     }

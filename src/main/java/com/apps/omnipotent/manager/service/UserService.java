@@ -33,10 +33,11 @@ public interface UserService {
      * @Description: list
      * @Author: cles
      * @Date: 2020/6/18 0:32
+     * @param name 参数1
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Dictionary>
      * @version: 1.0.0
      */
-    List<User> list();
+    List<User> list(String name);
 
     /**
      * 功能描述：

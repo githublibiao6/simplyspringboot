@@ -32,13 +32,13 @@ public class UserServiceImpl extends GlobalService implements UserService {
 
     @Override
     public PageEntity page(PageEntity entity) {
-        List<User> page = dao.listUser();
+        List<User> page = dao.pageUser();
         return getPageEntity(page,entity);
     }
 
     @Override
-    public List<User> list() {
-        return dao.listUser();
+    public List<User> list(String name) {
+        return dao.listUser(name);
     }
 
     @Override
