@@ -36,7 +36,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * @Date: 2020/4/29 23:17
  */
 /*mongodb*/
-@SpringBootApplication(exclude = MongoAutoConfiguration.class)
+// 移除自动配置mongodb
+// 需要手动配置com.apps.omnipotent.system.mongodb.config.MongoConfig
+//@SpringBootApplication(exclude = MongoAutoConfiguration.class)
+@SpringBootApplication()
 /**
  * 开启异步调用
  */

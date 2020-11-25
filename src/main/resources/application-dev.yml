@@ -19,7 +19,8 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      uri:  mongodb://121.199.72.15:27017/admin
+      uri:  mongodb://121.199.72.15:27017/company
+      database: company
   mvc:
     view:
       prefix: /

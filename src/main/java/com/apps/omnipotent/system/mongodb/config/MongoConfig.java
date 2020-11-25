@@ -16,15 +16,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @Configuration
 public class MongoConfig {
 
-    @Bean
-    public MongoClient mongoClient() {
-        return new MongoClient("121.199.72.15", 27017);
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(mongoClient(), "test");
-    }
+//    @Bean
+//    public MongoClient mongoClient() {
+//        return new MongoClient("121.199.72.15", 27017);
+//    }
+//
+//    @Bean
+//    public MongoTemplate mongoTemplate() {
+//        return new MongoTemplate(mongoClient(), "test");
+//    }
 
 
 }

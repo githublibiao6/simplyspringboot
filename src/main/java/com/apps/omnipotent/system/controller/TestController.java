@@ -11,6 +11,7 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
 * @Description:  刚开始测试用的，没啥用
@@ -91,7 +93,16 @@ public class TestController  extends GlobalController {
     public Result mongo() {
         Query query = new Query();
 //        //数据库表名称
-//        MongoCollection<Document> dbCollection = mongoTemplate.getCollection("user");
+        Set<String> set = mongoTemplate.getCollectionNames();
+        set.forEach(t->{
+            System.out.println(t);
+        });
+        MongoCollection<Document> dbCollection = mongoTemplate.getCollection("table1");
+        FindIterable<Document> sm = dbCollection.find();
+        sm.forEach((Block<? super Document>) t->{
+            System.err.println(t);
+            System.err.println(t.get("title"));
+        });
 //
 //        //创建文档
 //        Document document = new Document("name","张三")
@@ -100,20 +111,29 @@ public class TestController  extends GlobalController {
 //        dbCollection.insertOne(document);
 //        FindIterable<Document> list = dbCollection.find();
         MongoDatabase db = mongoTemplate.getDb();
-        MongoCollection<Document> collection = db.getCollection("test");
+        System.err.println(db.getName());
+        MongoIterable<String> cols = db.listCollectionNames();
+        System.out.println(cols);
+        System.out.println(cols.first());
+        cols.forEach((Block<? super String>) s->{
+            System.err.println(1);
+            System.out.println(s);
+        });
+        MongoCollection<Document> collection = db.getCollection("table");
         FindIterable<Document> list = collection.find();
+        System.out.println(list);
         list.forEach((Block<? super Document>) t->{
             System.err.println(t);
-            System.err.println(t.get("name"));
+            System.err.println(t.get("title"));
         });
-        MongoTemplate mongoTemplate1 = new MongoTemplate(mongoClient,"local");
-        MongoCollection<Document> collection1 = mongoTemplate1.getDb().getCollection("startup_log");
-        FindIterable<Document> list1 = collection1.find();
-        list1.forEach((Block<? super Document>) t->{
-            System.err.println(t);
-            System.err.println(t.get("name"));
-        });
-        DictionaryUtils.init();
+//        MongoTemplate mongoTemplate1 = new MongoTemplate(mongoClient,"table");
+//        MongoCollection<Document> collection1 = mongoTemplate1.getDb().getCollection("startup_log");
+//        FindIterable<Document> list1 = collection1.find();
+//        list1.forEach((Block<? super Document>) t->{
+//            System.err.println(t);
+//            System.err.println(t.get("name"));
+//        });
+//        DictionaryUtils.init();
         return result;
     }
 
