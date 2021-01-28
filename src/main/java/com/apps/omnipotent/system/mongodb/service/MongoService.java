@@ -23,6 +23,12 @@ public interface MongoService<T>{
     void save(T t);
 
     /**
+     * 保存一组对象
+     * @param t
+     */
+    void saveList(List<T> t);
+
+    /**
      * 根据对象Id查找该对象
      * @param cls
      * @param id

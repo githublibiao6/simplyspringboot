@@ -172,7 +172,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
             JSONObject obj = new JSONObject();
             obj.put("entity_field", column);
             Type type = field.getGenericType();
-            if (int.class.equals(type)) {
+            if (int.class.equals(type) || Integer.class.equals(type)) {
                 obj.put("field_type","int");
             }else if(String.class.equals(type)){
                 obj.put("field_type","String");

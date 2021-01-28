@@ -32,6 +32,12 @@ public  class MongoServiceImpl<T>  implements MongoService<T> {
     }
 
     @Override
+    public void saveList(List<T> list) {
+        log.info("[Mongo]save:" + list.toString());
+        list.forEach(this::save);
+    }
+
+    @Override
     public T queryById(Class<T> cls, String id) {
         Query query = new Query();
         Criteria criteria = Criteria.where("_id").is(id);
