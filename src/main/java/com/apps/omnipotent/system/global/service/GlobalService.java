@@ -16,14 +16,9 @@ import java.util.List;
  * @return:
  * @version: 1.0.0
  */
-public class GlobalService {
+public interface GlobalService<T>  {
 
-    public PageEntity getPageEntity(List<?>  list, PageEntity entity){
-        int pageNum = entity.getPage();
-        int pageSize = entity.getLimit();
-        PageHelper.startPage(pageNum, pageSize);
-        PageInfo<?> info = new PageInfo<>(list);
-        return PageUtils.getPageResult(entity,info);
+    PageEntity getPageEntity(List<T>  list, PageEntity entity);
 
-    }
+    T insertSelective(T record);
 }
