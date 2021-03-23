@@ -1,10 +1,8 @@
 package com.apps.omnipotent.system.global.service.impl;
 
+import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
-import com.apps.omnipotent.system.utils.PageUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ import java.util.List;
  * @return:
  * @version: 1.0.0
  */
-public class GlobalServiceImpl implements GlobalService {
+public class  GlobalServiceImpl<T>  implements GlobalService<T> {
 
     @Override
     public PageEntity getPageEntity(List list, PageEntity entity) {
@@ -25,7 +23,35 @@ public class GlobalServiceImpl implements GlobalService {
     }
 
     @Override
-    public Object insertSelective(Object record) {
+    public T detailQuery(String id) {
+
         return null;
+    }
+
+    @Override
+    public BaseModel insertSelective(BaseModel record) {
+        record.save();
+        return record;
+    }
+
+    @Override
+    public boolean deleteById(String primaryKey) {
+        return false;
+    }
+
+    @Override
+    public BaseModel updateSelective(BaseModel record) {
+        record.update();
+        return record;
+    }
+
+    @Override
+    public boolean delete(BaseModel model) {
+        try{
+            model.delete();
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 }

@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.dao;
 
 import com.apps.omnipotent.manager.bean.Menu;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
 * @date 2018年8月20日 下午11:14:28
 *
  */
+@Component
 public interface MenuDao {
 
     /**

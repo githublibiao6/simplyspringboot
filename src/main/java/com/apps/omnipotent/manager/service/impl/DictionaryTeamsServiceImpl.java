@@ -5,6 +5,7 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.dao.DicTeamsDao;
 import com.apps.omnipotent.manager.service.DictionaryTeamsService;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.List;
  *
  */
 @Service
-public class DictionaryTeamsServiceImpl extends GlobalService implements DictionaryTeamsService{
+public class DictionaryTeamsServiceImpl extends GlobalServiceImpl implements DictionaryTeamsService{
 
     @Autowired
     private DicTeamsDao dao;

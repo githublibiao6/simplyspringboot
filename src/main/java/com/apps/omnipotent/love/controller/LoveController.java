@@ -1,9 +1,9 @@
 package com.apps.omnipotent.love.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.apps.omnipotent.business.service.EssayService;
+import com.apps.omnipotent.business.entity.Essay;
 import com.apps.omnipotent.love.entity.DateLog;
-import com.apps.omnipotent.love.entity.Essay;
+import com.apps.omnipotent.love.service.DateLogService;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoveController extends GlobalController {
     
     @Autowired
-    private EssayService service;
+    private DateLogService service;
 
     @RequestMapping("/page")
     @ResponseBody
@@ -56,7 +56,7 @@ public class LoveController extends GlobalController {
     @ResponseBody
     public Result update(@RequestBody JSONObject json) {
         result = new Result();
-        Essay m = JSONObject.parseObject(json.toJSONString(), Essay.class);
+        DateLog m = JSONObject.parseObject(json.toJSONString(), DateLog.class);
         boolean flag = service.update(m);
         result.setSuccess(flag);
         if(flag){
@@ -95,8 +95,8 @@ public class LoveController extends GlobalController {
     @ResponseBody
     public Result detail(@RequestParam(value = "id",defaultValue = "") String id) {
         result = new Result();
-        Essay essay = service.detail(id);
-        result.setData(essay);
+        DateLog dateLog = service.detail(id);
+        result.setData(dateLog);
 
         return result;
     }

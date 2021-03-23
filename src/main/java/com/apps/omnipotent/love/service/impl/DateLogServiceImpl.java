@@ -1,12 +1,9 @@
 package com.apps.omnipotent.love.service.impl;
 
-import com.apps.omnipotent.business.dao.EssayDao;
 import com.apps.omnipotent.business.entity.Essay;
 import com.apps.omnipotent.love.dao.DateLogMapper;
 import com.apps.omnipotent.love.entity.DateLog;
 import com.apps.omnipotent.love.service.DateLogService;
-import com.apps.omnipotent.love.service.EssayService;
-import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
@@ -63,6 +60,7 @@ public class DateLogServiceImpl extends GlobalServiceImpl implements DateLogServ
      */
     @Override
     public boolean update(DateLog m) {
+        insertSelective(m);
         return m.update();
     }
 

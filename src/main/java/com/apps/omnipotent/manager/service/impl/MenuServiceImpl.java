@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.service.impl;
 import com.apps.omnipotent.manager.dao.MenuDao;
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.MenuService;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.utils.ConvertUtils;
@@ -21,7 +22,7 @@ import java.util.*;
 *
  */
 @Service
-public class MenuServiceImpl extends GlobalService  implements MenuService {
+public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
 
     @Autowired
     MenuDao dao;

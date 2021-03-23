@@ -5,6 +5,7 @@ import com.apps.omnipotent.manager.dao.RoleDao;
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.service.RoleService;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.Set;
 *
  */
 @Service
-public class RoleServiceImpl extends GlobalService implements RoleService {
+public class RoleServiceImpl extends GlobalServiceImpl implements RoleService {
 
     @Autowired
     RoleDao dao;

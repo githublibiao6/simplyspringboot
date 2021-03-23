@@ -8,6 +8,7 @@ import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.dao.DicDao;
 import com.apps.omnipotent.manager.service.DictionaryService;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.util.List;
  *
  */
 @Service
-public class EssayServiceImpl extends GlobalService implements EssayService {
+public class EssayServiceImpl extends GlobalServiceImpl implements EssayService {
 
     @Autowired
     private EssayDao dao;

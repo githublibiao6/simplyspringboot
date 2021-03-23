@@ -2,6 +2,7 @@ package com.apps.omnipotent.manager.service.impl;
 
 import com.apps.omnipotent.manager.bean.Admin;
 import com.apps.omnipotent.manager.dao.AdminDao;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.UUID;
  * @date 2018年6月5日 下午8:55:47
  */
 @Service
-public class AdminServiceImpl extends GlobalService{
+public class AdminServiceImpl extends GlobalServiceImpl {
 
     @Autowired
     AdminDao dao;

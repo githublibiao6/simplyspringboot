@@ -123,7 +123,7 @@ public class MysqlSqlMaker extends BaseSqlMaker {
                     break;
             }
         });
-        sql.deleteCharAt(sql.length()-1);
+        sql.append(" sys007=sys007+1");
         sql.append(" WHERE ").append(primaryKey).append(" = '").append(primaryValue.get()).append("'");
         return sql.toString();
     }

@@ -8,6 +8,7 @@ import com.apps.omnipotent.manager.dao.RoleDao;
 import com.apps.omnipotent.manager.service.ImgService;
 import com.apps.omnipotent.manager.service.RoleService;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.EVMUtils;
 import com.apps.omnipotent.system.utils.StringUtil;
@@ -28,7 +29,7 @@ import java.util.Set;
 *
  */
 @Service
-public class ImgServiceImpl extends GlobalService implements ImgService {
+public class ImgServiceImpl extends GlobalServiceImpl implements ImgService {
 
     @Autowired
     ImgDao dao;

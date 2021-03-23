@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.dao;
 import com.apps.omnipotent.manager.bean.Admin;
 import com.apps.omnipotent.system.pagehelper.entity.QueryCondition;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author lb
  * @date 2018年6月5日 下午8:56:31
  */
+@Component
 public interface AdminDao {
     /**
      * 功能描述：

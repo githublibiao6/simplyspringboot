@@ -1,6 +1,5 @@
 package com.apps.omnipotent.manager.dao;
 
-import com.apps.omnipotent.manager.bean.Dictionary;
 import com.apps.omnipotent.manager.bean.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

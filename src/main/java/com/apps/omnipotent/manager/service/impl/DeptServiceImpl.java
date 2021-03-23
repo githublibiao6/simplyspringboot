@@ -7,6 +7,7 @@ import com.apps.omnipotent.manager.dao.RoleDao;
 import com.apps.omnipotent.manager.service.DeptService;
 import com.apps.omnipotent.manager.service.RoleService;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import java.util.Set;
 *
  */
 @Service
-public class DeptServiceImpl extends GlobalService implements DeptService {
+public class DeptServiceImpl extends GlobalServiceImpl implements DeptService {
 
     @Autowired
     DeptDao dao;
