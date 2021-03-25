@@ -2,9 +2,6 @@ package com.apps.omnipotent.system.global.service;
 
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
-import com.apps.omnipotent.system.utils.PageUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 

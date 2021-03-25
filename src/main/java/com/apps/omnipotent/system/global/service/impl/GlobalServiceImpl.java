@@ -15,7 +15,7 @@ import java.util.List;
  * @return:
  * @version: 1.0.0
  */
-public class  GlobalServiceImpl<T>  implements GlobalService<T> {
+public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService {
 
     @Override
     public PageEntity getPageEntity(List list, PageEntity entity) {
@@ -24,7 +24,6 @@ public class  GlobalServiceImpl<T>  implements GlobalService<T> {
 
     @Override
     public T detailQuery(String id) {
-
         return null;
     }
 
@@ -36,6 +35,7 @@ public class  GlobalServiceImpl<T>  implements GlobalService<T> {
 
     @Override
     public boolean deleteById(String primaryKey) {
+
         return false;
     }
 
