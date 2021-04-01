@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.service;
 
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public interface MenuService {
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
      * @version: 1.0.0
      */
-    PageEntity page(PageEntity entity);
+    PageInfo page(PageEntity entity);
     /**
      * 功能描述：
      *  < 新增菜单 >

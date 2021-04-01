@@ -92,7 +92,6 @@ public class DbHelper {
         DruidPooledConnection conn = DbHelper.getInstance().getConnection(dataSource);
         //3.操作数据库，实现增删改查
         Statement stmt = null;
-        List<Record> list = new ArrayList<>();
         try {
             conn.setAutoCommit(false);
             stmt = conn.createStatement();

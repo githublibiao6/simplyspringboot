@@ -1,6 +1,7 @@
 package com.apps.omnipotent.system.global.service.impl;
 
 import com.apps.omnipotent.system.core.BaseModel;
+import com.apps.omnipotent.system.global.dao.GlobalMapper;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 
@@ -15,7 +16,9 @@ import java.util.List;
  * @return:
  * @version: 1.0.0
  */
-public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService {
+public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService<T> {
+
+    private GlobalMapper<T> mapper;
 
     @Override
     public PageEntity getPageEntity(List list, PageEntity entity) {
@@ -24,7 +27,7 @@ public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService 
 
     @Override
     public T detailQuery(String id) {
-        return null;
+        return mapper.detailQuery(id);
     }
 
     @Override

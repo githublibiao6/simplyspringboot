@@ -6,6 +6,7 @@ import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,7 +59,7 @@ public class MenuController extends GlobalController {
     @RequestMapping("/page")
     @ResponseBody
     public  Result pageList(PageEntity entity) {
-        PageEntity page = service.page(entity);
+        PageInfo page = service.page(entity);
         result.setData(page);
         result.setCode(20000);
         return result;

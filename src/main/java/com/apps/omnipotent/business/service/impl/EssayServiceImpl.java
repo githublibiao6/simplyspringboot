@@ -11,6 +11,8 @@ import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.utils.StringUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +32,9 @@ public class EssayServiceImpl extends GlobalServiceImpl implements EssayService 
     private EssayDao dao;
 
     @Override
-    public PageEntity page(PageEntity entity) {
-        List<Essay> pageMenus = dao.listEssay();
-        return getPageEntity(pageMenus,entity);
+    public PageInfo page(PageEntity entity) {
+        PageHelper.offsetPage(entity.getPage(), entity.getLimit());
+        return new PageInfo(dao.listEssay());
     }
 
     /**

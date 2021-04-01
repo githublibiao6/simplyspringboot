@@ -1,5 +1,5 @@
 ALTER TABLE be_dictionary
-    ADD COLUMN `sys001`  datetime NULL COMMENT '新增时间' ,
+    ADD COLUMN `sys001`  timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '新增时间' ,
     ADD COLUMN `sys002`  timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     ADD COLUMN `sys003`  varchar(50) NULL COMMENT '创建人' ,
     ADD COLUMN `sys004`  varchar(50) NULL COMMENT '修改人' ,

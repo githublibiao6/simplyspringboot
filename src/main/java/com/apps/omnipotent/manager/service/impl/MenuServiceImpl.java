@@ -7,6 +7,8 @@ import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.utils.ConvertUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +61,13 @@ public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
      * @version: 1.0.0
      */
     @Override
-    public PageEntity page(PageEntity entity) {
-        List<Menu> pageMenus = dao.pageList();
+    public PageInfo page(PageEntity entity) {
+        PageHelper.offsetPage(entity.getPage(), entity.getLimit());
+        return new PageInfo(dao.pageList());
+        /*List<Menu> pageMenus = dao.pageList();
+        if(pageMenus.size() == 0){
+            return null;
+        }
         pageMenus.forEach(t->{
             t.setHasChildren(false);
         });
@@ -71,7 +78,7 @@ public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
         children.add(m);
         pageMenus.get(0).setHasChildren(true);
         pageMenus.get(0).setChildren(children);
-        return getPageEntity(pageMenus,entity);
+        return getPageEntity(pageMenus,entity);*/
     }
 
     @Override
