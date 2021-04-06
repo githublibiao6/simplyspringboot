@@ -29,7 +29,7 @@ public class DictionaryTeamsServiceImpl extends GlobalServiceImpl implements Dic
     @Override
     public PageEntity page(String dicId, PageEntity entity) {
         List<DictionaryTeams> pageMenus = dao.listTeamsByDicId(dicId);
-        return getPageEntity(pageMenus,entity);
+        return null;
     }
 
     /**

@@ -3,9 +3,9 @@ package com.apps.omnipotent.manager.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.impl.MenuServiceImpl;
-import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.controller.GlobalController;
 import com.apps.omnipotent.system.global.entity.Result;
+import com.apps.omnipotent.system.pagehelper.entity.qo.MenuQo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,8 +58,8 @@ public class MenuController extends GlobalController {
      */
     @RequestMapping("/page")
     @ResponseBody
-    public  Result pageList(PageEntity entity) {
-        PageInfo page = service.page(entity);
+    public  Result pageList(MenuQo qo) {
+        PageInfo page = service.page(qo);
         result.setData(page);
         result.setCode(20000);
         return result;
@@ -172,7 +172,7 @@ public class MenuController extends GlobalController {
         return result;
     }
 
-    @RequestMapping("/findById.do")
+    @RequestMapping("/findById")
     @ResponseBody
     public Result findById(String menuId) {
         Menu menu = service.findById(menuId);

@@ -1,11 +1,31 @@
 package com.apps.omnipotent.system.global.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.system.core.BaseModel;
+import com.apps.omnipotent.system.core.BaseModelUtil;
+import com.apps.omnipotent.system.core.TableField;
+import com.apps.omnipotent.system.db.bean.TableFieldInfo;
+import com.apps.omnipotent.system.db.bean.TableInfo;
+import com.apps.omnipotent.system.db.config.MainDb;
+import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.global.dao.GlobalMapper;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import sun.tools.jar.Main;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 功能描述：
@@ -18,22 +38,45 @@ import java.util.List;
  */
 public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService<T> {
 
-    private GlobalMapper<T> mapper;
+    @Autowired
+    GlobalMapper<T> mapper;
+
 
     @Override
-    public PageEntity getPageEntity(List list, PageEntity entity) {
-        return null;
+    public <T> T detailQuery(String id, Class<T> clazz) {
+
+        String tableName = BaseModelUtil.getTableName(clazz);
+        String primaryKey = BaseModelUtil.getPrimaryKey(tableName);
+        TableInfo table = MainDb.getTableInfo(tableName);
+        String sql = "select * from "+tableName+" m where m.sys005='1' and "+primaryKey+"='"+id+"'";
+        Map map = Db.use().findFirst(sql);
+        List<TableFieldInfo> list = table.getFields();
+        JSONObject json = new JSONObject();
+        Field[] fields = clazz.getDeclaredFields();
+        Map fieldMap = new HashMap();
+        for (Field field : fields){
+            String col = field.getName();
+            boolean tableFieldExists = field.isAnnotationPresent(TableField.class);
+            if(tableFieldExists){
+                TableField tableField = field.getDeclaredAnnotation(TableField.class);
+                String column = tableField.value();
+                fieldMap.put(column, col);
+            }else {
+                fieldMap.put(col, col);
+            }
+        }
+        list.forEach(t->{
+            if(fieldMap.get(t.getColumnName()) != null){
+                json.put(fieldMap.get(t.getColumnName()).toString(), map.get(t.getColumnName()));
+            }
+        });
+        return JSONObject.parseObject(json.toJSONString(),clazz);
     }
 
     @Override
-    public T detailQuery(String id) {
-        return mapper.detailQuery(id);
-    }
-
-    @Override
-    public BaseModel insertSelective(BaseModel record) {
-        record.save();
-        return record;
+    public BaseModel insertSelective(BaseModel baseModel) {
+        baseModel.save();
+        return baseModel;
     }
 
     @Override
@@ -43,15 +86,15 @@ public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService<
     }
 
     @Override
-    public BaseModel updateSelective(BaseModel record) {
-        record.update();
-        return record;
+    public BaseModel updateSelective(BaseModel baseModel) {
+        baseModel.update();
+        return baseModel;
     }
 
     @Override
-    public boolean delete(BaseModel model) {
+    public boolean delete(BaseModel baseModel) {
         try{
-            model.delete();
+            baseModel.delete();
         }catch (Exception e){
             return false;
         }

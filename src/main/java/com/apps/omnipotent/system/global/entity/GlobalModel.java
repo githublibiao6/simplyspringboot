@@ -1,6 +1,8 @@
 package com.apps.omnipotent.system.global.entity;
 
+import com.apps.omnipotent.system.core.BaseModel;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -13,35 +15,15 @@ import java.util.Date;
 *
  */
 @Data
-public class GlobalModel extends Tmodel {
-    /*
-    * 创建人部门
-     */
-    private String createUser;
-    private String createDept;
-    /*
-    创建时间
-     */
-    private Date createTime;
-    /*
-    修改人
-     */
-    private String modifyUser;
-    /*
-    修改人部门
-     */
-    private String modifyDept;
-    /*
-    修改时间
-     */
-    private Date modifyTime;
-    /*
-    有效标志
-     */
-    private String effectiveFlag;
-    /*
-    删除标记
-     */
-    private String deleteFlag;
+public class GlobalModel extends BaseModel {
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date sys001;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date sys002;
+    private String sys003;
+    private String sys004;
+    private String sys005;
+    private String sys006;
+    private int sys007;
 }

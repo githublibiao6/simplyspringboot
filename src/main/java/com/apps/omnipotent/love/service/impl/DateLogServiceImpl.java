@@ -27,7 +27,7 @@ public class DateLogServiceImpl extends GlobalServiceImpl implements DateLogServ
     @Override
     public PageEntity page(PageEntity entity) {
         List<DateLog> page = dateLogMapper.listDateLog();
-        return getPageEntity(page, entity);
+        return null;
     }
 
     @Override

@@ -39,6 +39,7 @@ public interface MenuDao {
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
      * @version: 1.0.0
      */
+    @Select("select t.* from be_menu t where sys005='1' order by level asc")
     List<Menu> list();
 
     /**

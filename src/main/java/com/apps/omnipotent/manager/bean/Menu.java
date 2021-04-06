@@ -1,6 +1,8 @@
 package com.apps.omnipotent.manager.bean;
 
 
+import com.apps.omnipotent.system.core.Table;
+import com.apps.omnipotent.system.core.TableField;
 import com.apps.omnipotent.system.global.entity.GlobalModel;
 import lombok.Data;
 
@@ -15,7 +17,9 @@ import java.util.List;
 *
  */
 @Data
+@Table("be_menu")
 public class Menu extends GlobalModel {
+    @TableField("menu_id")
     private String menuId;
     /**
      图标
@@ -45,6 +49,10 @@ public class Menu extends GlobalModel {
      * 菜单类型
      */
     private String menuType;
+    /**
+     * 是否是一级菜单
+     */
+    private String main;
     /**
      * 是否有子节点
      */

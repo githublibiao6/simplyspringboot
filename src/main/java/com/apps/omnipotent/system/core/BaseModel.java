@@ -30,16 +30,6 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 
 public abstract class BaseModel<T extends BaseModel> implements Serializable {
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date sys001;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date sys002;
-    private String sys003;
-    private String sys004;
-    private String sys005;
-    private String sys006;
-    private int sys007;
     
     private static final String CREATE_TIME_FIELD = "sys001";
     private static final String UPDATE_TIME_FIELD = "sys002";
@@ -159,15 +149,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
      * @version: 1.0.0
      */
     private String getTableName(){
-        String tableName = "";
-        boolean tableAnnExits = this.getClass().isAnnotationPresent(Table.class);
-        if(tableAnnExits){
-            Table table = this.getClass().getAnnotation(Table.class);
-            tableName = table.value();
-        }else {
-            throw new RuntimeException(this.getClass()+" has not bind table");
-        }
-        return tableName;
+        return BaseModelUtil.getTableName(this.getClass());
     }
 
     /**
@@ -225,69 +207,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
      * @Date: 2020/6/16 23:31
      */
     private String getPrimaryKey(String tableName){
-        TableInfo table = MainDb.getTableInfo(tableName);
-        List<String> pks = table.getPks();
-        if(pks == null || pks.size() == 0){
-            throw new RuntimeException(this.getClass()+"has no primary key");
-        }else {
-            return pks.get(0);
-        }
-    }
-
-    public Date getSys001() {
-        return sys001;
-    }
-
-    public void setSys001(Date sys001) {
-        this.sys001 = sys001;
-    }
-
-    public Date getSys002() {
-        return sys002;
-    }
-
-    public void setSys002(Date sys002) {
-        this.sys002 = sys002;
-    }
-
-    public String getSys003() {
-        return sys003;
-    }
-
-    public void setSys003(String sys003) {
-        this.sys003 = sys003;
-    }
-
-    public String getSys004() {
-        return sys004;
-    }
-
-    public void setSys004(String sys004) {
-        this.sys004 = sys004;
-    }
-
-    public String getSys005() {
-        return sys005;
-    }
-
-    public void setSys005(String sys005) {
-        this.sys005 = sys005;
-    }
-
-    public String getSys006() {
-        return sys006;
-    }
-
-    public void setSys006(String sys006) {
-        this.sys006 = sys006;
-    }
-
-    public int getSys007() {
-        return sys007;
-    }
-
-    public void setSys007(int sys007) {
-        this.sys007 = sys007;
+        return BaseModelUtil.getPrimaryKey(tableName);
     }
 
 }

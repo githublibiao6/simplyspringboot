@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.service;
 
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
+import com.apps.omnipotent.system.pagehelper.entity.qo.MenuQo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -44,12 +45,12 @@ public interface MenuService {
      *  < 分页 >
      * @Description: pagelist
      * @Author: cles
-     * @param entity
+     * @param qo
      * @Date: 2020/6/23 22:54
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
      * @version: 1.0.0
      */
-    PageInfo page(PageEntity entity);
+    PageInfo page(MenuQo qo);
     /**
      * 功能描述：
      *  < 新增菜单 >

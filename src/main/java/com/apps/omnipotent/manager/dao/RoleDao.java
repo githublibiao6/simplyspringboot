@@ -2,6 +2,7 @@ package com.apps.omnipotent.manager.dao;
 
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.bean.RoleMenu;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 * @date 2018年8月20日 下午11:14:28
 *
  */
+@Component
 public interface RoleDao {
 
     /**

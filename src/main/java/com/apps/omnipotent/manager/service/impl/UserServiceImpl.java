@@ -34,7 +34,7 @@ public class UserServiceImpl extends GlobalServiceImpl implements UserService {
     @Override
     public PageEntity page(PageEntity entity) {
         List<User> page = dao.pageUser();
-        return getPageEntity(page,entity);
+        return null;
     }
 
     @Override

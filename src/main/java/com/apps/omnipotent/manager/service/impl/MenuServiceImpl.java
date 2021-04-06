@@ -3,9 +3,12 @@ package com.apps.omnipotent.manager.service.impl;
 import com.apps.omnipotent.manager.dao.MenuDao;
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.MenuService;
+import com.apps.omnipotent.system.core.BaseModel;
+import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
 import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
 import com.apps.omnipotent.system.global.service.GlobalService;
+import com.apps.omnipotent.system.pagehelper.entity.qo.MenuQo;
 import com.apps.omnipotent.system.utils.ConvertUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,7 +27,7 @@ import java.util.*;
 *
  */
 @Service
-public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
+public class MenuServiceImpl extends GlobalServiceImpl<Menu> implements MenuService {
 
     @Autowired
     MenuDao dao;
@@ -56,14 +59,14 @@ public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
      * @Description: pageList
      * @Author: cles
      * @Date: 2020/6/23 23:00
-     * @param entity 参数1
+     * @param qo 参数1
      * @return: com.apps.omnipotent.system.pagehelper.entity.PageEntity
      * @version: 1.0.0
      */
     @Override
-    public PageInfo page(PageEntity entity) {
-        PageHelper.offsetPage(entity.getPage(), entity.getLimit());
-        return new PageInfo(dao.pageList());
+    public PageInfo page(MenuQo qo) {
+        PageHelper.offsetPage(qo.getPage(), qo.getLimit());
+        return new PageInfo(dao.list());
         /*List<Menu> pageMenus = dao.pageList();
         if(pageMenus.size() == 0){
             return null;
@@ -85,10 +88,6 @@ public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
     public boolean add(Menu menu) {
         menu.setMenuId(UUID.randomUUID().toString());
         boolean flag = true;
-        menu.setCreateTime(new Date());
-        menu.setCreateUser("");
-        menu.setCreateDept("");
-        menu.setDeleteFlag("1");
         int num = dao.add(menu);
         if(num > 1){
             flag = false;
@@ -98,7 +97,9 @@ public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
 
     @Override
     public Menu findById(String menuId){
-        return dao.findById(menuId);
+        Menu m = detailQuery(menuId, Menu.class);
+        System.err.println(m);
+        return m;
     }
 
     @Override
@@ -114,9 +115,6 @@ public class MenuServiceImpl extends GlobalServiceImpl implements MenuService {
     @Override
     public boolean update(Menu menu ){
         boolean flag = false;
-        menu.setModifyTime(new Date());
-        menu.setModifyUser("");
-        menu.setModifyDept(" ");
         int num = dao.update(menu);
         if(num > 0){
             flag = true;

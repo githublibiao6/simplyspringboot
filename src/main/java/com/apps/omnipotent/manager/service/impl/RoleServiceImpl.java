@@ -33,7 +33,7 @@ public class RoleServiceImpl extends GlobalServiceImpl implements RoleService {
     @Override
     public PageEntity page(PageEntity entity) {
         List<Role> page = dao.list();
-        return getPageEntity(page,entity);
+        return null;
     }
 
     /**

@@ -34,7 +34,7 @@ public class DeptServiceImpl extends GlobalServiceImpl implements DeptService {
     @Override
     public PageEntity page(PageEntity entity) {
         List<Dept> page = dao.list();
-        return getPageEntity(page,entity);
+        return null;
     }
 
     /**

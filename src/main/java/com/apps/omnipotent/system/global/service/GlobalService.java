@@ -17,19 +17,13 @@ import java.util.List;
 public interface GlobalService<T> {
 
     /**
-     * 分页
-     * @param list 实体
-     * @param entity 分页条件
-     * @return page
-     */
-    PageEntity getPageEntity(List<BaseModel>  list, PageEntity entity);
-
-    /**
+     *
      * 插入实体
      * @param id 实体
+     * @param clazz 所需class
      * @return model
      */
-    T detailQuery(String id);
+    <T> T detailQuery(String id, Class<T> clazz);
 
     /**
      * 插入实体
