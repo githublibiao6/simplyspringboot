@@ -1,6 +1,7 @@
 package com.apps.omnipotent.system.global.entity;
 
 import com.apps.omnipotent.system.core.BaseModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,7 +19,9 @@ import java.util.Date;
 public class GlobalModel extends BaseModel {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date sys001;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date sys002;
     private String sys003;

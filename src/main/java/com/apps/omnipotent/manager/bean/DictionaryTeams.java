@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.bean;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,7 +16,7 @@ import java.util.Date;
  *
  */
 @Table("be_dictionary_teams")
-public class DictionaryTeams extends BaseModel<DictionaryTeams> {
+public class DictionaryTeams extends GlobalModel {
 
     /**
      * 主键

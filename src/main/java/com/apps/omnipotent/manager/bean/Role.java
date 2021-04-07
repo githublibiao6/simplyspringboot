@@ -18,7 +18,7 @@ import java.util.Date;
 *
  */
 @Table("be_role")
-public class Role extends BaseModel<Role> {
+public class Role extends GlobalModel {
     private String id;
     private String code;
     private String name;

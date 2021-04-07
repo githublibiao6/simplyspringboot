@@ -52,23 +52,9 @@ public class  GlobalServiceImpl<T extends  BaseModel>  implements GlobalService<
         Map map = Db.use().findFirst(sql);
         List<TableFieldInfo> list = table.getFields();
         JSONObject json = new JSONObject();
-        Field[] fields = clazz.getDeclaredFields();
-        Map fieldMap = new HashMap();
-        for (Field field : fields){
-            String col = field.getName();
-            boolean tableFieldExists = field.isAnnotationPresent(TableField.class);
-            if(tableFieldExists){
-                TableField tableField = field.getDeclaredAnnotation(TableField.class);
-                String column = tableField.value();
-                fieldMap.put(column, col);
-            }else {
-                fieldMap.put(col, col);
-            }
-        }
+
         list.forEach(t->{
-            if(fieldMap.get(t.getColumnName()) != null){
-                json.put(fieldMap.get(t.getColumnName()).toString(), map.get(t.getColumnName()));
-            }
+            json.put(t.getFieldName(), map.get(t.getColumnName()));
         });
         return JSONObject.parseObject(json.toJSONString(),clazz);
     }

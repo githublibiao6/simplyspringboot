@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.bean;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,7 +15,7 @@ import java.util.Date;
  * @author lb
  */
 @Table("be_dept")
-public class Dept extends BaseModel<Dept> {
+public class Dept extends GlobalModel {
     private String id;
     /**
      * 编号

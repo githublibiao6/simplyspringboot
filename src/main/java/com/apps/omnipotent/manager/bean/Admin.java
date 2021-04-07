@@ -1,11 +1,15 @@
 package com.apps.omnipotent.manager.bean;
 
+import com.apps.omnipotent.system.core.Table;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
+
 /**
  * 管理员实体类
  * @author lb
  * @date 2018年5月14日 下午10:33:42
  */
-public class Admin {
+@Table("be_admin")
+public class Admin extends GlobalModel {
 
     private String id;
     /**

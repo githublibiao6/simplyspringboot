@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.bean;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.Date;
 *
  */
 @Table("be_role_menu")
-public class RoleMenu extends BaseModel<RoleMenu> {
+public class RoleMenu extends GlobalModel {
     private String id;
 
     @TableField("role_id")

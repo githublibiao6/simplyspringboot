@@ -4,6 +4,7 @@ import com.apps.omnipotent.business.entity.Essay;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
  * @date 2018年5月14日 下午10:33:42
  */
 @Table("date_log")
-public class DateLog extends BaseModel<DateLog> {
+public class DateLog extends GlobalModel {
 
     private String id;
     /**

@@ -1,11 +1,13 @@
 package com.apps.omnipotent.manager.bean;
 
+import com.apps.omnipotent.system.global.entity.GlobalModel;
+
 /**
  * 项目实体类
  * @author lb
  * @date 2018年6月24日 下午6:52:01
  */
-public class Project {
+public class Project extends GlobalModel {
 
     private String code; // 项目编码
     private String projectName; // 项目名

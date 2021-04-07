@@ -20,7 +20,7 @@ import java.util.List;
 * @date 2018年8月20日 下午10:50:54
  */
 @Table("be_user")
-public class User extends BaseModel<User> {
+public class User extends GlobalModel {
 
     /**
      主键

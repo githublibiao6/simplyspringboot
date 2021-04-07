@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.bean;
 import com.apps.omnipotent.system.core.BaseModel;
 import com.apps.omnipotent.system.core.Table;
 import com.apps.omnipotent.system.core.TableField;
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 
 /**
  * 管理员实体类
@@ -10,7 +11,7 @@ import com.apps.omnipotent.system.core.TableField;
  * @date 2018年5月14日 下午10:33:42
  */
 @Table("be_img")
-public class Img extends BaseModel<Img> {
+public class Img extends GlobalModel {
 
     /**
      * 主键

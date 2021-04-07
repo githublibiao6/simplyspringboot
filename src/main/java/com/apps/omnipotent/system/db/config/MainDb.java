@@ -4,20 +4,24 @@ package com.apps.omnipotent.system.db.config;
  */
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.system.core.DbTableInfo;
+import com.apps.omnipotent.system.core.Table;
+import com.apps.omnipotent.system.core.TableField;
 import com.apps.omnipotent.system.db.bean.TableFieldInfo;
 import com.apps.omnipotent.system.db.bean.TableInfo;
 import com.apps.omnipotent.system.db.factory.DbMaker;
 import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.utils.StringUtil;
+import org.reflections.Reflections;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * @description: 默认数据源加入DB
@@ -86,6 +90,7 @@ public class MainDb {
             tableInfo.setPks(pks);
             map.put(tableName,tableInfo);
         });
+        getRequestMappingMethod("com.apps.omnipotent");
     }
 
     /**
@@ -114,6 +119,42 @@ public class MainDb {
             field.setPk(true);
         }
         return field;
+    }
+
+    /**
+     * 将对应的类和数据库对应
+     * @param packageName 实体类对应包名称
+     */
+    private static void getRequestMappingMethod(String packageName) {
+        Reflections reflections = new Reflections(packageName);
+        Set<Class<?>> classesList = reflections.getTypesAnnotatedWith(Table.class);
+
+        for (Class clazz : classesList) {
+            List<Field> fieldList = new ArrayList<>();
+            Table table = (Table) clazz.getAnnotation(Table.class);
+            String tableName = table.value();
+            TableInfo tableInfo = map.get(tableName);
+            List<TableFieldInfo> list = tableInfo.getFields();
+            Field[] fields  = clazz.getDeclaredFields();
+            Class parentClazz = clazz.getSuperclass();
+            Field[] parentFields  = parentClazz.getDeclaredFields();
+            fieldList.addAll(Arrays.asList(fields));
+            fieldList.addAll(Arrays.asList(parentFields));
+            for (Field field : fieldList) {
+                String fieldName = field.getName();
+                boolean tableFieldExists = field.isAnnotationPresent(TableField.class);
+                if(tableFieldExists){
+                    TableField tableField = field.getDeclaredAnnotation(TableField.class);
+                    fieldName = tableField.value();
+                }
+                String finalFieldName = fieldName;
+                list.forEach(t->{
+                    if(finalFieldName.equals(t.getColumnName())){
+                        t.setFieldName(field.getName());
+                    }
+                });
+            }
+        }
     }
 
     /**

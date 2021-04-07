@@ -1,5 +1,6 @@
 package com.apps.omnipotent.manager.bean;
 
+import com.apps.omnipotent.system.global.entity.GlobalModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Date;
  * 
  * @author lb
  */
-public class Employee {
+public class Employee extends GlobalModel {
 
     /**
      *
