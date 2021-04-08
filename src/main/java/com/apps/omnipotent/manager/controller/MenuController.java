@@ -106,11 +106,14 @@ public class MenuController extends GlobalController {
      * @author lb
      * @date 2018年8月21日 下午9:56:33
      */
-    @RequestMapping("/treelist.do")
+    @RequestMapping("/treeList")
     @ResponseBody
-    public List<Menu> treeList() {
-        List<Menu> list = service.list();
-         return list;
+    public Result treeList(MenuQo qo) {
+        List<Menu> list = service.tree(qo);
+        result.setData(list);
+        result.setCode(20000);
+        result.setMessage("菜单信息");
+        return result;
     }
 
 
@@ -125,9 +128,9 @@ public class MenuController extends GlobalController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public Result list() {
+    public Result list(@RequestBody MenuQo qo) {
 //        String hello = dubboService.sayHello("  dubbo "); // 执行远程方法
-        List<Menu> list = service.list();
+        List<Menu> list = service.list(qo);
         result.setData(list);
         result.setCode(20000);
         result.setMessage("菜单信息");
@@ -139,8 +142,8 @@ public class MenuController extends GlobalController {
      */
     @RequestMapping("/listMap")
     @ResponseBody
-    public Result listMap() {
-        List<Map> data = service.listMap();
+    public Result listMap(MenuQo qo) {
+        List<Menu> data = service.tree(qo);
         result.setData(data);
         System.err.println(result.toString());
         result.setCode(20000);

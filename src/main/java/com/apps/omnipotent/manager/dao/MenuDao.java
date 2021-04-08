@@ -2,6 +2,7 @@ package com.apps.omnipotent.manager.dao;
 
 
 import com.apps.omnipotent.manager.bean.Menu;
+import com.apps.omnipotent.system.pagehelper.entity.qo.MenuQo;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -35,12 +36,25 @@ public interface MenuDao {
      *  < >
      * @Description: list
      * @Author: cles
+     * @param qo
      * @Date: 2020/8/26 23:31
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
      * @version: 1.0.0
      */
     @Select("select t.* from be_menu t where sys005='1' order by level asc")
-    List<Menu> list();
+    List<Menu> list(MenuQo qo);
+
+    /**
+     * 功能描述：获取所有菜单
+     *  < >
+     * @Description: list
+     * @Author: cles
+     * @Date: 2020/8/26 23:31
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
+     * @version: 1.0.0
+     */
+    @Select("select t.* from be_menu t where sys005='1' order by level asc")
+    List<Menu> list2();
 
     /**
      * 功能描述：获取所有有效菜单
@@ -51,19 +65,8 @@ public interface MenuDao {
      * @return: java.util.List<java.util.Map>
      * @version: 1.0.0
      */
-    @Select("select t.* from be_menu t where effective_flag = 1 and delete_flag=1")
+    @Select("select t.* from be_menu t where sys005 = 1")
     List<Map> listMap();
-
-    /**
-     * 功能描述：菜单分页
-     *  < >
-     * @Description: pageList
-     * @Author: cles
-     * @Date: 2020/8/26 23:31
-     * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
-     * @version: 1.0.0
-     */
-    List<Menu> pageList();
 
     /**
      * 功能描述：
@@ -111,5 +114,6 @@ public interface MenuDao {
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
      * @version: 1.0.0
      */
+    @Select("select t.* from be_menu t where sys005='1' and t.menu_id in (select m.menu_id from  be_role_menu m where role_id= #{roleId})")
     List<Menu> queryByRoleId(String roleId);
 }

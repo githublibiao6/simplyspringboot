@@ -3,11 +3,7 @@ package com.apps.omnipotent.manager.service.impl;
 import com.apps.omnipotent.manager.dao.MenuDao;
 import com.apps.omnipotent.manager.bean.Menu;
 import com.apps.omnipotent.manager.service.MenuService;
-import com.apps.omnipotent.system.core.BaseModel;
-import com.apps.omnipotent.system.db.utils.Db;
 import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
-import com.apps.omnipotent.system.pagehelper.entity.PageEntity;
-import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.pagehelper.entity.qo.MenuQo;
 import com.apps.omnipotent.system.utils.ConvertUtils;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -42,15 +39,26 @@ public class MenuServiceImpl extends GlobalServiceImpl<Menu> implements MenuServ
     *
      */
     @Override
+    public List<Menu> list(MenuQo qo) {
+        return dao.list(qo);
+    }
+
+    @Override
     public List<Menu> list() {
-        return dao.list();
+        return dao.list2();
     }
 
     @Override
     public List<Map> listMap() {
         List<Map> list = dao.listMap();
-        ConvertUtils.convertTree(list,"menuId","parent","children","-1",true);
+        ConvertUtils.convertTree(list,"menu_id","parent","children","-1",true);
         return list;
+    }
+
+    @Override
+    public PageInfo page(MenuQo qo) {
+        PageHelper.offsetPage(qo.getPage(), qo.getLimit());
+        return new PageInfo(dao.list(qo));
     }
 
     /**
@@ -64,24 +72,32 @@ public class MenuServiceImpl extends GlobalServiceImpl<Menu> implements MenuServ
      * @version: 1.0.0
      */
     @Override
-    public PageInfo page(MenuQo qo) {
-        PageHelper.offsetPage(qo.getPage(), qo.getLimit());
-        return new PageInfo(dao.list());
-        /*List<Menu> pageMenus = dao.pageList();
-        if(pageMenus.size() == 0){
-            return null;
-        }
-        pageMenus.forEach(t->{
-            t.setHasChildren(false);
+    public List<Menu> tree(MenuQo qo) {
+        List<Menu> list = list(qo);
+        convertMenuTree(list, "-1");
+        return list.stream().filter(s-> "-1".equals(s.getParent())).collect(Collectors.toList());
+    }
+
+    private void convertMenuTree(List<Menu> list,  String pid){
+        list.forEach(t->{
+            List<Menu> children = new ArrayList<>();
+            if(pid.equals(t.getParent())){
+                for (Menu record : list) {
+                    if(record.getParent().equals(t.getMenuId())){
+                        children.add(record);
+                    }
+                }
+                if(children.size() > 0){
+                    children.forEach(child->{
+                        convertMenuTree(list, t.getMenuId());
+                    });
+                    t.setChildren(children);
+                    t.setHasChildren(true);
+                }else {
+                    t.setHasChildren(false);
+                }
+            }
         });
-        pageMenus.get(0).setHasChildren(true);
-        List<Menu> children = new ArrayList<>();
-        Menu m = dao.pageList().get(0);
-        m.setMenuId("12");
-        children.add(m);
-        pageMenus.get(0).setHasChildren(true);
-        pageMenus.get(0).setChildren(children);
-        return getPageEntity(pageMenus,entity);*/
     }
 
     @Override

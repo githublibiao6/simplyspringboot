@@ -23,8 +23,8 @@ public class ConvertUtils {
     */
     public static void convertTree(List<Map> list, String idField, String parentField,
                              String childrenField , String pid, boolean removeChildren){
-        List<Map> children = new ArrayList<>();
         list.forEach(t->{
+            List<Map> children = new ArrayList<>();
             if(pid.equals(t.get(parentField))){
                 for (Map record : list) {
                     if(record.get(parentField).equals(t.get(idField))){
@@ -38,9 +38,9 @@ public class ConvertUtils {
                     t.put(childrenField,children);
                 }
             }
+            if(removeChildren){
+                children.forEach(list::remove);
+            }
         });
-        if(removeChildren){
-            children.forEach(list::remove);
-        }
     }
 }

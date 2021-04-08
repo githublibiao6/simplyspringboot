@@ -24,10 +24,13 @@ public interface MenuService {
      *  < 获取所有 >
      * @Description: list
      * @Author: cles
+     * @param qo
      * @Date: 2020/6/23 22:54
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
      * @version: 1.0.0
      */
+    List<Menu> list(MenuQo qo);
+
     List<Menu> list();
 
     /**
@@ -51,6 +54,17 @@ public interface MenuService {
      * @version: 1.0.0
      */
     PageInfo page(MenuQo qo);
+    /**
+     * 功能描述：
+     *  < 分页 >
+     * @Description: pagelist
+     * @Author: cles
+     * @param qo
+     * @Date: 2020/6/23 22:54
+     * @return: java.util.List<com.apps.omnipotent.manager.bean.Menu>
+     * @version: 1.0.0
+     */
+    List<Menu> tree(MenuQo qo);
     /**
      * 功能描述：
      *  < 新增菜单 >

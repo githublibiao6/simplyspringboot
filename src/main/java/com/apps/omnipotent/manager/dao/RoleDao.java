@@ -2,6 +2,7 @@ package com.apps.omnipotent.manager.dao;
 
 import com.apps.omnipotent.manager.bean.Role;
 import com.apps.omnipotent.manager.bean.RoleMenu;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public interface RoleDao {
      * @return: java.util.List<com.apps.omnipotent.manager.bean.Role>
      * @version: 1.0.0
      */
+    @Select("select t.* from be_role t where sys005 = 1 ")
     List<Role> list();
 
     /**
@@ -40,15 +42,4 @@ public interface RoleDao {
      */
     Role findById(String id);
 
-    /**
-     * 功能描述：
-     *  < 根据菜单和角色查询菜单角色关联 >
-     * @Description: findByMenuAndRole
-     * @Author: cles
-     * @Date: 2020/7/8 22:42
-     * @param roleId 参数1
-     * @return: com.apps.omnipotent.manager.bean.RoleMenu
-     * @version: 1.0.0
-     */
-    List<RoleMenu> findByRoleId(String roleId);
 }

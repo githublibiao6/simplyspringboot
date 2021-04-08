@@ -3,6 +3,7 @@ package com.apps.omnipotent.manager.service.impl;
 import com.apps.omnipotent.manager.bean.RoleMenu;
 import com.apps.omnipotent.manager.dao.RoleDao;
 import com.apps.omnipotent.manager.bean.Role;
+import com.apps.omnipotent.manager.service.RoleMenuService;
 import com.apps.omnipotent.manager.service.RoleService;
 import com.apps.omnipotent.system.global.service.GlobalService;
 import com.apps.omnipotent.system.global.service.impl.GlobalServiceImpl;
@@ -29,6 +30,8 @@ public class RoleServiceImpl extends GlobalServiceImpl implements RoleService {
 
     @Autowired
     RoleDao dao;
+    @Autowired
+    RoleMenuService roleMenuService;
 
     @Override
     public PageEntity page(PageEntity entity) {
@@ -52,7 +55,7 @@ public class RoleServiceImpl extends GlobalServiceImpl implements RoleService {
 
     @Override
     public  List<RoleMenu> findByRoleId(String roleId) {
-        return dao.findByRoleId(roleId);
+        return roleMenuService.findByRoleId(roleId);
     }
 
 
@@ -106,26 +109,13 @@ public class RoleServiceImpl extends GlobalServiceImpl implements RoleService {
      * @version: 1.0.0
      */
     private void saveRoleMenu(String roleId, String menus){
+        roleMenuService.removeByRoleId(roleId);
         String[] arr = menus.split(",");
-        List<RoleMenu> list = dao.findByRoleId(roleId);
-        Set<String> sets = new HashSet<>();
-        m:
         for (String menu : arr) {
-            sets.add(menu);
-            for (RoleMenu value : list) {
-                if (menu.equals(value.getMenuId())) {
-                    continue m;
-                }
-            }
             RoleMenu roleMenu = new RoleMenu();
             roleMenu.setMenuId(menu);
             roleMenu.setRoleId(roleId);
             roleMenu.save();
         }
-        list.forEach(t->{
-            if(!sets.contains(t.getMenuId())){
-                t.delete();
-            }
-        });
     }
 }
